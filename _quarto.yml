@@ -11,7 +11,7 @@ book:
   author:
     - name: Nicholas Ducharme-Barth
       affiliations:
-        - name: NOAA Fisheres
+        - name: NOAA Fisheries
           department: Pacific Islands Fisheries Science Center
     - name: Megumi Oshima
       affiliations:
@@ -39,6 +39,6 @@ execute:
 
 format:
   html:
-    theme: [sandstone, assets/theme.scss] 
+    theme: sandstone
     toc: true
     toc-depth: 3
