@@ -4,8 +4,8 @@ project:
 book: 
   page-navigation: true
   title: "NOAA quarto book" 
-  site-url: "https://nmfs-opensci.github.io/NOAA-quarto-book" 
-  repo-url: "https://github.com/nmfs-opensci/NOAA-quarto-book"
+  site-url: "https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing" 
+  repo-url: "https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/"
   repo-actions: [edit, source, issue]
   favicon: assets/favicon.ico
   downloads: [pdf, docx]
