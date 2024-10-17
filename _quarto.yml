@@ -5,7 +5,7 @@ book:
   page-navigation: true
   title: "HTC/HPC for Stock Assessments" 
   site-url: "https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing" 
-  repo-url: "https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/"
+  repo-url: "https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing"
   repo-actions: [source, issue]
   search: true
   author:
