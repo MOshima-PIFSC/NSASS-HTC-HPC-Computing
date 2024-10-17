@@ -1,6 +1,6 @@
 [![](https://img.shields.io/badge/Open%20In-RStudio%20Cloud-green)](https://rstudio.cloud/content/4838825) *Try without installing anything. Make sure to click the Make a Copy button or you will lose all your changes.*
  
-# NOAA quarto book with R and download PDF or docx
+# High Throughput and High Performance Computing for Stock Assessments
 
 This is a template for [a simple Quarto book](https://nmfs-opensci.github.io/NOAA-quarto-book/) (`type: book`). It has download links (under the logo) for PDF or docx download.
 
