@@ -4,9 +4,9 @@
     "href": "index.html",
     "title": "HTC/HPC for Stock Assessments",
     "section": "",
-    "text": "1 High Throughput and High Performance Computing for Stock Assessments\nThis repository contains example code and documentation for the National Stock Assessment Seminar presentation “(add title here)”.",
+    "text": "High Throughput and High Performance Computing for Stock Assessments\nThis repository contains example code and documentation for the National Stock Assessment Seminar presentation “(add title here)”.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>High Throughput and High Performance Computing for Stock Assessments</span>"
+      "High Throughput and High Performance Computing for Stock Assessments"
     ]
   }
 ]
