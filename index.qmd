@@ -1,4 +1,4 @@
-# High Throughput and High Performance Computing for Stock Assessments
+# High Throughput and High Performance Computing for Stock Assessments {.unnumbered}
 This repository contains example code and documentation for the National Stock Assessment Seminar presentation "(add title here)". 
 
 ```{=openxml}
