@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>NOAA quarto book - 5&nbsp; R Markdown</title>
+<title>5&nbsp; R Markdown – NOAA quarto book</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -112,13 +112,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/rmarkdown.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">R Markdown</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="https://raw.githubusercontent.com/nmfs-opensci/assets/main/logo/nmfs-opensci-logo3.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
@@ -136,19 +136,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <a href="../">NOAA quarto book</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://nmfs-opensci.github.io" title="NMFS Open Science" class="quarto-navigation-tool px-1" aria-label="NMFS Open Science"><i class="bi bi-globe"></i></a>
-    <a href="https://github.com/nmfs-opensci/NOAA-quarto-book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
     <div class="dropdown">
-      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="../NOAA-quarto-book.pdf">
-              <i class="bi bi-bi-file-pdf pe-1"></i>
+              <i class="bi bi-file-pdf pe-1"></i>
             Download PDF
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="../NOAA-quarto-book.docx">
-              <i class="bi bi-bi-file-word pe-1"></i>
+              <i class="bi bi-file-word pe-1"></i>
             Download Docx
             </a>
           </li>
@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#including-plots" id="toc-including-plots" class="nav-link" data-scroll-target="#including-plots"><span class="header-section-number">5.2</span> Including Plots</a></li>
   <li><a href="#including-tables" id="toc-including-tables" class="nav-link" data-scroll-target="#including-tables"><span class="header-section-number">5.3</span> Including Tables</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nmfs-opensci/NOAA-quarto-book/edit/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nmfs-opensci/NOAA-quarto-book/blob/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/nmfs-opensci/NOAA-quarto-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/edit/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/blob/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -276,37 +276,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="including-plots" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="including-plots"><span class="header-section-number">5.2</span> Including Plots</h2>
-<p>You can also embed plots and reference them, like so <a href="#fig-pressure" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-pressure" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-pressure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="rmarkdown_files/figure-html/fig-pressure-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pressure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: Plot of pressure
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 </section>
 <section id="including-tables" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="including-tables"><span class="header-section-number">5.3</span> Including Tables</h2>
-<p>You can also embed tables and reference them with <a href="#tbl-iris" class="quarto-xref">Table&nbsp;<span>5.1</span></a>.</p>
+<p>You can also embed tables and reference them with <a href="#tbl-iris" class="quarto-xref">Table&nbsp;<span class="quarto-unresolved-ref">tbl-iris</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(iris))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-iris" class="cell quarto-float anchored">
+<div id="tbl-iris" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-iris-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.1: Iris Data
 </figcaption>
 <div aria-describedby="tbl-iris-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">Sepal.Length</th>
@@ -406,18 +391,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -449,7 +423,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/moshima-pifsc\.github\.io\/NSASS-HTC-HPC-Computing");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -484,7 +498,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -760,12 +778,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../content/rendering.html" class="pagination-link  aria-label=" &lt;span="">
+      <a href="../content/rendering.html" class="pagination-link" aria-label="Rendering">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Rendering</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../content/code.html" class="pagination-link" aria-label="<span class='chapter-number'>6</span>&nbsp; <span class='chapter-title'>Rendering with Code</span>">
+      <a href="../content/code.html" class="pagination-link" aria-label="Rendering with Code">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Rendering with Code</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -778,7 +796,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nmfs-opensci/NOAA-quarto-book/edit/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nmfs-opensci/NOAA-quarto-book/blob/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/nmfs-opensci/NOAA-quarto-book/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/edit/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/blob/main/content/rmarkdown.Rmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
