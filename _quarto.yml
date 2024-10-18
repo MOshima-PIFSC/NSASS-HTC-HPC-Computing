@@ -19,6 +19,7 @@ book:
           department: Pacific Islands Fisheries Science Center
   chapters:
     - index.qmd
+    - content/slides/presentation.qmd
 
   page-footer:
     right: "This page is built with [Quarto](https://quarto.org/)."

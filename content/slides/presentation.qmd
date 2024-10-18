@@ -1,0 +1,55 @@
+---
+title: "National Stock Assessment Seminar Presentation"
+format: revealjs
+author: Nicholas Ducharme-Barth and Megumi Oshima
+date: Nov 5, 2024
+---
+
+
+## What do we want to do?  
+
+<br/>
+
+::: {.fragment .strike}
+Leverage high-throughput or high-performance computing solutions to run stock assessment models
+:::
+
+::: {.fragment .fade-in}
+Run more/bigger models in less time
+:::
+
+## How can we do this? 
+<br/>  
+
+::: columns
+::: {.column width="45%"}
+###### High-throughput computing (HTC)
+:::
+
+::: {.column width="45%"}
+###### High-performance computing (HPC)
+:::
+:::
+
+## Why use HTC/HPC computing? 
+<br/>  
+
+-   Efficiency
+
+-   Reproducibility
+
+-   Documentation
+
+-   Transparency
+
+-   Automation [?]{.fragment .fade-in}
+
+## Workflow  
+
+::: incremental
+1.  create container
+2.  create scripts
+3.  transfer files
+4.  submit jobs
+5.  transfer files back to local machine
+:::
