@@ -8,55 +8,5 @@
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>index.html</span>"
     ]
-  },
-  {
-    "objectID": "content/slides/presentation.html",
-    "href": "content/slides/presentation.html",
-    "title": "2  National Stock Assessment Seminar Presentation",
-    "section": "",
-    "text": "2.1 What do we want to do?",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>National Stock Assessment Seminar Presentation</span>"
-    ]
-  },
-  {
-    "objectID": "content/slides/presentation.html#what-do-we-want-to-do",
-    "href": "content/slides/presentation.html#what-do-we-want-to-do",
-    "title": "2  National Stock Assessment Seminar Presentation",
-    "section": "",
-    "text": "Leverage high-throughput or high-performance computing solutions to run stock assessment models\n\n\nRun more/bigger models in less time",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>National Stock Assessment Seminar Presentation</span>"
-    ]
-  },
-  {
-    "objectID": "content/slides/presentation.html#how-can-we-do-this",
-    "href": "content/slides/presentation.html#how-can-we-do-this",
-    "title": "2  National Stock Assessment Seminar Presentation",
-    "section": "2.2 How can we do this?",
-    "text": "2.2 How can we do this?\n\n\n\n\n2.2.0.0.0.1 High-throughput computing (HTC)\n\n\n\n2.2.0.0.0.2 High-performance computing (HPC)",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>National Stock Assessment Seminar Presentation</span>"
-    ]
-  },
-  {
-    "objectID": "content/slides/presentation.html#why-use-htchpc-computing",
-    "href": "content/slides/presentation.html#why-use-htchpc-computing",
-    "title": "2  National Stock Assessment Seminar Presentation",
-    "section": "2.3 Why use HTC/HPC computing?",
-    "text": "2.3 Why use HTC/HPC computing?\n\n\nEfficiency\nReproducibility\nDocumentation\nTransparency\nAutomation ?",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>National Stock Assessment Seminar Presentation</span>"
-    ]
-  },
-  {
-    "objectID": "content/slides/presentation.html#workflow",
-    "href": "content/slides/presentation.html#workflow",
-    "title": "2  National Stock Assessment Seminar Presentation",
-    "section": "2.4 Workflow",
-    "text": "2.4 Workflow\n\n\ncreate container\ncreate scripts\ntransfer files\nsubmit jobs\ntransfer files back to local machine",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>National Stock Assessment Seminar Presentation</span>"
-    ]
   }
 ]
