@@ -7,5 +7,5 @@
 .DS_Store
 /.quarto/
 /_site/
+/_book/
 site_libs
-
