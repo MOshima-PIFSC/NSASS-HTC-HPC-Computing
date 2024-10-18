@@ -3,6 +3,7 @@ title: "National Stock Assessment Seminar Presentation"
 format: revealjs
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
+embed-resources: true
 ---
 
 

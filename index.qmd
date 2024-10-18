@@ -1,6 +1,9 @@
+---
+title: "Home"
+format: 
+  html:
+    toc: false
+---
 
-This repository contains example code and documentation for the National Stock Assessment Seminar presentation "(add title here)". 
+This repository contains example code and documentation for the National Stock Assessment Seminar presentation "Operationalizing available research computing resources for stock assessment". 
 
-```{=openxml}
-<w:p><w:r><w:br w:type="page"/></w:r></w:p>
-```

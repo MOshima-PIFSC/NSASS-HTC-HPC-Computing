@@ -1,9 +1,12 @@
-project: 
-  type: book
+project:
+  type: website
+  resources:
+   - content/*
+   - content/slides/*
 
-book: 
-  page-navigation: true
-  title: "HTC/HPC for Stock Assessments" 
+website:
+  title: "HTC/HPC for Stock Assessments"
+  reader-mode: true
   site-url: "https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing" 
   repo-url: "https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing"
   repo-actions: [source, issue]
@@ -17,28 +20,22 @@ book:
       affiliations:
         - name: NOAA Fisheries
           department: Pacific Islands Fisheries Science Center
-  chapters:
-    - index.qmd
-
-  page-footer:
-    right: "This page is built with [Quarto](https://quarto.org/)."
-    left: "&copy; CC-1.0"
-  
   sidebar:
-    pinned: true
-    align: center
-    style: "docked"
+    style: "floating"
     search: true
-    collapse-level: 1
+    tools:
+      - icon: github
+        href: https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing
+    contents: 
+      - text: "Home"
+        file: index.qmd
+      # - text: "Slides"
+      #   file: web_slides.qmd
+      - section: "Support"
+        contents:
+        - text: "Submit an issue"
+          href: https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing-dep/issues/new/choose
 
-bibliography: [content/references.bib]
-
-execute:
-  echo: false
-  code-overflow: wrap
-
-format:
+format: 
   html:
-    theme: sandstone
     toc: true
-    toc-depth: 3
