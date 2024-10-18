@@ -10,31 +10,41 @@
     ]
   },
   {
-    "objectID": "content/slides/presentation.html#what-do-we-want-to-do",
-    "href": "content/slides/presentation.html#what-do-we-want-to-do",
+    "objectID": "assets/presentation.html#what-do-we-want-to-do",
+    "href": "assets/presentation.html#what-do-we-want-to-do",
     "title": "National Stock Assessment Seminar Presentation",
     "section": "What do we want to do?",
     "text": "What do we want to do?\n\n\nLeverage high-throughput or high-performance computing solutions to run stock assessment models\n\n\nRun more/bigger models in less time"
   },
   {
-    "objectID": "content/slides/presentation.html#how-can-we-do-this",
-    "href": "content/slides/presentation.html#how-can-we-do-this",
+    "objectID": "assets/presentation.html#how-can-we-do-this",
+    "href": "assets/presentation.html#how-can-we-do-this",
     "title": "National Stock Assessment Seminar Presentation",
     "section": "How can we do this?",
     "text": "How can we do this?\n\n\n\nHigh-throughput computing (HTC)\n\nHigh-performance computing (HPC)"
   },
   {
-    "objectID": "content/slides/presentation.html#why-use-htchpc-computing",
-    "href": "content/slides/presentation.html#why-use-htchpc-computing",
+    "objectID": "assets/presentation.html#why-use-htchpc-computing",
+    "href": "assets/presentation.html#why-use-htchpc-computing",
     "title": "National Stock Assessment Seminar Presentation",
     "section": "Why use HTC/HPC computing?",
     "text": "Why use HTC/HPC computing?\n\n\nEfficiency\nReproducibility\nDocumentation\nTransparency\nAutomation ?"
   },
   {
-    "objectID": "content/slides/presentation.html#workflow",
-    "href": "content/slides/presentation.html#workflow",
+    "objectID": "assets/presentation.html#workflow",
+    "href": "assets/presentation.html#workflow",
     "title": "National Stock Assessment Seminar Presentation",
     "section": "Workflow",
     "text": "Workflow\n\n\ncreate container\ncreate scripts\ntransfer files\nsubmit jobs\ntransfer files back to local machine"
+  },
+  {
+    "objectID": "assets/web-slides.html",
+    "href": "assets/web-slides.html",
+    "title": "Seminar slides",
+    "section": "",
+    "text": "Seminar slides from the NOAA National Stock Assessment Science Seminar Series presentation.\n    View slides in full screen",
+    "crumbs": [
+      "Seminar slides"
+    ]
   }
 ]
