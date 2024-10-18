@@ -1,8 +1,8 @@
 project:
   type: website
   resources:
-   - content/*
-   - content/slides/*
+   - assets/*
+
 
 website:
   title: "HTC/HPC for Stock Assessments"
@@ -20,8 +20,8 @@ website:
     contents: 
       - text: "Home"
         file: index.qmd
-      # - text: "Slides"
-      #   file: web_slides.qmd
+      - text: "Seminar slides"
+        file: assets/web-slides.qmd
       - section: "Support"
         contents:
         - text: "Submit an issue"
