@@ -11,15 +11,6 @@ website:
   repo-url: "https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing"
   repo-actions: [source, issue]
   search: true
-  author:
-    - name: Nicholas Ducharme-Barth
-      affiliations:
-        - name: NOAA Fisheries
-          department: Pacific Islands Fisheries Science Center
-    - name: Megumi Oshima
-      affiliations:
-        - name: NOAA Fisheries
-          department: Pacific Islands Fisheries Science Center
   sidebar:
     style: "floating"
     search: true
