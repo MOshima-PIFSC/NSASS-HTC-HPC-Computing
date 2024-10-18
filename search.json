@@ -2,11 +2,39 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "HTC/HPC for Stock Assessments",
+    "title": "Home",
     "section": "",
-    "text": "This repository contains example code and documentation for the National Stock Assessment Seminar presentation “(add title here)”.",
+    "text": "This repository contains example code and documentation for the National Stock Assessment Seminar presentation “Operationalizing available research computing resources for stock assessment”.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>index.html</span>"
+      "Home"
     ]
+  },
+  {
+    "objectID": "content/slides/presentation.html#what-do-we-want-to-do",
+    "href": "content/slides/presentation.html#what-do-we-want-to-do",
+    "title": "National Stock Assessment Seminar Presentation",
+    "section": "What do we want to do?",
+    "text": "What do we want to do?\n\n\nLeverage high-throughput or high-performance computing solutions to run stock assessment models\n\n\nRun more/bigger models in less time"
+  },
+  {
+    "objectID": "content/slides/presentation.html#how-can-we-do-this",
+    "href": "content/slides/presentation.html#how-can-we-do-this",
+    "title": "National Stock Assessment Seminar Presentation",
+    "section": "How can we do this?",
+    "text": "How can we do this?\n\n\n\nHigh-throughput computing (HTC)\n\nHigh-performance computing (HPC)"
+  },
+  {
+    "objectID": "content/slides/presentation.html#why-use-htchpc-computing",
+    "href": "content/slides/presentation.html#why-use-htchpc-computing",
+    "title": "National Stock Assessment Seminar Presentation",
+    "section": "Why use HTC/HPC computing?",
+    "text": "Why use HTC/HPC computing?\n\n\nEfficiency\nReproducibility\nDocumentation\nTransparency\nAutomation ?"
+  },
+  {
+    "objectID": "content/slides/presentation.html#workflow",
+    "href": "content/slides/presentation.html#workflow",
+    "title": "National Stock Assessment Seminar Presentation",
+    "section": "Workflow",
+    "text": "Workflow\n\n\ncreate container\ncreate scripts\ntransfer files\nsubmit jobs\ntransfer files back to local machine"
   }
 ]
