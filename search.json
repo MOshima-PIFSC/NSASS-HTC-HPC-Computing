@@ -10,6 +10,17 @@
     ]
   },
   {
+    "objectID": "assets/web-about-nd.html",
+    "href": "assets/web-about-nd.html",
+    "title": "Nicholas Ducharme-Barth",
+    "section": "",
+    "text": "Nicholas Ducharme-Barth joined the Pacific Islands Fisheries Science Center in 2021. Previously, Nicholas worked at the Pacific Community (SPC) conducting pelagic stock assessments for the Western and Central Pacific Fisheries Commission (WCPFC). He received his B.S. in Mathematics from the College of William & Mary and his Ph. D. in Fisheries and Aquatic Sciences from the University of Florida.",
+    "crumbs": [
+      "About",
+      "Nicholas Ducharme-Barth"
+    ]
+  },
+  {
     "objectID": "assets/presentation.html#what-do-we-want-to-do",
     "href": "assets/presentation.html#what-do-we-want-to-do",
     "title": "National Stock Assessment Seminar Presentation",
@@ -36,6 +47,17 @@
     "title": "National Stock Assessment Seminar Presentation",
     "section": "Workflow",
     "text": "Workflow\n\n\ncreate container\ncreate scripts\ntransfer files\nsubmit jobs\ntransfer files back to local machine"
+  },
+  {
+    "objectID": "assets/web-about-mo.html",
+    "href": "assets/web-about-mo.html",
+    "title": "Megumi Oshima",
+    "section": "",
+    "text": "Megumi Oshima has been working at the Pacific Islands Fisheries Science Center since 2021. She works mostly on domestic and territorial bottomfish stocks and is interested in Openscience and creating reproducible and transparent workflows. Before joining PIFSC, she was a graduate student at University of Southern Mississippi where she got her PhD in Coastal Sciences.",
+    "crumbs": [
+      "About",
+      "Megumi Oshima"
+    ]
   },
   {
     "objectID": "assets/web-slides.html",
