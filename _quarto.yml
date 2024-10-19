@@ -12,6 +12,7 @@ website:
   repo-actions: [source, issue]
   search: true
   sidebar:
+    collapse-level: 1
     style: "floating"
     search: true
     tools:
@@ -22,6 +23,12 @@ website:
         file: index.qmd
       - text: "Seminar slides"
         file: assets/web-slides.qmd
+      - section: "About"
+        contents:
+        - text: "Nicholas Ducharme-Barth"
+          file: assets/web-about-nd.qmd
+        - text: "Megumi Oshima"
+          file: assets/web-about-mo.qmd
       - section: "Support"
         contents:
         - text: "Submit an issue"
@@ -30,3 +37,4 @@ website:
 format: 
   html:
     toc: true
+    toc-expand: false
