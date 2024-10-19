@@ -23,7 +23,7 @@ website:
         file: index.qmd
       - text: "Seminar slides"
         file: assets/web-slides.qmd
-      - section: "About"
+      - section: "Contact us"
         contents:
         - text: "Nicholas Ducharme-Barth"
           file: assets/web-about-nd.qmd
