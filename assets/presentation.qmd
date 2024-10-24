@@ -1,14 +1,35 @@
 ---
-title: "National Stock Assessment Seminar Presentation"
-format: revealjs
+title: "Operationalizing available research computing resources for stock assessment"
+format: 
+ revealjs:
+  theme: [default, presentation-customizations/custom.scss]
+  footer: "National Stock Assessment Science Seminar"
+  logo: static/NOAA_FISHERIES_H.png
+  css: presentation-customizations/logo.css
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
 embed-resources: true
 ---
 
+## Test slide 
+<br/>
+
+This is a test [link](https://quarto.org/docs/presentations/).
+
+This is some [emphasized]{.blue} text.
+
+[Here is some text that is hidden and waiting for later.]{.hide-text}
+
+## Test slide 
+<br/>
+
+[This is a test link.]{.hide-text}
+
+[This is some emphasized text.]{.hide-text}
+
+Here is some text that is hidden and waiting for later. And now it appears!
 
 ## What do we want to do?  
-
 <br/>
 
 ::: {.fragment .strike}
