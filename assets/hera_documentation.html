@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Nicholas Ducharme-Barth">
+<meta name="dcterms.date" content="2024-10-24">
 
-<title>Seminar slides – HTC/HPC for Stock Assessments</title>
+<title>Working with NOAA HPC Hera – HTC/HPC for Stock Assessments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -66,14 +102,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
- 
-  <style>
-  .slide-deck {
-      border: 3px solid #dee2e6;
-      width: 100%;
-  }
-  </style>
-  
 
 
 </head>
@@ -87,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assets/web-slides.html">Seminar slides</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assets/hera_documentation.html">Documentation</a></li><li class="breadcrumb-item"><a href="../assets/hera_documentation.html">Working with NOAA HPC Hera</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -128,22 +156,22 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assets/web-slides.html" class="sidebar-item-text sidebar-link active">
+  <a href="../assets/web-slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seminar slides</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Documentation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../assets/hera_documentation.html" class="sidebar-item-text sidebar-link">
+  <a href="../assets/hera_documentation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Working with NOAA HPC Hera</span></a>
   </div>
 </li>
@@ -194,22 +222,42 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="-1">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#connecting-to-hera-via-ssh" id="toc-connecting-to-hera-via-ssh" class="nav-link active" data-scroll-target="#connecting-to-hera-via-ssh">Connecting to Hera via ssh</a></li>
+  <li><a href="#transferring-files-tofrom-hera-via-scp-using-data-transfer-node-dtn" id="toc-transferring-files-tofrom-hera-via-scp-using-data-transfer-node-dtn" class="nav-link" data-scroll-target="#transferring-files-tofrom-hera-via-scp-using-data-transfer-node-dtn">Transferring files to/from Hera via scp using data transfer node (DTN)</a></li>
+  <li><a href="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel" id="toc-transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel" class="nav-link" data-scroll-target="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">Transferring files to/from Hera via scp using an ssh tunnel</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/assets/hera_documentation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assets/hera_documentation.html">Documentation</a></li><li class="breadcrumb-item"><a href="../assets/hera_documentation.html">Working with NOAA HPC Hera</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Seminar slides</h1>
+<h1 class="title">Working with NOAA HPC Hera</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nicholas Ducharme-Barth </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Last updated</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2024-10-24</p>
+    </div>
+  </div>
   
     
   </div>
@@ -219,14 +267,102 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Seminar slides from the NOAA National Stock Assessment Science Seminar Series presentation.</p>
-    <p><a href="presentation.html" target="_blank">View slides in full screen</a></p>
-       <div class="ratio ratio-16x9">
-      <iframe class="slide-deck" src="presentation.html" height="500px"></iframe>
-    </div>
-  
+<section id="connecting-to-hera-via-ssh" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-to-hera-via-ssh">Connecting to Hera via ssh</h2>
+<p>Open a terminal window (.e.g, command prompt or PowerShell), then open an ssh tunnel to Hera by using the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-m</span> hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov <span class="at">-p22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Replace <code>User.Name</code> with your NOAA HPC account name, and <code>bastion</code> with either <code>boulder</code> or <code>princeton</code> depending on which ‘bastion’ you wish to log-in through.</p>
+<p>If you see the following then you have connected successfully:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">________________________________________________________</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                                        <span class="kw">|</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                                        <span class="kw">|</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>  <span class="ex">Welcome</span> to the Hera High Performance Computing system <span class="kw">|</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                                        <span class="kw">|</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>        <span class="ex">This</span> system is located in Fairmont, WV          <span class="kw">|</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                                        <span class="kw">|</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>          <span class="ex">Please</span> Submit Helpdesk Requests to:           <span class="kw">|</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>               <span class="ex">rdhpcs.hera.help@noaa.gov</span>                <span class="kw">|</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span>                                                        <span class="kw">|</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span><span class="ex">________________________________________________________</span><span class="kw">|</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that you will also see the following terminal output upon connecting:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Local</span> port XXXXX forwarded to remote host.</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Remote</span> port YYYYY forwarded to local host.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Where <code>XXXXX</code> and <code>YYYYY</code> are your 4-5 digit port forwarding numbers. Make note of what your local port number (<code>XXXXX</code>) is since this will be used for scp file transfer using an ssh tunnel.</p>
+</section>
+<section id="transferring-files-tofrom-hera-via-scp-using-data-transfer-node-dtn" class="level2">
+<h2 class="anchored" data-anchor-id="transferring-files-tofrom-hera-via-scp-using-data-transfer-node-dtn">Transferring files to/from Hera via scp using data transfer node (DTN)</h2>
+<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/index.html">this wiki</a>(CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the <em>scratch</em> directory. However, this is ok since it is recommended that input/output data files are stored in the <em>scratch</em> directory. Using a DTN is faster than using the <a href="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">ssh tunnel</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>scratch1/NMFS/project_name/</code> directory is a shared space (shared access and shared disk space) for all users of a project. Rather than dumping files into the <em>root</em> project directory (e.g., <code>project_name/</code>) it is better to place them in your own sub-directory. Since this sub-directory structure does not already exist you will need to log into Hera and create it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> scratch1/NMFS/project_name/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will avoid over-writing other users’ work.</p>
+</div>
+</div>
+<p>File transfer takes place via <em>scp</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>replace <code>User.Name</code> and <code>project_name</code> with your HPC account name and project.</p>
+<p>If trying to transfer from a machine not within the NOAA domain (or on the VPN) you can use <em>scp</em> with an <em>untrusted</em> DTN:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@udtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/data_untrusted/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that <code>dtn-hera</code> was changed to <code>udtn-hera</code>. As before replace <code>User.Name</code> with your HPC account name. Since files can not stay in the <code>data_untrusted</code> directory we will need to <a href="#connecting-to-hera-via-ssh">log in to Hera</a> and move it to the correct project directory on scratch. Once logged in, moving the files can be done with <a href="https://docs.rdhpcs.noaa.gov/data/local_migration.html"><em>rsync</em></a> (CAC login required), and then they can be deleted from <code>data_untrusted</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-axv</span> /scratch1/data_untrusted/User.Name/file /scratch1/NMFS/project_name/User.Name/</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> /scratch1/data_untrusted/User.Name/file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>replace <code>User.Name</code> and <code>project_name</code> with your HPC account name and project.</p>
+<p>Files can be downloaded using <em>scp</em> from either the trusted (<code>dtn</code>) or untrusted (<code>udtn</code>) DTN:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/file /path/to/local/file </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel" class="level2">
+<h2 class="anchored" data-anchor-id="transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">Transferring files to/from Hera via scp using an ssh tunnel</h2>
+<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/transferring_data.html">this wiki</a> (CAC login required). File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (suggested to use PowerShell):</p>
+<ol type="1">
+<li>In the first terminal window, open an ssh connection to Hera with port forwarding:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-m</span> hmac-sha2-256-etm@openssh.com <span class="at">-LXXXXX:localhost:XXXXX</span> User.Name@hera-rsa.bastion.rdhpcs.noaa.gov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Replace <code>XXXXX</code> with your local port number. As before replace <code>User.Name</code> and <code>bastion</code>.</p>
+<ol start="2" type="1">
+<li>In the second terminal window you can check to see if the tunnel was properly created:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> XXXXX User.Name@localhost</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>if you get prompted for your password then success! Press <code>CONTROL+C</code> to ignore this prompt. Staying within this 2nd terminal window use <em>scp</em> to transfer your file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-P</span> XXXXX /path/to/local/file User.Name@localhost:/home/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will copy your file from your local machine into your home directory on Hera. Simply append additionally directory structure to <code>/home/User.Name/</code> to copy it into a sub-directory that you have created on Hera (e.g., <code>/home/User.Name/sub/dir/</code>). To transfer files into your <em>scratch</em> directory, specify the proper destination path (e.g., <code>/scratch1/NMFS/project_name/User.Name/</code> where <code>project_name</code> is your HPC account project).</p>
+<p>To download a file from Hera using <em>scp</em> and the ssh tunnel use the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-P</span> XXXXX User.Name@localhost:/home/User.Name/file_name /path/to/local/file </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -654,4 +790,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/assets/web-slides.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/assets/hera_documentation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
