@@ -11,6 +11,7 @@ website:
   repo-url: "https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing"
   repo-actions: [source, issue]
   search: true
+  back-to-top-navigation: true
   sidebar:
     collapse-level: 1
     style: "floating"
