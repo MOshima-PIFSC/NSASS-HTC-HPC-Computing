@@ -24,6 +24,10 @@ website:
         file: index.qmd
       - text: "Seminar slides"
         file: assets/web-slides.qmd
+      - section: "Documentation"
+        contents: 
+        - text: "Working with NOAA HPC Hera"
+          file: "assets/hera_documentation.qmd"
       - section: "Contact us"
         contents:
         - text: "Nicholas Ducharme-Barth"
@@ -39,3 +43,4 @@ format:
   html:
     toc: true
     toc-expand: false
+    theme: sandstone

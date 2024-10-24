@@ -2,6 +2,7 @@
 title: "Working with NOAA HPC Hera"
 date: last-modified
 date-format: iso
+published-title: "Last updated"
 author: Nicholas Ducharme-Barth
 engine: knitr
 execute:
