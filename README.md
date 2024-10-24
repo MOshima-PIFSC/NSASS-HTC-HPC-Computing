@@ -5,7 +5,9 @@ This repository contains examples and documentation for accessing and applying e
 ## Rendering and publishing
 
 Rendering and publishing of the repo [webpage](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/) is done automatically via GitHub Actions. In order to render a local version of the webpage, clone the repo to your local machine, ensure [Quarto](https://quarto.org/docs/get-started/) is installed and run
-```quarto render```
+```
+quarto render
+```
 from a Terminal window opened in the project directory. The locally rendered webpage will be located in the `_site/` directory and can be accessed by opening `_site/index.html` in the browser of your choice. Note that the [embedio](https://quarto.thecoatlessprofessor.com/embedio/) Quarto extension is used to embed the presentation slides into the webpage. This extension is distributed with the repository however if the webpage does not render properly this extension may need to be installed.
 
 ## Github Disclaimer
