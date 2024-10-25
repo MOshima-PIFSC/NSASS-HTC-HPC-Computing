@@ -72,3 +72,4 @@ if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/hera_job_di
     dir_lines = paste0("/scratch1/", hera_project, "array_hera/", dir_name, "/")
     writeLines(dir_lines, con=paste0(proj_dir, "/examples/hera/array_simple/inputs/hera_job_directories.txt"))
 }
+```

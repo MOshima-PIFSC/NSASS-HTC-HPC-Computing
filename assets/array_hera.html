@@ -4958,7 +4958,12 @@ Hard-coding alert!
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Write a text file containing the full path names for where the directories will be on Hera</p>
-<p>if(!file.exists(paste0(proj_dir, “/examples/hera/array_simple/inputs/hera_job_directories.txt”))){ dir_lines = paste0(“/scratch1/”, hera_project, “array_hera/”, dir_name, “/”) writeLines(dir_lines, con=paste0(proj_dir, “/examples/hera/array_simple/inputs/hera_job_directories.txt”)) }</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/hera_job_directories.txt&quot;</span>))){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    dir_lines <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;/scratch1/&quot;</span>, hera_project, <span class="st">&quot;array_hera/&quot;</span>, dir_name, <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">writeLines</span>(dir_lines, <span class="at">con=</span><span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/hera_job_directories.txt&quot;</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
