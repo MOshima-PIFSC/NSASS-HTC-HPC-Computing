@@ -2,10 +2,10 @@
 title: "Operationalizing available research computing resources for stock assessment"
 format: 
  revealjs:
-  theme: [default, presentation-customizations/custom.scss]
+  theme: [default, customizations/presentation-custom.scss]
   footer: "National Stock Assessment Science Seminar"
   logo: static/NOAA_FISHERIES_H.png
-  css: presentation-customizations/logo.css
+  css: customizations/logo.css
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
 embed-resources: true
