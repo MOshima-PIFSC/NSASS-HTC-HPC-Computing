@@ -30,7 +30,7 @@ Note you will have to change `proj_dir` to match your machine path and also may 
 :::
 
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 proj_dir = "D:/HOME/SAP/Code/noaa-hpc-hera/"
@@ -40,7 +40,7 @@ hera_project = "NMFS/htc4sa/Nicholas.Ducharme-barth/"
 
 Define directory names
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 dir_name = paste0("rep_0", 0:9)
@@ -48,7 +48,7 @@ dir_name = paste0("rep_0", 0:9)
 
 Iterate across directories, create them, and then write a simple .csv file into them containing data to fit a linear model
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 for(i in seq_along(dir_name))
@@ -66,7 +66,7 @@ for(i in seq_along(dir_name))
 
 Write a simple R script to read in the data, run a linear model, and report back the estimated parameters
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 if(!file.exists(paste0(proj_dir, "example_data_input/simple_r/script.r")))
@@ -78,7 +78,7 @@ if(!file.exists(paste0(proj_dir, "example_data_input/simple_r/script.r")))
 
 Write a text file containing the full path names for where the directories will be on Hera
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 if(!file.exists(paste0(proj_dir, "example_data_input/simple_r/simple_r_v2.txt")))
@@ -90,7 +90,7 @@ if(!file.exists(paste0(proj_dir, "example_data_input/simple_r/simple_r_v2.txt"))
 
 Compress the entire `simple_r/` directory as a tar.gz file `upload.simple_r.tar.gz`. This simplifies the number of steps needed for file transfers.
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 shell(paste0("powershell cd ", paste0(proj_dir, "example_data_input/"), ";tar -czf upload.simple_r.tar.gz simple_r "))
@@ -110,33 +110,33 @@ In the following `bash` code you will need to:
 Open a PowerShell terminal and [connect to Hera](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/documentation/hera_doc.qmd). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your RSA passcode.
 
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 ssh -m hmac-sha2-256-etm@openssh.com Nicholas.Ducharme-barth@hera-rsa.boulder.rdhpcs.noaa.gov -p22
 ```
 In *Terminal A* navigate to the project directory on `scratch1` and create some directories. Since `htc4sa/` is a shared directory across all project users, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. We will upload our SLURM [submit script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_slurm_scripts/submit_array_simple_r_v2.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 cd /scratch1/NMFS/htc4sa/
 ```
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 mkdir Nicholas.Ducharme-barth/
 cd Nicholas.Ducharme-barth/
 ```
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 mkdir submit_scripts/
 ```
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 mkdir logs/
@@ -145,7 +145,7 @@ mkdir logs/
 Open a second PowerShell terminal in the `noaa-hpc-hera` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`example_data/upload.simple_r.tar.gz` and `example_slurm_scripts/submit_array_simple_r_v2.sh`) to Hera. The `upload.simple_r.tar.gz` will uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_simple_r_v2.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/documentation/hera_doc.qmd). You will be prompted for your RSA passcode after each *scp* command.
 
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 scp example_data_input/upload.simple_r.tar.gz Nicholas.Ducharme-barth@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth
@@ -164,69 +164,67 @@ In `submit_array_simple_r_v2.sh` you will need to change the following before yo
 :::
 
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 scp example_slurm_scripts/submit_array_simple_r_v2.sh Nicholas.Ducharme-barth@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/submit_scripts/
 ```
 Back in *Terminal A* untar the uploaded directory.
 ```{bash}
-#| eval: false
 #| echo: true
 #| output: false
 tar -xzf upload.simple_r.tar.gz
 ```
 Make sure files that will be read/executed have unix line endings:
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 dos2unix simple_r/script.r simple_r/simple_r_v2.txt submit_scripts/submit_array_simple_r_v2.sh
 ```
 Now you are ready to submit the SLURM [submission script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_slurm_scripts/submit_array_simple_r_v2.sh) `submit_array_simple_r_v2.sh`.
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 sbatch submit_scripts/submit_array_simple_r_v2.sh
 ```
 As part of this job script, it cleans the directories specified in `simple_r_v2.txt` of the input file `data.csv`. The output is a compressed *tar.gz* containing the output produced by `script.r` (`par.csv`) and `runtime.txt` which logs the job start, end, and runtime. You can check your job status using `squeue` but this job should complete in a few seconds.
 ```{bash}
-#| eval: false
 #| echo: true
 #| output: false
 squeue -u Nicholas.Ducharme-barth
 ```
 Before sending back the results you need to compress `simple_r`.
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 tar -czf download.simple_r.tar.gz simple_r
 ```
 Moving back to *Terminal B* you can download the results, but first you create a directory for it to be downloaded into. This can be done in R:
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 dir.create(paste0(proj_dir, "example_data_output/"), recursive=TRUE, showWarnings = FALSE)
 ```
 Now you can use *scp* in *Terminal B* to download `download.simple_r.tar.gz` into `example_data_output/`
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 scp Nicholas.Ducharme-barth@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/download.simple_r.tar.gz example_data_output/
 ```
 Move into `example_data_output/` and untar downloaded results.
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 cd example_data_output/
 ```
 ```{bash}
-#| eval: false
+
 #| echo: true
 #| output: false
 tar -xzf download.simple_r.tar.gz
@@ -236,7 +234,7 @@ tar -xzf download.simple_r.tar.gz
 
 In R, iterate through the sub-directories of the input and output data to extract the results of the linear model fits, and the model run time information.
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: false
 #| code-fold: true
@@ -291,7 +289,7 @@ runtime_data = rbindlist(runtime_data.list)
 The jobs started execution at `r as.POSIXct(min(runtime_data$start)[1],origin="1970-01-01")` and all finished by `r as.POSIXct(max(runtime_data$end)[1],origin="1970-01-01")` for an elapsed runtime of `r (max(runtime_data$end)[1]-min(runtime_data$start)[1])` seconds and a total computation time of `r sum(runtime_data$runtime)` seconds. Use of Hera resulted in a job completing `r round(sum(runtime_data$runtime)/(max(runtime_data$end)[1]-min(runtime_data$start)[1]),digits=2)`$\times$ faster. @fig-example-fit shows the simulated data and estimated linear fits for each model run in the job-array.
 
 ```{r}
-#| eval: true
+
 #| echo: true
 #| output: true
 #| code-fold: true
