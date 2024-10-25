@@ -7,6 +7,13 @@ author: Nicholas Ducharme-Barth
 engine: knitr
 execute:
     eval: false
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: right
+    number-sections: true
+    code-overflow: wrap
 ---
 
 ## Connecting to Hera via ssh
@@ -54,7 +61,9 @@ Remote port YYYYY forwarded to local host.
 ```
 Where `XXXXX` and `YYYYY` are your 4-5 digit port forwarding numbers. Make note of what your local port number (`XXXXX`) is since this will be used for scp file transfer using an ssh tunnel.
 
-## Transferring files to/from Hera via scp using data transfer node (DTN)
+## Transferring files to/from Hera 
+
+### via scp using data transfer node (DTN)
 
 Information in this section is largely based on [this wiki](https://docs.rdhpcs.noaa.gov/data/index.html)(CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the *scratch* directory. However, this is ok since it is recommended that input/output data files are stored in the *scratch* directory. Using a DTN is faster than using the [ssh tunnel](#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel).
 
@@ -100,7 +109,7 @@ Files can be downloaded using *scp* from either the trusted (`dtn`) or untrusted
 scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/file /path/to/local/file 
 ```
 
-## Transferring files to/from Hera via scp using an ssh tunnel
+### via scp using an ssh tunnel
 
 Information in this section is largely based on [this wiki](https://docs.rdhpcs.noaa.gov/data/transferring_data.html) (CAC login required). File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (we suggest using PowerShell):
 
