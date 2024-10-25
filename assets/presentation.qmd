@@ -4,42 +4,60 @@ format:
  revealjs:
   theme: [default, customizations/presentation-custom.scss]
   footer: "National Stock Assessment Science Seminar"
-  logo: static/NOAA_FISHERIES_H.png
+  logo: static/noaa-fisheries-logo.png
   css: customizations/logo.css
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
 embed-resources: true
 ---
 
-## Test slide 
-<br/>
+## What?
 
-This is a test [link](https://quarto.org/docs/presentations/).
-
-This is some [emphasized]{.blue} text.
-
-[Here is some text that is hidden and waiting for later.]{.hide-text}
-
-## Test slide 
-<br/>
-
-[This is a test link.]{.hide-text}
-
-[This is some emphasized text.]{.hide-text}
-
-Here is some text that is hidden and waiting for later. And now it appears!
-
-## What do we want to do?  
-<br/>
-
-::: {.fragment .strike}
-Leverage high-throughput or high-performance computing solutions to run stock assessment models
+::: {.fragment .fade-in}
+::: {.fragment .semi-fade-out}
+Research computing is the collection of computing, software, storage resources and services that allows for data analysis at scale.
+:::
 :::
 
 ::: {.fragment .fade-in}
-Run more/bigger models in less time
+::: {.fragment .strike}
+In our particular case we are interested in leverging research computing to augment stock assessment worflows.
+:::
 :::
 
+::: {.fragment .fade-in}
+[Run more/bigger models in less time]{.blue}
+:::
+
+## Why?
+
+::: {.fragment .fade-in}
+::: columns
+::: {.column width="40%"}
+::: {.fragment .semi-fade-out}
+Improve efficiency by running 10s - 1000s of models ['simultaneously']{.blue}.
+:::
+:::
+:::
+:::
+
+::: {.fragment .fade-in}
+![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="border: 1px solid #323C46; max-height: unset; max-width: unset;"}
+![](static/wcpfc-logo.png){.absolute top="6%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
+![](static/spc-logo.png){.absolute top="15%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
+
+:::{.absolute left="48%" top="10%" style="font-size:0.85em;"}
+2021 Southwest Pacific Ocean swordfish stock assessment
+:::
+:::
+
+::: {.fragment .fade-in}
+::: {.absolute left="55%" top="35%" style="font-size:0.85em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, .85); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+[9,300]{.blue} model runs totalling [~46 months]{.blue} of computation time. 
+:::
+:::
+
+<!-- 
 ## How can we do this? 
 <br/>  
 
@@ -74,4 +92,4 @@ Run more/bigger models in less time
 3.  transfer files
 4.  submit jobs
 5.  transfer files back to local machine
-:::
+::: -->

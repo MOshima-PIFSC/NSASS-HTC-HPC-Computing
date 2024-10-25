@@ -45,3 +45,10 @@ $presentation-h1-font-size: 2em;
 .reveal .slide a {
   text-decoration: underline;
 }
+
+.highlight-last  {
+  color: $theme-dove-gray;
+  .current-fragment {
+    color: $theme-whale-gray;
+  }
+}
