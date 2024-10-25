@@ -47,8 +47,32 @@ $presentation-h1-font-size: 2em;
 }
 
 .highlight-last  {
-  color: $theme-dove-gray;
+  color: rgba($theme-whale-gray, .5);
   .current-fragment {
     color: $theme-whale-gray;
+  }
+}
+
+// emphasize current fragment; define colors
+$colors: (
+  "blue": $theme-noaa-sky
+);
+// loop over defined colors
+@each $name, $color in $colors {
+  .reveal .slides section .fragment.hl-#{$name} {
+    opacity: unset;
+    visibility: unset;
+
+    &.visible {
+      color: $color;
+      font-weight: bold;
+    }
+
+    // do something to emphasize current fragment
+    // &.current-fragment {
+    //   background-color: lighten($color, 50%);
+    //   color: $color;
+    //   font-weight: bold;
+    // }
   }
 }

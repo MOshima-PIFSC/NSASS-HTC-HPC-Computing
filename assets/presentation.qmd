@@ -13,35 +13,39 @@ embed-resources: true
 
 ## What?
 
-::: {.fragment .fade-in}
-::: {.fragment .semi-fade-out}
+</br>
+
+::: {.fragment .fade-in fragment-index=1}
+::: {.fragment .semi-fade-out fragment-index=2}
 Research computing is the collection of computing, software, storage resources and services that allows for data analysis at scale.
 :::
 :::
 
-::: {.fragment .fade-in}
-::: {.fragment .strike}
+::: {.fragment .fade-in fragment-index=2}
+::: {.fragment .strike fragment-index=3}
 In our particular case we are interested in leverging research computing to augment stock assessment worflows.
 :::
 :::
 
-::: {.fragment .fade-in}
+::: {.fragment .fade-in fragment-index=3}
 [Run more/bigger models in less time]{.blue}
 :::
 
 ## Why?
 
-::: {.fragment .fade-in}
+</br>
+
+::: {.fragment .fade-in fragment-index=1}
 ::: columns
 ::: {.column width="40%"}
-::: {.fragment .semi-fade-out}
+::: {.fragment .semi-fade-out fragment-index=3}
 Improve efficiency by running 10s - 1000s of models ['simultaneously']{.blue}.
 :::
 :::
 :::
 :::
 
-::: {.fragment .fade-in}
+::: {.fragment .fade-in fragment-index=2}
 ![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="border: 1px solid #323C46; max-height: unset; max-width: unset;"}
 ![](static/wcpfc-logo.png){.absolute top="6%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
 ![](static/spc-logo.png){.absolute top="15%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
@@ -51,9 +55,52 @@ Improve efficiency by running 10s - 1000s of models ['simultaneously']{.blue}.
 :::
 :::
 
-::: {.fragment .fade-in}
+::: {.fragment .fade-in fragment-index=3}
 ::: {.absolute left="55%" top="35%" style="font-size:0.85em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, .85); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
 [9,300]{.blue} model runs totalling [~46 months]{.blue} of computation time. 
+:::
+:::
+
+## Why?
+
+::: {.fragment .fade-in fragment-index=1}
+::: {.fragment .semi-fade-out fragment-index=2}
+- Efficiency
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=2}
+::: {.fragment .semi-fade-out fragment-index=3}
+- Knowledge acquisition
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+::: {.fragment .semi-fade-out fragment-index=7}
+- Automation, transparency, [reproducibility & portability]{.fragment .hl-blue fragment-index=4}
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=7}
+::: {.fragment .semi-fade-out fragment-index=8}
+- Multi-model inference
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=7}
+::: {.fragment .fade-in fragment-index=5}
+::: {.absolute left="10%" bottom="15%" style="font-color: rgba(0, 23, 67,1); font-size:1.25em; padding: 0.5em 1em; background-color: rgba(0,133,202, .15); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+Software containers 
+:::
+:::
+::: {.fragment .fade-in fragment-index=6}
+![](static/apptainer-logo.png){.absolute bottom="15%" right="10%" width="15%" style="max-height: unset; max-width: unset;"}
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=8}
+::: {.absolute right="25%" bottom="40%" style="font-color: rgba(0, 23, 67,1); font-size:1.75em; padding: 0.5em 1em; background-color: rgba(94, 182, 217,0.95); backdrop-filter: blur(15px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+Better science
 :::
 :::
 
