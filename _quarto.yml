@@ -12,6 +12,7 @@ website:
   repo-actions: [source, issue]
   search: true
   back-to-top-navigation: true
+  bread-crumbs: false
   sidebar:
     collapse-level: 1
     style: "floating"
@@ -28,6 +29,8 @@ website:
         contents: 
         - text: "Working with NOAA HPC Hera"
           file: "assets/hera_documentation.qmd"
+        - text: "Submitting an array job" 
+          file: assets/array_simple_r.qmd
       - section: "Contact us"
         contents:
         - text: "Nicholas Ducharme-Barth"
