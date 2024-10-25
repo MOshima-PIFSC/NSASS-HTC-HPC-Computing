@@ -30,7 +30,7 @@ website:
         - text: "Working with NOAA HPC Hera"
           file: "assets/hera_documentation.qmd"
         - text: "Submitting an array job" 
-          file: assets/array_simple_r.qmd
+          file: assets/array_hera.qmd
       - section: "Contact us"
         contents:
         - text: "Nicholas Ducharme-Barth"
