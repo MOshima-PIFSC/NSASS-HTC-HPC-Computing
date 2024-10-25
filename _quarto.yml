@@ -46,4 +46,6 @@ format:
   html:
     toc: true
     toc-expand: false
-    theme: sandstone
+    theme:
+      - default
+      - assets/customizations/website-custom.scss
