@@ -1,0 +1,10 @@
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_00/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_01/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_02/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_03/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_04/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_05/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_06/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_07/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_08/
+/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/rep_09/
