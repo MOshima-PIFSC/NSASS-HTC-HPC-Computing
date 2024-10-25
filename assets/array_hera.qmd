@@ -20,24 +20,55 @@ format:
 
 ## Example description & setup
 
-In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r) that reads in the *.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt) to specify the directory path names on Hera.
+In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r) that reads in the *.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt) to specify the directory path names on Hera. ###TODO: update links
 
-The *simple_r* example can be set-up either by cloning the repository `git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git`, or stepping through the following code:
+The *hera array* example can be set-up either by cloning the repository `git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git`, or stepping through the following code:
 
-Define relative path and create directory if needed
+Define relative path and create directory if needed.
+
 
 ::: {.callout-important}
 # Hard-coding alert!
-Note you will have to change `proj_dir` to match your machine path and also may need to change `hera_project` from "NMFS/htc4sa/" if you are under a different HPC project.
+Note you will have to change `proj_dir` to match your machine path and also may need to change `hera_project` from "NMFS/htc4sa/" if you are under a different HPC project. ### TODO: maybe we can remove this? 
 :::
 
 ```{r}
-proj_dir = "D:/HOME/SAP/Code/noaa-hpc-hera/"
-dir.create(proj_dir, recursive=TRUE)
-hera_project = "NMFS/htc4sa/Nicholas.Ducharme-barth/"
+proj_dir = getwd()
+#dir.create(proj_dir, recursive=TRUE) ##TODO: don't think we need this if we assume the project dir starts at top directory
+hera_project = "NMFS/htc4sa/Nicholas.Ducharme-barth/" ### TODO: change to remove username
 ```
 
 Define directory names
 ```{r}
 dir_name = paste0("rep_0", 0:9)
 ```
+
+Iterate across directories, create them, and then write a simple .csv file into them containing data to fit a linear model
+```{r}
+for(i in seq_along(dir_name)){
+    
+    if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/", dir_name[i], "/data.csv")))
+    {
+        set.seed(i)
+        dir.create(paste0(proj_dir, "/examples/hera/array_simple/inputs/", dir_name[i]), recursive=TRUE)
+        tmp = data.frame(x=1:1000)
+        tmp$y = (i + (0.5*i)*tmp$x) + rnorm(1000,0,i)
+        write.csv(tmp, file=paste0(proj_dir, "/examples/hera/array_simple/inputs/", dir_name[i], "/data.csv"))
+    }
+}
+```
+
+Write a simple R script to read in the data, run a linear model, and report back the estimated parameters
+```{r}
+if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/run_lm_hera_array.r"))){
+    script_lines = c("tmp=read.csv('data.csv')", "fit=lm(y~x,data=tmp)", "out = data.frame(par=unname(fit$coefficients))", "write.csv(out,file='par.csv')")
+    writeLines(script_lines, con=paste0(proj_dir, "/examples/hera/array_simple/inputs/run_lm_hera_array.r"))
+}
+```
+
+Write a text file containing the full path names for where the directories will be on Hera
+```{r}
+if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/hera_job_directories.txt"))){
+    dir_lines = paste0("/scratch1/", hera_project, "array_hera/", dir_name, "/")
+    writeLines(dir_lines, con=paste0(proj_dir, "/examples/hera/array_simple/inputs/hera_job_directories.txt"))
+}

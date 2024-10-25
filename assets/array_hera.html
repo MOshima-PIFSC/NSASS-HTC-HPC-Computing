@@ -4911,9 +4911,9 @@ vertical-align: -.125em;
 
 <section id="example-description-setup" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="example-description-setup"><span class="header-section-number">1</span> Example description &amp; setup</h2>
-<p>In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r">R script</a> that reads in the <em>.csv</em> file stored in the directory, fits a linear model, and writes the paramter estimates to a <em>.csv</em>. We specify which directories we want to run jobs in as a part of the job-array using a <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt">text file</a> to specify the directory path names on Hera.</p>
-<p>The <em>simple_r</em> example can be set-up either by cloning the repository <code>git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git</code>, or stepping through the following code:</p>
-<p>Define relative path and create directory if needed</p>
+<p>In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r">R script</a> that reads in the <em>.csv</em> file stored in the directory, fits a linear model, and writes the paramter estimates to a <em>.csv</em>. We specify which directories we want to run jobs in as a part of the job-array using a <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt">text file</a> to specify the directory path names on Hera. ###TODO: update links</p>
+<p>The <em>hera array</em> example can be set-up either by cloning the repository <code>git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git</code>, or stepping through the following code:</p>
+<p>Define relative path and create directory if needed.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4924,18 +4924,41 @@ Hard-coding alert!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note you will have to change <code>proj_dir</code> to match your machine path and also may need to change <code>hera_project</code> from “NMFS/htc4sa/” if you are under a different HPC project.</p>
+<p>Note you will have to change <code>proj_dir</code> to match your machine path and also may need to change <code>hera_project</code> from “NMFS/htc4sa/” if you are under a different HPC project. ### TODO: maybe we can remove this?</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>proj_dir <span class="ot">=</span> <span class="st">&quot;D:/HOME/SAP/Code/noaa-hpc-hera/&quot;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(proj_dir, <span class="at">recursive=</span><span class="cn">TRUE</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>hera_project <span class="ot">=</span> <span class="st">&quot;NMFS/htc4sa/Nicholas.Ducharme-barth/&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>proj_dir <span class="ot">=</span> <span class="fu">getwd</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dir.create(proj_dir, recursive=TRUE) ##TODO: don&#39;t think we need this if we assume the project dir starts at top directory</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>hera_project <span class="ot">=</span> <span class="st">&quot;NMFS/htc4sa/Nicholas.Ducharme-barth/&quot;</span> <span class="do">### </span><span class="al">TODO</span><span class="do">: change to remove username</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define directory names</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dir_name <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;rep_0&quot;</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Iterate across directories, create them, and then write a simple .csv file into them containing data to fit a linear model</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(dir_name)){</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/&quot;</span>, dir_name[i], <span class="st">&quot;/data.csv&quot;</span>)))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set.seed</span>(i)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dir.create</span>(<span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/&quot;</span>, dir_name[i]), <span class="at">recursive=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        tmp <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        tmp<span class="sc">$</span>y <span class="ot">=</span> (i <span class="sc">+</span> (<span class="fl">0.5</span><span class="sc">*</span>i)<span class="sc">*</span>tmp<span class="sc">$</span>x) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>,<span class="dv">0</span>,i)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">write.csv</span>(tmp, <span class="at">file=</span><span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/&quot;</span>, dir_name[i], <span class="st">&quot;/data.csv&quot;</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Write a simple R script to read in the data, run a linear model, and report back the estimated parameters</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/run_lm_hera_array.r&quot;</span>))){</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    script_lines <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;tmp=read.csv(&#39;data.csv&#39;)&quot;</span>, <span class="st">&quot;fit=lm(y~x,data=tmp)&quot;</span>, <span class="st">&quot;out = data.frame(par=unname(fit$coefficients))&quot;</span>, <span class="st">&quot;write.csv(out,file=&#39;par.csv&#39;)&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">writeLines</span>(script_lines, <span class="at">con=</span><span class="fu">paste0</span>(proj_dir, <span class="st">&quot;/examples/hera/array_simple/inputs/run_lm_hera_array.r&quot;</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Write a text file containing the full path names for where the directories will be on Hera</p>
+<p>if(!file.exists(paste0(proj_dir, “/examples/hera/array_simple/inputs/hera_job_directories.txt”))){ dir_lines = paste0(“/scratch1/”, hera_project, “array_hera/”, dir_name, “/”) writeLines(dir_lines, con=paste0(proj_dir, “/examples/hera/array_simple/inputs/hera_job_directories.txt”)) }</p>
 
 
 </section>
