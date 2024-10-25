@@ -1,0 +1,43 @@
+---
+title: "Working with NOAA HPC Hera"
+date: last-modified
+date-format: iso
+published-title: "Last updated"
+author: Nicholas Ducharme-Barth
+engine: knitr
+execute:
+    eval: false
+    echo: true
+    output: false
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: right
+    number-sections: true
+    code-overflow: wrap
+---
+
+## Example description & setup
+
+In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r) that reads in the *.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt) to specify the directory path names on Hera.
+
+The *simple_r* example can be set-up either by cloning the repository `git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git`, or stepping through the following code:
+
+Define relative path and create directory if needed
+
+::: {.callout-important}
+# Hard-coding alert!
+Note you will have to change `proj_dir` to match your machine path and also may need to change `hera_project` from "NMFS/htc4sa/" if you are under a different HPC project.
+:::
+
+```{r}
+proj_dir = "D:/HOME/SAP/Code/noaa-hpc-hera/"
+dir.create(proj_dir, recursive=TRUE)
+hera_project = "NMFS/htc4sa/Nicholas.Ducharme-barth/"
+```
+
+Define directory names
+```{r}
+dir_name = paste0("rep_0", 0:9)
+```

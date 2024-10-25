@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/index.html</loc>
-    <lastmod>2024-10-24T23:58:59.904Z</lastmod>
-  </url>
-  <url>
-    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/web-about-nd.html</loc>
-    <lastmod>2024-10-24T23:58:59.904Z</lastmod>
-  </url>
-  <url>
-    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html</loc>
-    <lastmod>2024-10-24T23:58:59.892Z</lastmod>
-  </url>
-  <url>
-    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/presentation.html</loc>
-    <lastmod>2024-10-24T23:58:59.892Z</lastmod>
-  </url>
-  <url>
-    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/web-about-mo.html</loc>
-    <lastmod>2024-10-24T23:58:59.904Z</lastmod>
+    <lastmod>2024-10-25T01:02:50.007Z</lastmod>
   </url>
   <url>
     <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/web-slides.html</loc>
-    <lastmod>2024-10-24T23:58:59.904Z</lastmod>
+    <lastmod>2024-10-25T01:02:50.007Z</lastmod>
+  </url>
+  <url>
+    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/web-about-mo.html</loc>
+    <lastmod>2024-10-25T01:02:50.007Z</lastmod>
+  </url>
+  <url>
+    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/presentation.html</loc>
+    <lastmod>2024-10-25T01:02:49.995Z</lastmod>
+  </url>
+  <url>
+    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html</loc>
+    <lastmod>2024-10-25T01:02:49.995Z</lastmod>
+  </url>
+  <url>
+    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/web-about-nd.html</loc>
+    <lastmod>2024-10-25T01:02:50.007Z</lastmod>
+  </url>
+  <url>
+    <loc>https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/array_hera.html</loc>
+    <lastmod>2024-10-25T01:02:49.995Z</lastmod>
   </url>
 </urlset>
