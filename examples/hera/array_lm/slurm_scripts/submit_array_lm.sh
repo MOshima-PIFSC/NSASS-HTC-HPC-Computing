@@ -1,13 +1,13 @@
 #!/bin/bash
-# submit_array_simple_r_v2.sh
+# submit_array_lm.sh
 # read directories from a file list
 
-#SBATCH --account=htc4sa
+#SBATCH --account=name
 #SBATCH --partition=hera
 #SBATCH --qos=batch
-#SBATCH --job-name=array_simple_r
-#SBATCH --output=/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/logs/slurm-%x-%A_%a.out
-#SBATCH --mail-user=nicholas.ducharme-barth@noaa.gov
+#SBATCH --job-name=array_lm
+#SBATCH --output=/scratch1/Project/Name/User.Name/logs/slurm-%x-%A_%a.out
+#SBATCH --mail-user=User.Name@noaa.gov
 #SBATCH --mail-type=all
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -21,7 +21,7 @@ echo $SLURM_ARRAY_TASK_ID
 # create an array with all data directories
 line_index=$(($SLURM_ARRAY_TASK_ID+1))
 echo ${line_index}
-dir_file=/scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/simple_r_v2.txt
+dir_file=/scratch1/Project/Name/User.Name/examples/hera/array_lm/inputs/hera_job_directories.txt
 echo ${dir_file}
 rep_dir=$(sed -n ${line_index}p ${dir_file}) 
 echo $rep_dir
@@ -34,7 +34,7 @@ module add R
 
 # run script & calculate runtime
 start=`date +%s`
-R CMD BATCH --vanilla /scratch1/NMFS/htc4sa/Nicholas.Ducharme-barth/simple_r/script.r
+R CMD BATCH --vanilla /scratch1/Project/Name/User.Name/array_lm/inputs/run_lm_hera_array.r
 end=`date +%s`
 runtime=$((end-start))
 echo $runtime

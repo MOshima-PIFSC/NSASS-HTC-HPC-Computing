@@ -120,13 +120,15 @@ scp examples/hera/array_lm/inputs/upload.array_lm.tar.gz User.Name@dtn-hera.fair
 ### Coding alert!
 In `submit_array_lm.sh` you will need to change the following before you upload and run the script:
 
-1. Line 9: `/scratch1/Project/Name/User.Name/logs/` to the location you created for `logs/` above.
+1. Line 5: change account name to the name of your project. If you are using the NOAA htc4sa project, it would be htc4sa.
 
-2. Line 10: Change to **your** email address.
+2. Line 9: `/scratch1/Project/Name/User.Name/logs/` to the location you created for `logs/` above.
 
-3. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
+3. Line 10: Change to **your** email address.
 
-4. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
+4. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
+
+5. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
 :::
 
 ```{bash}
