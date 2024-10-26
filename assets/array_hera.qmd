@@ -18,13 +18,13 @@ format:
     code-overflow: wrap
 ---
 
-In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r) that reads in the *.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt) to specify the directory path names on Hera. ###TODO: update links
+In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/hera/array_lm/inputs/run_lm_hera_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/hera/array_lm/inputs/hera_job_directories.txt) to specify the directory path names on Hera.
 
-The *hera/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git`, or stepping through the following code:
+The *hera/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
 
 ::: {.callout-important}
 # Coding alert!
-Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **Project/Name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **Project/Name** with your specific project name. 
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **NMFS/project_name** with your specific project name. 
 :::
 
 ## Setup data inputs and directories
@@ -34,7 +34,7 @@ Note: throughout this tutorial we are using **User.Name** as a stand-in for your
 ```{r}
 #| eval: true
 proj_dir = this.path::this.proj()
-hera_project = "Project/Name/User.Name/"
+hera_project = "NMFS/project_name/User.Name/"
 ```
 
 2. Define directory names for each run.
@@ -80,14 +80,14 @@ if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "h
 
 6. Compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. This simplifies the number of steps needed for file transfers.
 ```{r}
-shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "array_lm", "inputs"), ";tar -czf upload.array_lm.tar.gz array_lm "))
+shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera"), ";tar -czf upload.array_lm.tar.gz array_lm "))
 ```
 
 ## Hera workflow
 
 1. Connect to Hera  
 
-Open a PowerShell terminal and [connect to Hera](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/documentation/hera_doc.qmd). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your password and RSA passcode.
+Open a PowerShell terminal and [connect to Hera](hera_documentation.qmd). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your [RSA passcode](hera_documentation.qmd#Connecting-to-Hera-via-ssh), which is your password followed by the 8-digit code from the authenticator app.
 
 ```{bash}
 ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22
@@ -95,10 +95,10 @@ ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov 
 
 2. Create directories  
 
-In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. We will upload our SLURM [submit script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_slurm_scripts/submit_array_simple_r_v2.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
+In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. We will upload our SLURM [submit script](../examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
 ```{bash}
 # navigate to project directory
-cd /scratch1/Project/Name/
+cd /scratch1/NMFS/project_name/
 # create new directory
 mkdir User.Name/
 # navigate into new directory
@@ -110,29 +110,29 @@ mkdir logs/
 
 3. Transfer files  
 
-Open a second PowerShell terminal in the `noaa-hpc-hera` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/array_lm/inputs/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/documentation/hera_doc.qmd). You will be prompted for your RSA passcode after each *scp* command.
+Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](hera_documentation.qmd). You will be prompted for your RSA passcode after each *scp* command.
 
 ```{bash}
-scp examples/hera/array_lm/inputs/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/Project/Name/User.Name
+scp examples/hera/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name
 ```
 ::: {.callout-important}
 
 ### Coding alert!
 In `submit_array_lm.sh` you will need to change the following before you upload and run the script:
 
-1. Line 5: change account name to the name of your project. If you are using the NOAA htc4sa project, it would be htc4sa.
+1. Line 5: change account `project_name` to the name of your project. If you are using the NOAA htc4sa project, it would be `htc4sa`.
 
-2. Line 9: `/scratch1/Project/Name/User.Name/logs/` to the location you created for `logs/` above.
+2. Line 9: `/scratch1/NMFS/project_name/User.Name/logs/` to the location you created for `logs/` above.
 
 3. Line 10: Change to **your** email address.
 
-4. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
+4. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
 
-5. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
+5. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
 :::
 
 ```{bash}
-scp examples/hera/array_lm/slurm_scripts/submit_array_lm.sh User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/Project/Name/User.Name/submit_scripts/
+scp examples/hera/array_lm/slurm_scripts/submit_array_lm.sh User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/submit_scripts/
 ```
 4. Un-tar files  
 
@@ -144,13 +144,13 @@ tar -xzf upload.array_lm.tar.gz
 
 Make sure files that will be read/executed have unix line endings:
 ```{bash}
-dos2unix array_lm/inputs/run_lm_hera_array.r array_lm/hera_job_directories.txt array_lm/slurm_scripts/submit_array_lm.sh
+dos2unix inputs/run_lm_hera_array.r inputs/hera_job_directories.txt slurm_scripts/submit_array_lm.sh
 ```
 6. Submit job  
 
-Now you are ready to submit the SLURM [submission script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_slurm_scripts/submit_array_simple_r_v2.sh) `submit_array_lm.sh`.
+Now you are ready to submit the SLURM [submission script](../examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) `submit_array_lm.sh`.
 ```{bash}
-sbatch submit_scripts/submit_array_lm.sh
+sbatch slurm_scripts/submit_array_lm.sh
 ```
 As part of this job script, it cleans the directories specified in `hera_job_directories.txt` of the input file `data.csv`. The output is a compressed *tar.gz* containing the output produced by `run_lm_hera_array.r` (`par.csv`) and `runtime.txt` which logs the job start, end, and runtime. You can check your job status using `squeue` but this job should complete in a few seconds.
 ```{bash}
@@ -168,7 +168,7 @@ dir.create(file.path(proj_dir, "examples", "hera", "array_lm", "output"), recurs
 ```
 Now you can use *scp* in *Terminal B* to download `download.array_lm.tar.gz` into `examples/hera/array_lm/output`
 ```{bash}
-scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/Project/Name/User.Name/download.array_lm.tar.gz examples/hera/array_lm/output/
+scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/download.array_lm.tar.gz examples/hera/array_lm/output/
 ```
 Move into `examples/hera/array_lm/output/` and untar downloaded results.
 ```{bash}
