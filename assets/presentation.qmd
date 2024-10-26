@@ -104,6 +104,59 @@ Better science
 :::
 :::
 
+# How?
+
+::: columns
+::: {.column width="45%"}
+
+::: {.fragment .fade-out fragment-index=8}
+
+[High-throughput computing (HTC)]{.blue}
+
+::: {.fragment .semi-fade-out fragment-index=3}
+::: {.fragment .fade-in fragment-index=1}
+- Set-up to handle running many jobs simultaneously
+:::
+::: {.fragment .fade-in fragment-index=2}
+- Ideal for running short, small, independent (embarrassingly parallel) jobs. 
+:::
+:::
+:::
+:::
+
+::: {.column width="45%"}
+::: {.fragment .fade-in fragment-index=8}
+
+[High-performance computing (HPC)]{.blue}
+
+::: {.fragment .semi-fade-out fragment-index=11}
+::: {.fragment .fade-in fragment-index=9}
+- Can handle HTC workflows (in theory)
+:::
+
+::: {.fragment .fade-in fragment-index=10}
+- Can also handle long running, large, multi-processor jobs (true parallel processing)
+:::
+:::
+:::
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=8}
+::: {.fragment .fade-in fragment-index=3}
+::: {.absolute left="45%" top="35%" style="font-size:0.75em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, 1); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+**2024 North Pacific shortfin mako shark assessment**:
+Used HTC resources to complete [~4 months]{.fragment .hl-cur-blue fragment-index=4} months of computations ([18,000]{.fragment .hl-cur-blue fragment-index=5} simulation-estimation model runs) in [~3 hours]{.fragment .hl-cur-blue fragment-index=6} ([1027x faster]{.fragment .hl-cur-blue fragment-index=7}) during working group meeting.
+:::
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=11}
+::: {.absolute left="0%" top="35%" right=55% style="font-size:0.75em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, 1); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+**Example**: [Fitting large spatiotemporal model in R](https://arxiv.org/abs/2304.09442) using TMB required [128 CPUs & 1TB RAM]{.blue}.
+:::
+:::
+
 <!-- 
 ## How can we do this? 
 <br/>  

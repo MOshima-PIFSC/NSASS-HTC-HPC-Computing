@@ -53,7 +53,7 @@ $presentation-h1-font-size: 2em;
   }
 }
 
-// emphasize current fragment; define colors
+// emphasize fragment; define colors
 $colors: (
   "blue": $theme-noaa-sky
 );
@@ -74,5 +74,23 @@ $colors: (
     //   color: $color;
     //   font-weight: bold;
     // }
+  }
+}
+// emphasize current fragment; define colors
+$colors: (
+  "blue": $theme-noaa-sky
+);
+// loop over defined colors
+@each $name, $color in $colors {
+  .reveal .slides section .fragment.hl-cur-#{$name} {
+    opacity: unset;
+    visibility: unset;
+
+    // do something to emphasize current fragment
+    &.current-fragment {
+      // background-color: lighten($color, 50%);
+      color: $color;
+      font-weight: bold;
+    }
   }
 }
