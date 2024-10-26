@@ -18,58 +18,235 @@ format:
     code-overflow: wrap
 ---
 
-## Example description & setup
-
 In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/script.r) that reads in the *.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_data/simple_r/simple_r_v2.txt) to specify the directory path names on Hera. ###TODO: update links
 
-The *hera array* example can be set-up either by cloning the repository `git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git`, or stepping through the following code:
-
-Define relative path and create directory if needed.
-
+The *hera/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera.git`, or stepping through the following code:
 
 ::: {.callout-important}
-# Hard-coding alert!
-Note you will have to change `proj_dir` to match your machine path and also may need to change `hera_project` from "NMFS/htc4sa/" if you are under a different HPC project. ### TODO: maybe we can remove this? 
+# Coding alert!
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **Project/Name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **Project/Name** with your specific project name. 
 :::
 
+## Setup data inputs and directories
+
+1. Define a relative path, we are starting from the root directory of this project.
+
 ```{r}
-proj_dir = getwd()
-#dir.create(proj_dir, recursive=TRUE) ##TODO: don't think we need this if we assume the project dir starts at top directory
-hera_project = "NMFS/htc4sa/Nicholas.Ducharme-barth/" ### TODO: change to remove username
+#| eval: true
+proj_dir = this.path::this.proj()
+hera_project = "Project/Name/User.Name/"
 ```
 
-Define directory names
+2. Define directory names for each run.
 ```{r}
+#| eval: true
 dir_name = paste0("rep_0", 0:9)
 ```
 
-Iterate across directories, create them, and then write a simple .csv file into them containing data to fit a linear model
+3. Iterate across directories, create them, and then write a simple *.csv* file into them containing data to fit a linear model.
 ```{r}
 for(i in seq_along(dir_name)){
     
-    if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/", dir_name[i], "/data.csv")))
+    if(!file.exists(file.path(proj_dir, "example", "hera", "array_lm", "inputs", dir_name[i], "data.csv")))
     {
         set.seed(i)
-        dir.create(paste0(proj_dir, "/examples/hera/array_simple/inputs/", dir_name[i]), recursive=TRUE)
+        dir.create(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", dir_name[i]), recursive=TRUE)
         tmp = data.frame(x=1:1000)
         tmp$y = (i + (0.5*i)*tmp$x) + rnorm(1000,0,i)
-        write.csv(tmp, file=paste0(proj_dir, "/examples/hera/array_simple/inputs/", dir_name[i], "/data.csv"))
+        write.csv(tmp, file = file.path(proj_dir, "examples", "hera", "array_lm", "inputs", dir_name[i], "data.csv"))
     }
 }
 ```
 
-Write a simple R script to read in the data, run a linear model, and report back the estimated parameters
+4. Write an R script to read in the data, run a linear model, and report back the estimated parameters.
 ```{r}
-if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/run_lm_hera_array.r"))){
-    script_lines = c("tmp=read.csv('data.csv')", "fit=lm(y~x,data=tmp)", "out = data.frame(par=unname(fit$coefficients))", "write.csv(out,file='par.csv')")
-    writeLines(script_lines, con=paste0(proj_dir, "/examples/hera/array_simple/inputs/run_lm_hera_array.r"))
+if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "run_lm_hera_array.r"))){
+    script_lines = c("tmp=read.csv('data.csv')", 
+    "fit=lm(y~x,data=tmp)", 
+    "out = data.frame(par=unname(fit$coefficients))", 
+    "write.csv(out,file='par.csv')"
+    )
+    writeLines(script_lines, con = file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "run_lm_hera_array.r"))
 }
 ```
 
-Write a text file containing the full path names for where the directories will be on Hera
+5. Write a text file containing the full path names for where the directories will be on Hera.
 ```{r}
-if(!file.exists(paste0(proj_dir, "/examples/hera/array_simple/inputs/hera_job_directories.txt"))){
+if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "hera_job_directories.txt"))){
     dir_lines = paste0("/scratch1/", hera_project, "array_hera/", dir_name, "/")
-    writeLines(dir_lines, con=paste0(proj_dir, "/examples/hera/array_simple/inputs/hera_job_directories.txt"))
+    writeLines(dir_lines, con = file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "hera_job_directories.txt"))
 }
+```
+
+6. Compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. This simplifies the number of steps needed for file transfers.
+```{r}
+shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "array_lm", "inputs"), ";tar -czf upload.array_lm.tar.gz array_lm "))
+```
+
+## Hera workflow
+
+1. Connect to Hera  
+
+Open a PowerShell terminal and [connect to Hera](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/documentation/hera_doc.qmd). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your password and RSA passcode.
+
+```{bash}
+ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22
+```
+
+2. Create directories  
+
+In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. We will upload our SLURM [submit script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_slurm_scripts/submit_array_simple_r_v2.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
+```{bash}
+# navigate to project directory
+cd /scratch1/Project/Name/
+# create new directory
+mkdir User.Name/
+# navigate into new directory
+cd User.Name/
+# create directory for SLURM scripts and logs
+mkdir submit_scripts/
+mkdir logs/
+```
+
+3. Transfer files  
+
+Open a second PowerShell terminal in the `noaa-hpc-hera` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/array_lm/inputs/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/documentation/hera_doc.qmd). You will be prompted for your RSA passcode after each *scp* command.
+
+```{bash}
+scp examples/hera/array_lm/inputs/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/Project/Name/User.Name
+```
+::: {.callout-important}
+
+### Coding alert!
+In `submit_array_lm.sh` you will need to change the following before you upload and run the script:
+
+1. Line 9: `/scratch1/Project/Name/User.Name/logs/` to the location you created for `logs/` above.
+
+2. Line 10: Change to **your** email address.
+
+3. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
+
+4. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `examples/hera/array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
+:::
+
+```{bash}
+scp examples/hera/array_lm/slurm_scripts/submit_array_lm.sh User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/Project/Name/User.Name/submit_scripts/
+```
+4. Un-tar files  
+
+Back in *Terminal A* untar the uploaded directory.
+```{bash}
+tar -xzf upload.array_lm.tar.gz
+```
+5. Prep files to be read on Hera  
+
+Make sure files that will be read/executed have unix line endings:
+```{bash}
+dos2unix array_lm/inputs/run_lm_hera_array.r array_lm/hera_job_directories.txt array_lm/slurm_scripts/submit_array_lm.sh
+```
+6. Submit job  
+
+Now you are ready to submit the SLURM [submission script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example_slurm_scripts/submit_array_simple_r_v2.sh) `submit_array_lm.sh`.
+```{bash}
+sbatch submit_scripts/submit_array_lm.sh
+```
+As part of this job script, it cleans the directories specified in `hera_job_directories.txt` of the input file `data.csv`. The output is a compressed *tar.gz* containing the output produced by `run_lm_hera_array.r` (`par.csv`) and `runtime.txt` which logs the job start, end, and runtime. You can check your job status using `squeue` but this job should complete in a few seconds.
+```{bash}
+squeue -u User.Name
+```
+7. Download results  
+
+Before sending back the results you need to compress `array_lm`.
+```{bash}
+tar -czf download.array_lm.tar.gz array_lm
+```
+Moving back to *Terminal B* you can download the results, but first you create a directory for it to be downloaded into. This can be done in R:
+```{r}
+dir.create(file.path(proj_dir, "examples", "hera", "array_lm", "output"), recursive=TRUE, showWarnings = FALSE)
+```
+Now you can use *scp* in *Terminal B* to download `download.array_lm.tar.gz` into `examples/hera/array_lm/output`
+```{bash}
+scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/Project/Name/User.Name/download.array_lm.tar.gz examples/hera/array_lm/output/
+```
+Move into `examples/hera/array_lm/output/` and untar downloaded results.
+```{bash}
+# navigate to output directory
+cd examples/hera/array_lm/output/
+# untar results
+tar -xzf download.array_lm.tar.gz
+```
+
+## Process the output
+
+In R, iterate through the sub-directories of the input and output data to extract the results of the linear model fits, and the model run time information. 
+```{r}
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show code"
+library(data.table)
+library(magrittr)
+
+input_data.list = as.list(rep(NA,10))
+output_data.list = as.list(rep(NA,10))
+runtime_data.list = as.list(rep(NA,10))
+
+##TODO: change paths here to match directory names
+for(i in seq_along(dir_name)){
+    # get input data
+        input_data.list[[i]] = fread(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", dir_name[i],"data.csv")) %>%
+            .[,.(x,y)] %>%
+            .[,model := factor(as.character(i),levels=as.character(1:10))] %>%
+            .[,.(model,x,y)]
+    
+    # untar results
+        shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "array_lm", "output", dir_name[i],"/"), ";tar -xzf output.tar.gz"))
+
+    # get output
+        output_data.list[[i]] = fread(file.path(proj_dir, "examples", "hera", "array_lm", "output", dir_name[i],"par.csv")) %>%
+            .[,.(par)] %>%
+            .[,model := factor(as.character(i),levels=as.character(1:10))] %>%
+            .[,.(model,par)] %>%
+            melt(.,id.vars="model") %>%
+            .[,variable:=c("intercept","slope")] %>%
+            dcast(.,model ~ variable) %>%
+            merge(.,input_data.list[[i]][,.(model,x)],by="model") %>%
+            .[,pred_y := intercept+slope*x] %>%
+            .[,.(model,x,pred_y)]
+    # get time
+        runtime_data.list[[i]] = readLines(file.path(proj_dir, "examples", "hera", "array_lm", "output", dir_name[i],"runtime.txt")) %>%
+            gsub(".*?([0-9]+).*", "\\1", .) %>%
+            as.numeric(.) %>%
+            as.data.table(.) %>%
+            setnames(.,".","time") %>%
+            .[,model := factor(as.character(i),levels=as.character(1:10))] %>%
+            melt(.,id.vars="model") %>%
+            .[,variable:=c("start","end","runtime")] %>%
+            dcast(.,model ~ variable) %>%
+            .[,.(model,start,end,runtime)]
+}
+
+input_data = rbindlist(input_data.list)
+output_data = rbindlist(output_data.list)
+runtime_data = rbindlist(runtime_data.list)
+```
+
+The jobs started execution at `r as.POSIXct(min(runtime_data$start)[1],origin="1970-01-01")` and all finished by `r as.POSIXct(max(runtime_data$end)[1],origin="1970-01-01")` for an elapsed runtime of `r (max(runtime_data$end)[1]-min(runtime_data$start)[1])` seconds and a total computation time of `r sum(runtime_data$runtime)` seconds. Use of Hera resulted in a job completing `r round(sum(runtime_data$runtime)/(max(runtime_data$end)[1]-min(runtime_data$start)[1]),digits=2)`$\times$ faster. @fig-example-fit shows the simulated data and estimated linear fits for each model run in the job-array.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| code-summary: "Show code"
+#| label: fig-example-fit
+#| fig-cap: "Linear model fits from the 10 models run."
+#| fig-alt: "Scatterplot of simulated x and y values as colored points, and colored lines depicting the linear model fits to the simulated data. The colors correspond to the different models that were fit in this example. The plot displays a positive, linear, and strong relationship x and y."
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-dpi: 300
+library(ggplot2)
+input_data %>%
+ggplot() +
+geom_point(aes(x=x,y=y,fill=model),alpha=0.05,size=5,shape=21) +
+geom_line(data=output_data,aes(x=x,y=pred_y,color=model),linewidth=2)
 ```
