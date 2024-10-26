@@ -201,7 +201,7 @@ for(i in seq_along(dir_name)){
             .[,.(model,x,y)]
     
     # untar results
-        shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "array_lm", "output", dir_name[i],"/"), ";tar -xzf output.tar.gz"))
+        system(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "array_lm", "output", dir_name[i],"/"), ";tar -xzf output.tar.gz"))
 
     # get output
         output_data.list[[i]] = fread(file.path(proj_dir, "examples", "hera", "array_lm", "output", dir_name[i],"par.csv")) %>%
