@@ -12,6 +12,9 @@ $theme-noaa-sky: #003087;
 $theme-noaa-sea: #0085CA;
 $theme-pale-sea: #C6E6F0;
 $theme-dove-gray: #A5AAAF;
+$theme-posit-orange: #ED5E2B;
+$theme-moby-blue: #1D63ED;
+$theme-black: #000000;
 
 // Get fonts: https://fonts.google.com/
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz@8..144&display=swap');
@@ -37,6 +40,11 @@ $presentation-h1-font-size: 2em;
   font-weight: bold;
 }
 
+.moby-blue {
+  color: #1D63ED;
+  font-weight: bold;
+}
+
 .hide-text {
     color: $theme-dove-gray;
   }
@@ -55,7 +63,10 @@ $presentation-h1-font-size: 2em;
 
 // emphasize fragment; define colors
 $colors: (
-  "blue": $theme-noaa-sky
+  "blue": $theme-noaa-sky,
+  "mb-blue": $theme-moby-blue,
+  "pc-orange": $theme-posit-orange,
+  "black": $theme-black
 );
 // loop over defined colors
 @each $name, $color in $colors {
@@ -78,7 +89,10 @@ $colors: (
 }
 // emphasize current fragment; define colors
 $colors: (
-  "blue": $theme-noaa-sky
+  "blue": $theme-noaa-sky,
+  "mb-blue": $theme-moby-blue,
+  "pc-orange": $theme-posit-orange,
+  "black": $theme-black
 );
 // loop over defined colors
 @each $name, $color in $colors {
