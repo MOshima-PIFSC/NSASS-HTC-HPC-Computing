@@ -31,60 +31,46 @@
     ]
   },
   {
-    "objectID": "assets/presentation.html#what",
-    "href": "assets/presentation.html#what",
+    "objectID": "assets/presentation.html#test-slide",
+    "href": "assets/presentation.html#test-slide",
     "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "What?",
-    "text": "What?\n\n\n\nResearch computing is the collection of computing, software, storage resources and services that allows for data analysis at scale.\n\n\n\n\nIn our particular case we are interested in leverging research computing to augment stock assessment worflows.\n\n\n\nRun more/bigger models in less time"
+    "section": "Test slide",
+    "text": "Test slide\n\nThis is a test link.\nThis is some emphasized text.\nHere is some text that is hidden and waiting for later."
   },
   {
-    "objectID": "assets/presentation.html#why",
-    "href": "assets/presentation.html#why",
+    "objectID": "assets/presentation.html#test-slide-1",
+    "href": "assets/presentation.html#test-slide-1",
     "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "Why?",
-    "text": "Why?\n\n\n\n\n\nImprove efficiency by running 10s - 1000s of models ‘simultaneously’.\n\n\n\n\n  \n\n2021 Southwest Pacific Ocean swordfish stock assessment\n\n\n\n\n9,300 model runs totalling ~46 months of computation time."
+    "section": "Test slide",
+    "text": "Test slide\n\nThis is a test link.\nThis is some emphasized text.\nHere is some text that is hidden and waiting for later. And now it appears!"
   },
   {
-    "objectID": "assets/presentation.html#why-1",
-    "href": "assets/presentation.html#why-1",
+    "objectID": "assets/presentation.html#what-do-we-want-to-do",
+    "href": "assets/presentation.html#what-do-we-want-to-do",
     "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "Why?",
-    "text": "Why?\n\n\n\nEfficiency\n\n\n\n\n\n\nKnowledge acquisition\n\n\n\n\n\n\nAutomation, transparency, reproducibility & portability\n\n\n\n\n\n\nMulti-model inference\n\n\n\n\n\n\nSoftware containers\n\n\n\n\n\n\n\n\nBetter science"
+    "section": "What do we want to do?",
+    "text": "What do we want to do?\n\n\nLeverage high-throughput or high-performance computing solutions to run stock assessment models\n\n\nRun more/bigger models in less time"
   },
   {
-    "objectID": "assets/presentation.html#how-1",
-    "href": "assets/presentation.html#how-1",
+    "objectID": "assets/presentation.html#how-can-we-do-this",
+    "href": "assets/presentation.html#how-can-we-do-this",
     "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "How?",
-    "text": "How?\n\n\nHigh-throughput computing (HTC)\n\nHigh-performance computing (HPC)\n\n \n\nPhoto credit: NOAA\n\n\nOpenScienceGrid (OSG): OSPool\n\n\nNOAA Hera"
+    "section": "How can we do this?",
+    "text": "How can we do this?\n\n\n\nHigh-throughput computing (HTC)\n\nHigh-performance computing (HPC)"
   },
   {
-    "objectID": "assets/presentation.html#how-2",
-    "href": "assets/presentation.html#how-2",
+    "objectID": "assets/presentation.html#why-use-htchpc-computing",
+    "href": "assets/presentation.html#why-use-htchpc-computing",
     "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "How?",
-    "text": "How?\n\n\nOpenScienceGrid (OSG)\n\n\n\nUses HTCondor distributed computing network (no shared file system between compute nodes) to implement HTC workflows\n\n\n\n\nFree to use for US based researchers affiliated with academic/government organization and using OSG for research/education efforts\n\n\n\n\nShould not be used to analyze protected data\n\n\n\n\nNOAA Hera\n\n\n\nUses Slurm to schedule HPC (or HTC) workflows\n\n\n\n\nShared file system between compute nodes\n\n\n\n\nNOAA resource so no restrictions on acceptable use/analyzing protected data if working on mission related tasks\n\n\n\n\nAllocation determines access\n\n\n\n\n\n\nBoth use software containers"
+    "section": "Why use HTC/HPC computing?",
+    "text": "Why use HTC/HPC computing?\n\n\nEfficiency\nReproducibility\nDocumentation\nTransparency\nAutomation ?"
   },
   {
-    "objectID": "assets/presentation.html#software-containers",
-    "href": "assets/presentation.html#software-containers",
+    "objectID": "assets/presentation.html#workflow",
+    "href": "assets/presentation.html#workflow",
     "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "Software containers",
-    "text": "Software containers\n\n\nMany may already be using containers such as GitHub Codespaces or Posit Workbench in existing cloud-based workflows\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplication: set up identical, custom software environments on OSG and Hera\n\n\n\n\nApplication: use to “version” analyses by “freezing” packages/libraries"
-  },
-  {
-    "objectID": "assets/presentation.html#software-containers-1",
-    "href": "assets/presentation.html#software-containers-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "Software containers",
-    "text": "Software containers\n\n\nApptainer\n\n\nSecure, portable and reproducible software container for Linux operating systems\n\n\n\n\nEasy to use\n\n\n\n\nDoesn’t require root privileges to build\n\n\n\n\nPlays nice with existing containers (e.g., Docker)"
-  },
-  {
-    "objectID": "assets/presentation.html#apptainer",
-    "href": "assets/presentation.html#apptainer",
-    "title": "Operationalizing available research computing resources for stock assessment",
-    "section": "Apptainer",
-    "text": "Apptainer\nLet’s look at an example (linux-r4ss.def):\n\nBootstrap: docker\nFrom: ubuntu:20.04\n\n%post\n    TZ=Etc/UTC && \\\n    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \\\n    echo $TZ &gt; /etc/timezone\n    apt update -y\n    apt install -y \\\n        tzdata \\\n        curl \\\n        dos2unix\n\n    apt-get update -y\n    apt-get install -y \\\n            build-essential \\\n            cmake \\\n            g++ \\\n            libssl-dev \\\n            libssh2-1-dev \\\n            libcurl4-openssl-dev \\\n            libfontconfig1-dev \\\n            libxml2-dev \\\n            libgit2-dev \\\n            wget \\\n            tar \\\n            coreutils \\\n            gzip \\\n            findutils \\\n            sed \\\n            gdebi-core \\\n            locales \\\n            nano\n    \n    locale-gen en_US.UTF-8\n\n    export R_VERSION=4.3.1\n    curl -O https://cdn.rstudio.com/r/ubuntu-2004/pkgs/r-${R_VERSION}_1_amd64.deb\n    gdebi -n r-${R_VERSION}_1_amd64.deb\n\n    ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R\n    ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript\n\n    R -e \"install.packages('remotes', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"install.packages('data.table', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"install.packages('magrittr', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"install.packages('mvtnorm', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"remotes::install_github('r4ss/r4ss')\"\n    R -e \"remotes::install_github('PIFSCstockassessments/ss3diags')\"\n\n    NOW=`date`\n    echo 'export build_date=$NOW' &gt;&gt; $SINGULARITY_ENVIRONMENT\n\n    mkdir -p /ss_exe\n    curl -L -o /ss_exe/ss_linux https://github.com/nmfs-stock-synthesis/stock-synthesis/releases/download/v3.30.21/ss_linux\n    chmod 755 /ss_exe/ss_linux\n\n%environment\n    export PATH=/ss_exe:$PATH\n    \n%labels\n    Author nicholas.ducharme-barth@noaa.gov\n    Version v0.0.3\n\n%help\n    This is a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.21), R (version 4.3.1) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm.\n\n\n\n\n\n\nNational Stock Assessment Science Seminar"
+    "section": "Workflow",
+    "text": "Workflow\n\n\ncreate container\ncreate scripts\ntransfer files\nsubmit jobs\ntransfer files back to local machine\n\n\n\n\n\n\nNational Stock Assessment Science Seminar"
   },
   {
     "objectID": "assets/hera_documentation.html",
