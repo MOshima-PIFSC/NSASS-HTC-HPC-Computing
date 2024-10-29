@@ -8,7 +8,7 @@ Rendering and publishing of the repo [webpage](https://moshima-pifsc.github.io/N
 ```
 quarto render
 ```
-from a Terminal window opened in the project directory. The locally rendered webpage will be located in the `_site/` directory and can be accessed by opening `_site/index.html` in the browser of your choice. Note that the [embedio](https://quarto.thecoatlessprofessor.com/embedio/) Quarto extension is used to embed the presentation slides into the webpage. This extension is distributed with the repository however if the webpage does not render properly this extension may need to be installed.
+from a Terminal window opened in the project directory. The locally rendered webpage will be located in the `_site/` directory and can be accessed by opening `_site/index.html` in the browser of your choice. Note that the [embedio](https://quarto.thecoatlessprofessor.com/embedio/) Quarto extension is used to embed the presentation slides into the webpage and the [codewindow](https://github.com/EmilHvitfeldt/quarto-revealjs-codewindow) Quarto extension is used to add styled codeblocks into the presentation slides. These extensions are distributed with the repository however if the webpage does not render properly these extensions may need to be installed.
 
 ## Github Disclaimer
 
