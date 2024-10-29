@@ -7,6 +7,8 @@ format:
   logo: static/noaa-fisheries-logo.png
   css: customizations/logo.css
   slide-number: true
+  revealjs-plugins:
+  - codewindow
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
 embed-resources: true
@@ -304,9 +306,10 @@ Many may already be using containers such as [GitHub Codespaces]{.fragment .hl-c
 
 ## Apptainer
 
-Let's look at an example (`linux-r4ss.def`):
+Let's look at an example (`linux-r4ss-v4.def`):
 
 ::: {.fragment .fade-in}
+
 ```{.dockerfile code-line-numbers="|1-2|37-39|44-47|48-49|54-56|59|66"}
 Bootstrap: docker
 From: ubuntu:20.04
@@ -344,7 +347,7 @@ From: ubuntu:20.04
     
     locale-gen en_US.UTF-8
 
-    export R_VERSION=4.3.1
+    export R_VERSION=4.4.0
     curl -O https://cdn.rstudio.com/r/ubuntu-2004/pkgs/r-${R_VERSION}_1_amd64.deb
     gdebi -n r-${R_VERSION}_1_amd64.deb
 
@@ -362,18 +365,31 @@ From: ubuntu:20.04
     echo 'export build_date=$NOW' >> $SINGULARITY_ENVIRONMENT
 
     mkdir -p /ss_exe
-    curl -L -o /ss_exe/ss_linux https://github.com/nmfs-stock-synthesis/stock-synthesis/releases/download/v3.30.21/ss_linux
-    chmod 755 /ss_exe/ss_linux
+    curl -L -o /ss_exe/ss3_linux https://github.com/nmfs-ost/ss3-source-code/releases/download/v3.30.22.1/ss3_linux
+    chmod 755 /ss_exe/ss3_linux
 
 %environment
     export PATH=/ss_exe:$PATH
     
 %labels
     Author nicholas.ducharme-barth@noaa.gov
-    Version v0.0.3
+    Version v0.0.4
 
 %help
-    This is a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.21), R (version 4.3.1) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm.
+    This is a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm.
+```
+:::
+
+## Apptainer
+
+Let's look at an example (`linux-r4ss-v4.def`):
+
+Build on Linux system with Apptainer installed.
+
+::: {.codewindow .terminal .absolute top="40%"}
+
+```{.bash}
+apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
 ```
 :::
 
