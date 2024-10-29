@@ -4,42 +4,398 @@ format:
  revealjs:
   theme: [default, customizations/presentation-custom.scss]
   footer: "National Stock Assessment Science Seminar"
-  logo: static/NOAA_FISHERIES_H.png
+  logo: static/noaa-fisheries-logo.png
   css: customizations/logo.css
+  slide-number: true
+  revealjs-plugins:
+  - codewindow
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
 embed-resources: true
 ---
 
-## Test slide 
-<br/>
+## What?
 
-This is a test [link](https://quarto.org/docs/presentations/).
+</br>
 
-This is some [emphasized]{.blue} text.
-
-[Here is some text that is hidden and waiting for later.]{.hide-text}
-
-## Test slide 
-<br/>
-
-[This is a test link.]{.hide-text}
-
-[This is some emphasized text.]{.hide-text}
-
-Here is some text that is hidden and waiting for later. And now it appears!
-
-## What do we want to do?  
-<br/>
-
-::: {.fragment .strike}
-Leverage high-throughput or high-performance computing solutions to run stock assessment models
+::: {.fragment .fade-in fragment-index=1}
+::: {.fragment .semi-fade-out fragment-index=2}
+Research computing is the collection of computing, software, storage resources and services that allows for data analysis at scale.
 :::
+:::
+
+::: {.fragment .fade-in fragment-index=2}
+::: {.fragment .strike fragment-index=3}
+In our particular case we are interested in leverging research computing to augment stock assessment worflows.
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+[Run more/bigger models in less time]{.blue}
+:::
+
+## Why?
+
+</br>
+
+::: {.fragment .fade-in fragment-index=1}
+::: columns
+::: {.column width="40%"}
+::: {.fragment .semi-fade-out fragment-index=3}
+Improve efficiency by running 10s - 1000s of models ['simultaneously']{.blue}.
+:::
+:::
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=2}
+![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="border: 1px solid #323C46; max-height: unset; max-width: unset;"}
+![](static/wcpfc-logo.png){.absolute top="6%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
+![](static/spc-logo.png){.absolute top="15%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
+
+:::{.absolute left="48%" top="10%" style="font-size:0.85em;"}
+2021 Southwest Pacific Ocean swordfish stock assessment
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+::: {.absolute left="55%" top="35%" style="font-size:0.85em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, .85); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+[9,300]{.blue} model runs totalling [~46 months]{.blue} of computation time. 
+:::
+:::
+
+## Why?
+
+::: {.fragment .fade-in fragment-index=1}
+::: {.fragment .semi-fade-out fragment-index=2}
+- Efficiency
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=2}
+::: {.fragment .semi-fade-out fragment-index=3}
+- Knowledge acquisition
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+::: {.fragment .semi-fade-out fragment-index=7}
+- Automation, transparency, [reproducibility & portability]{.fragment .hl-blue fragment-index=4}
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=7}
+::: {.fragment .semi-fade-out fragment-index=8}
+- Multi-model inference
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=7}
+::: {.fragment .fade-in fragment-index=5}
+::: {.absolute left="10%" bottom="15%" style="font-color: rgba(0, 23, 67,1); font-size:1.25em; padding: 0.5em 1em; background-color: rgba(0,133,202, .15); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+Software containers 
+:::
+:::
+::: {.fragment .fade-in fragment-index=6}
+![](static/apptainer-logo.png){.absolute bottom="15%" right="10%" width="15%" style="max-height: unset; max-width: unset;"}
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=8}
+::: {.absolute right="25%" bottom="40%" style="font-color: rgba(0, 23, 67,1); font-size:1.75em; padding: 0.5em 1em; background-color: rgba(94, 182, 217,0.95); backdrop-filter: blur(15px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+Better science
+:::
+:::
+
+# How?
+
+::: columns
+::: {.column width="45%"}
+
+::: {.fragment .fade-out fragment-index=8}
+
+[High-throughput computing (HTC)]{.blue}
+
+::: {.fragment .semi-fade-out fragment-index=3}
+::: {.fragment .fade-in fragment-index=1}
+- Set-up to handle running many jobs simultaneously
+:::
+::: {.fragment .fade-in fragment-index=2}
+- Ideal for running short, small, independent (embarrassingly parallel) jobs. 
+:::
+:::
+:::
+:::
+
+::: {.column width="45%"}
+::: {.fragment .fade-in fragment-index=8}
+
+[High-performance computing (HPC)]{.blue}
+
+::: {.fragment .semi-fade-out fragment-index=11}
+::: {.fragment .fade-in fragment-index=9}
+- Can handle HTC workflows (in theory)
+:::
+
+::: {.fragment .fade-in fragment-index=10}
+- Can also handle long running, large, multi-processor jobs (true parallel processing)
+:::
+:::
+:::
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=8}
+::: {.fragment .fade-in fragment-index=3}
+::: {.absolute left="45%" top="35%" style="font-size:0.75em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, 1); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+**2024 North Pacific shortfin mako shark assessment**:
+Used HTC resources to complete [~4 months]{.fragment .hl-cur-blue fragment-index=4} months of computations ([18,000]{.fragment .hl-cur-blue fragment-index=5} simulation-estimation model runs) in [~3 hours]{.fragment .hl-cur-blue fragment-index=6} ([1027x faster]{.fragment .hl-cur-blue fragment-index=7}) during working group meeting.
+:::
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=11}
+::: {.absolute left="0%" top="35%" right=55% style="font-size:0.75em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, 1); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+**Example**: [Fitting large spatiotemporal model in R](https://arxiv.org/abs/2304.09442){preview-link="true"} using TMB required [128 CPUs & 1TB RAM]{.blue}.
+:::
+:::
+
+## How?
+
+::: columns
+::: {.column width="45%"}
+[High-throughput computing (HTC)]{.blue}
+:::
+::: {.column width="45%"}
+[High-performance computing (HPC)]{.blue}
+:::
+:::
+
+![](static/osg-logo.png){.absolute top="35%" left="0%" height="25%" style="max-height: unset; max-width: unset;"}
+![](static/noaa-hera.jpg){.absolute top="35%" right="15%" height="30%" style="border: 1px solid #323C46; max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+
+::: {.absolute right="10%" bottom="32%" left=45% style="font-size:0.4em;"}
+[Photo credit: NOAA]{.hide-text}
+:::
+
+::: {.absolute left="0%" bottom="10%" right=55%}
+[OpenScienceGrid](https://osg-htc.org/){preview-link="true"} (OSG): OSPool
+:::
+
+::: {.absolute right="0%" bottom="15%" left=55%}
+[NOAA Hera](https://docs.rdhpcs.noaa.gov/){preview-link="true"}
+:::
+
+## How? {.smaller}
+
+::: columns
+::: {.column width="45%"}
+[OpenScienceGrid (OSG)]{.blue}
+
+::: {.fragment .semi-fade-out fragment-index=5}
+::: {.fragment .fade-in fragment-index=1}
+- Uses [HTCondor](https://htcondor.org/){preview-link="true"} distributed computing network [(no shared file system between compute nodes)]{.fragment .hl-blue fragment-index=2} to implement HTC workflows
+:::
+
+
+::: {.fragment .fade-in fragment-index=3}
+- [Free to use]{.blue} for US based researchers affiliated with academic/government organization and using OSG for research/education efforts
+:::
+
+::: {.fragment .fade-in fragment-index=4}
+- [Should not be used to analyze protected data]{.blue}
+:::
+:::
+
+:::
+::: {.column width="45%"}
+[NOAA Hera]{.blue}
+
+::: {.fragment .semi-fade-out fragment-index=12}
+::: {.fragment .fade-in fragment-index=6}
+- Uses [Slurm](https://slurm.schedmd.com/documentation.html){preview-link="true"} to schedule HPC [(or HTC)]{.fragment .hl-blue fragment-index=7} workflows
+:::
+
+
+::: {.fragment .fade-in fragment-index=8}
+- [Shared file system between compute nodes]{.blue}
+:::
+
+::: {.fragment .fade-in fragment-index=9}
+- NOAA resource so [no restrictions]{.fragment .hl-blue fragment-index=10} on acceptable use/analyzing protected data if working on mission related tasks
+:::
+
+::: {.fragment .fade-in fragment-index=11}
+- [Allocation determines access]{.blue}
+:::
+:::
+
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=12}
+::: {.absolute left="10%" right="25%" bottom="27.5%" top="55%" style="font-size:1em; padding: 0.5em 1em; background-color: rgba(255, 255, 255, 1); backdrop-filter: blur(5px); box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+Both use software containers 
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=12}
+![](static/apptainer-logo.png){.absolute bottom="27.5%" right="30%" width="10%" style="max-height: unset; max-width: unset;"}
+:::
+
+## Software containers
+
+<br/>
+
+::: {.fragment .semi-fade-out fragment-index=3}
+Many may already be using containers such as [GitHub Codespaces]{.fragment .hl-cur-black fragment-index=1} or [Posit Workbench]{.fragment .hl-cur-pc-orange fragment-index=2} in existing cloud-based workflows
+:::
+
+::: {.fragment .fade-out fragment-index=2}
+::: {.fragment .fade-in fragment-index=1}
+![](static/github-logo.png){.absolute bottom="27.5%" left="40%" width="15%" style="max-height: unset; max-width: unset;"}
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=3}
+::: {.fragment .fade-in fragment-index=2}
+![](static/posit-logo.png){.absolute bottom="27.5%" left="40%" width="15%" style="max-height: unset; max-width: unset;"}
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+- [Application:]{.blue} set up identical, custom software environments on OSG and Hera
+:::
+
+::: {.fragment .fade-in fragment-index=4}
+- [Application:]{.blue} use to "version" analyses by "freezing" packages/libraries
+:::
+
+## Software containers{.smaller}
+
+::: columns
+::: {.column width="55%"}
+[Apptainer](https://apptainer.org/){preview-link="true"}
+
+
+::: {.fragment .fade-in fragment-index=1}
+- Secure, portable and reproducible software container for Linux operating systems
+:::
+
+
+::: {.fragment .fade-in fragment-index=2}
+- Easy to use
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+- Doesn't require *root* privileges to build
+:::
+
+::: {.fragment .fade-in fragment-index=4}
+- Plays nice with existing containers (e.g., [Docker]{.fragment .hl-cur-mb-blue fragment-index=5})
+:::
+
+:::
+:::
+
+![](static/apptainer-logo.png){.absolute top="0%" right="0%" width="15%" style="max-height: unset; max-width: unset;"}
+
+::: {.fragment .fade-in fragment-index=5}
+![](static/docker-logo-blue.png){.absolute bottom="27.5%" right="0%" width="20%" style="max-height: unset; max-width: unset;"}
+:::
+
+## Apptainer
+
+Let's look at an example (`linux-r4ss-v4.def`):
 
 ::: {.fragment .fade-in}
-Run more/bigger models in less time
+
+```{.dockerfile code-line-numbers="|1-2|37-39|44-47|48-49|54-56|59|66"}
+Bootstrap: docker
+From: ubuntu:20.04
+
+%post
+    TZ=Etc/UTC && \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone
+    apt update -y
+    apt install -y \
+        tzdata \
+        curl \
+        dos2unix
+
+    apt-get update -y
+    apt-get install -y \
+            build-essential \
+            cmake \
+            g++ \
+            libssl-dev \
+            libssh2-1-dev \
+            libcurl4-openssl-dev \
+            libfontconfig1-dev \
+            libxml2-dev \
+            libgit2-dev \
+            wget \
+            tar \
+            coreutils \
+            gzip \
+            findutils \
+            sed \
+            gdebi-core \
+            locales \
+            nano
+    
+    locale-gen en_US.UTF-8
+
+    export R_VERSION=4.4.0
+    curl -O https://cdn.rstudio.com/r/ubuntu-2004/pkgs/r-${R_VERSION}_1_amd64.deb
+    gdebi -n r-${R_VERSION}_1_amd64.deb
+
+    ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R
+    ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
+
+    R -e "install.packages('remotes', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+    R -e "install.packages('data.table', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+    R -e "install.packages('magrittr', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+    R -e "install.packages('mvtnorm', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+    R -e "remotes::install_github('r4ss/r4ss')"
+    R -e "remotes::install_github('PIFSCstockassessments/ss3diags')"
+
+    NOW=`date`
+    echo 'export build_date=$NOW' >> $SINGULARITY_ENVIRONMENT
+
+    mkdir -p /ss_exe
+    curl -L -o /ss_exe/ss3_linux https://github.com/nmfs-ost/ss3-source-code/releases/download/v3.30.22.1/ss3_linux
+    chmod 755 /ss_exe/ss3_linux
+
+%environment
+    export PATH=/ss_exe:$PATH
+    
+%labels
+    Author nicholas.ducharme-barth@noaa.gov
+    Version v0.0.4
+
+%help
+    This is a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm.
+```
 :::
 
+## Apptainer
+
+Let's look at an example (`linux-r4ss-v4.def`):
+
+Build on Linux system with Apptainer installed.
+
+::: {.codewindow .terminal .absolute top="40%"}
+
+```{.bash}
+apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
+```
+:::
+
+
+
+<!-- 
 ## How can we do this? 
 <br/>  
 
@@ -74,4 +430,4 @@ Run more/bigger models in less time
 3.  transfer files
 4.  submit jobs
 5.  transfer files back to local machine
-:::
+::: -->
