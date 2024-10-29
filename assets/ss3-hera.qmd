@@ -23,8 +23,9 @@ format:
 Similar to the [array_lm](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/array_hera.html) example, this example also sets up running an array job on Hera. As before, we will use a `*.txt` to indicate which directories we want to run jobs in as a part of our array.
 
 There are a few main differences that serve to illustrate useful modifications to the workflow:
-    * in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis) (SS3) on all models in the SS testing suite;
-    * we will set up the job array to run using the *gnu* parallel utility in order to more effectively implement an HTC type workflow in an HPC system;
-    * we will run our jobs within a software container;
-    * lastly, we will define *variables* to be passed between job submission and job execution scripts to ensure that the correct output is produced.
+
+* in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis) (SS3) on all models in the SS testing suite;
+* we will set up the job array to run using the *gnu* parallel utility in order to more effectively implement an HTC type workflow in an HPC system;
+* we will run our jobs within a software container;
+* lastly, we will define *variables* to be passed between job submission and job execution scripts to ensure that the correct output is produced.
 
