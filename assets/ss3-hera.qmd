@@ -100,6 +100,7 @@ Let us define that text file using R.
 
 ```{r}
 #| eval: true
+#| code-fold: true
 proj_dir = this.path::this.proj()
 hera_project = "NMFS/project_name/User.Name/"
 ```
@@ -107,6 +108,7 @@ hera_project = "NMFS/project_name/User.Name/"
 2. Write a text file containing the full path names for where the directories will be on Hera.
 ```{r}
 #| eval: true
+#| code-fold: true
 test_models=list.dirs(paste0(proj_dir,"/examples/hera/ss3/inputs/models/"),recursive=FALSE,full.names=FALSE)
 retro_peels=0:4
 
@@ -123,5 +125,6 @@ writeLines(hera_dir_lines, con=paste0(proj_dir, "/examples/hera/ss3/inputs/hera_
 3. Compress the `ss3/inputs/` directory as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
 ```{r}
 #| eval: false
+#| code-fold: true
 shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ "))
 ```
