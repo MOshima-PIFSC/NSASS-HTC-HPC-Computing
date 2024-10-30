@@ -128,3 +128,42 @@ writeLines(hera_dir_lines, con=paste0(proj_dir, "/examples/hera/ss3/inputs/hera_
 #| code-fold: true
 shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ "))
 ```
+## Develop job scripts
+
+During benchmark testing, issues were identified when trying to apply an HTC workflow to Hera, and a seperate workflow was developed which may be more Hera/Slurm appropriate. This takes advantage of the *gnu* parallel utility to run batches of jobs on distinct compute nodes. In this particular example 90 models will be run across 3 nodes each using 30 CPUs. This reserves the entire node for computations thus reducing the competition for resources for any one job[^3]. In order to execute this workflow, instructions are coordinated using four nested scripts: 
+
+[^3]: While this workflow leads to better scheduling and makes HTC applications possible on Hera it may not be computationally efficient if users do not make use of all CPUs on a given node. For example, given that an entire compute node is requested, the user's allocation on Hera will be *billed* for use of all CPUs on that node even if not all are in use.
+
+* `parallel-submit.sh`: This script prepares files for slurm job execution, makes the directory structure specified by `hera_job_directories.txt`, and submits the parallel jobs.
+* `parallel-job-exec.sh`: This is a script that defines variables to be passed to the software container and a second bash script `wrapper-r.sh`.
+* `wrapper-r.sh`: This wrapper script controls file input/output to and from the R script `ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
+* `ss3-example-calcs.r`: This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
+
+## Hera workflow
+
+1. Connect to Hera  
+
+Open a PowerShell terminal and [connect to Hera](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your [RSA passcode](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html#connecting-to-hera-via-ssh), which is your password followed by the 8-digit code from the authenticator app.
+
+```{bash}
+ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22
+```
+
+2. Create directories  
+
+In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. 
+```{bash}
+# navigate to project directory
+cd /scratch1/NMFS/project_name/
+# create new directory
+mkdir User.Name/
+```
+
+Jobs on Hera are scheduled using [SLURM](https://slurm.schedmd.com/documentation.html). We will upload our SLURM [submit script](../examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
+```{bash}
+# navigate into new directory
+cd User.Name/
+# create directory for SLURM scripts and logs
+mkdir submit_scripts/
+mkdir logs/
+```
