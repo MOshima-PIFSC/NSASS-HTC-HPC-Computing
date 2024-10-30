@@ -90,4 +90,38 @@ scp User.Name@apXX.uc.osg-htc.org:/home/User.Name/singularity/linux_r4ss/linux-r
 
 ## Setup data inputs and directories
 
-Given that our example is to run a 5-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main) Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/hera/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location. 
+Given that our example is to run a 4-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main) Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/hera/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location.
+
+For the sake of example the job array will be set-up to run each retrospective peel (e.g., -0 years, -1 year, ... , -4 years of data) as individual jobs in the job array. This is more efficient in a true HTC environment such as OSG however on Hera it could make more sense to bundle the initial model run and subsequent retrospective peels as a single job. We will store the results of each retrospective peel in its own directory. The directories on Hera will be listed in a text file, and we will use this text file to launch jobs on Hera (as a part of the job array) in each of the named directories.
+
+Let us define that text file using R.
+
+1. Define a relative path, we are starting from the root directory of this project.
+
+```{r}
+#| eval: true
+proj_dir = this.path::this.proj()
+hera_project = "NMFS/project_name/User.Name/"
+```
+
+2. Write a text file containing the full path names for where the directories will be on Hera.
+```{r}
+#| eval: true
+test_models=list.dirs(paste0(proj_dir,"/examples/hera/ss3/inputs/models/"),recursive=FALSE,full.names=FALSE)
+retro_peels=0:4
+
+# define scenarios
+scenario_df = expand.grid(model=test_models,peel=retro_peels)
+scenario_df$run_id = 1:nrow(scenario_df)
+scenario_df = scenario_df[,c(3,1,2)]
+scenario_df$run_id = ifelse(scenario_df$run_id<10,paste0(0,scenario_df$run_id),as.character(scenario_df$run_id))
+
+# write text file
+hera_dir_lines = paste0("/scratch1/", hera_project, "examples/ss3/", apply(scenario_df,1,paste0,collapse="_"), "/")
+writeLines(hera_dir_lines, con=paste0(proj_dir, "/examples/hera/ss3/inputs/hera_job_directories.txt"))
+```
+3. Compress the `ss3/inputs/` directory as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
+```{r}
+#| eval: false
+shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ "))
+```
