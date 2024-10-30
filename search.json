@@ -31,6 +31,50 @@
     ]
   },
   {
+    "objectID": "assets/hera_documentation.html",
+    "href": "assets/hera_documentation.html",
+    "title": "Working with NOAA HPC Hera",
+    "section": "",
+    "text": "Coding alert!\n\n\n\nIn the following code you will need to, where necessary:\n\nReplace User.Name with your OSG user name.\nReplace osg.project_name your OSG project name.\n\nYou will also need to make these edits in each of osg_dir.txt and osg_array_lm.sub.",
+    "crumbs": [
+      "Documentation",
+      "Working with NOAA HPC Hera"
+    ]
+  },
+  {
+    "objectID": "assets/hera_documentation.html#hera",
+    "href": "assets/hera_documentation.html#hera",
+    "title": "Working with NOAA HPC Hera",
+    "section": "",
+    "text": "Coding alert!\n\n\n\nIn the following code you will need to, where necessary:\n\nReplace User.Name with your OSG user name.\nReplace osg.project_name your OSG project name.\n\nYou will also need to make these edits in each of osg_dir.txt and osg_array_lm.sub.",
+    "crumbs": [
+      "Documentation",
+      "Working with NOAA HPC Hera"
+    ]
+  },
+  {
+    "objectID": "assets/hera_documentation.html#connecting-to-hera-via-ssh",
+    "href": "assets/hera_documentation.html#connecting-to-hera-via-ssh",
+    "title": "Working with NOAA HPC Hera",
+    "section": "2 Connecting to Hera via ssh",
+    "text": "2 Connecting to Hera via ssh\nOpen a terminal window (.e.g, command prompt or PowerShell), then open an ssh tunnel to Hera by using the following command:\n\nssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov -p22\n\nReplace User.Name with your NOAA HPC account name, and bastion with either boulder or princeton depending on which ‘bastion’ you wish to log-in through. Note that the flag -p22 specifies opening port 22 and is optional. When prompted, put in your password followed by the RSA authentication code:\n\nXXXXXXXXRSACODE\n\nIf you see the following then you have connected successfully:\n\n________________________________________________________\n|                                                        |\n|                                                        |\n|  Welcome to the Hera High Performance Computing system |\n|                                                        |\n|        This system is located in Fairmont, WV          |\n|                                                        |\n|          Please Submit Helpdesk Requests to:           |\n|               rdhpcs.hera.help@noaa.gov                |\n|                                                        |\n|________________________________________________________|\n\nNote that you will also see the following terminal output upon connecting:\n\nLocal port XXXXX forwarded to remote host.\nRemote port YYYYY forwarded to local host.\n\nWhere XXXXX and YYYYY are your 4-5 digit port forwarding numbers. Make note of what your local port number (XXXXX) is since this will be used for scp file transfer using an ssh tunnel.",
+    "crumbs": [
+      "Documentation",
+      "Working with NOAA HPC Hera"
+    ]
+  },
+  {
+    "objectID": "assets/hera_documentation.html#transferring-files-tofrom-hera",
+    "href": "assets/hera_documentation.html#transferring-files-tofrom-hera",
+    "title": "Working with NOAA HPC Hera",
+    "section": "3 Transferring files to/from Hera",
+    "text": "3 Transferring files to/from Hera\n\n3.1 via scp using data transfer node (DTN)\nInformation in this section is largely based on this wiki(CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the scratch directory. However, this is ok since it is recommended that input/output data files are stored in the scratch directory. Using a DTN is faster than using the ssh tunnel.\n\n\n\n\n\n\nNote\n\n\n\nThe scratch1/NMFS/project_name/ directory is a shared space (shared access and shared disk space) for all users of a project. Rather than dumping files into the root project directory (e.g., project_name/) it is better to place them in your own sub-directory. Since this sub-directory structure does not already exist you will need to log into Hera and create it:\n\nmkdir scratch1/NMFS/project_name/User.Name/\n\nThis will avoid over-writing other users’ work.\n\n\nFile transfer takes place via scp and specifying the source path and destination path as shown::\n\n## format is scp &lt;source&gt; &lt;destination&gt; \nscp /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/\n\nand replace User.Name and project_name with your HPC account name and project.\nIf trying to transfer from a machine not within the NOAA domain (or on the VPN) you can use scp with an untrusted DTN:\n\nscp /path/to/local/file User.Name@udtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/data_untrusted/User.Name/\n\nNote that dtn-hera was changed to udtn-hera. As before replace User.Name with your HPC account name. Since files can not stay in the data_untrusted directory we will need to log in to Hera and move it to the correct project directory on scratch. Once logged in, moving the files can be done with rsync (CAC login required), and then they can be deleted from data_untrusted by:\n\nrsync -axv /scratch1/data_untrusted/User.Name/file /scratch1/NMFS/project_name/User.Name/\nrm /scratch1/data_untrusted/User.Name/file\n\nBe sure to replace User.Name and project_name with your HPC account name and project.\nFiles can be downloaded using scp from either the trusted (dtn) or untrusted (udtn) DTN:\n\nscp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/file /path/to/local/file \n\n\n\n3.2 via scp using an ssh tunnel\nInformation in this section is largely based on this wiki (CAC login required). File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (we suggest using PowerShell):\n\nIn the first terminal window, open an ssh connection to Hera with port forwarding:\n\n\nssh -m hmac-sha2-256-etm@openssh.com -LXXXXX:localhost:XXXXX User.Name@hera-rsa.bastion.rdhpcs.noaa.gov\n\nReplace XXXXX with your local port number. As before replace User.Name and bastion.\n\nIn the second terminal window you can check to see if the tunnel was properly created:\n\n\nssh -p XXXXX User.Name@localhost\n\nif you get prompted for your password then success! Press CONTROL+C to ignore this prompt. Staying within this 2nd terminal window use scp to transfer your file:\n\nscp -P XXXXX /path/to/local/file User.Name@localhost:/home/User.Name/\n\nThis will copy your file from your local machine into your home directory on Hera. Simply append additional directory structure to /home/User.Name/ to copy it into a sub-directory that you have created on Hera (e.g., /home/User.Name/sub/dir/). To transfer files into your scratch directory, specify the proper destination path (e.g., /scratch1/NMFS/project_name/User.Name/ where project_name is your HPC account project).\nTo download a file from Hera using scp and the ssh tunnel use the following:\n\nscp -P XXXXX User.Name@localhost:/home/User.Name/file_name /path/to/local/file",
+    "crumbs": [
+      "Documentation",
+      "Working with NOAA HPC Hera"
+    ]
+  },
+  {
     "objectID": "assets/presentation.html#what",
     "href": "assets/presentation.html#what",
     "title": "Operationalizing available research computing resources for stock assessment",
@@ -94,36 +138,58 @@
     "text": "Apptainer\nLet’s look at an example (linux-r4ss-v4.def):\nBuild on Linux system with Apptainer installed.\n\napptainer build linux-r4ss-v4.sif linux-r4ss-v4.def\n\n\n\n\n\n\nNational Stock Assessment Science Seminar"
   },
   {
-    "objectID": "assets/hera_documentation.html",
-    "href": "assets/hera_documentation.html",
-    "title": "Working with NOAA HPC Hera",
+    "objectID": "assets/osg_documentation.html",
+    "href": "assets/osg_documentation.html",
+    "title": "Working with Open Science Grid",
     "section": "",
-    "text": "Open a terminal window (.e.g, command prompt or PowerShell), then open an ssh tunnel to Hera by using the following command:\n\nssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov -p22\n\nReplace User.Name with your NOAA HPC account name, and bastion with either boulder or princeton depending on which ‘bastion’ you wish to log-in through. Note that the flag -p22 specifies opening port 22 and is optional. When prompted, put in your password followed by the RSA authentication code:\n\nXXXXXXXXRSACODE\n\nIf you see the following then you have connected successfully:\n\n________________________________________________________\n|                                                        |\n|                                                        |\n|  Welcome to the Hera High Performance Computing system |\n|                                                        |\n|        This system is located in Fairmont, WV          |\n|                                                        |\n|          Please Submit Helpdesk Requests to:           |\n|               rdhpcs.hera.help@noaa.gov                |\n|                                                        |\n|________________________________________________________|\n\nNote that you will also see the following terminal output upon connecting:\n\nLocal port XXXXX forwarded to remote host.\nRemote port YYYYY forwarded to local host.\n\nWhere XXXXX and YYYYY are your 4-5 digit port forwarding numbers. Make note of what your local port number (XXXXX) is since this will be used for scp file transfer using an ssh tunnel.",
+    "text": "The OSG is an example of an HTC computing environment where jobs are run and scheduled using HTCondor. OSG is free to use for US-based government staff conducting research or education related work, and HTCondor is well suited for running many short, non-sequential, single core jobs. Helpful documentation can be found on their website and the following information is based on this documentation.\n\n\n\n\n\n\nCoding alert!\n\n\n\nIn the following code you will need to, where necessary:\n\nReplace User.Name with your OSG user name.\nReplace osg.project_name your OSG project name.\n\nYou will also need to make these edits in each of osg_dir.txt and osg_array_lm.sub.",
     "crumbs": [
       "Documentation",
-      "Working with NOAA HPC Hera"
+      "Working with Open Science Grid"
     ]
   },
   {
-    "objectID": "assets/hera_documentation.html#connecting-to-hera-via-ssh",
-    "href": "assets/hera_documentation.html#connecting-to-hera-via-ssh",
-    "title": "Working with NOAA HPC Hera",
+    "objectID": "assets/osg_documentation.html#open-science-grid",
+    "href": "assets/osg_documentation.html#open-science-grid",
+    "title": "Working with Open Science Grid",
     "section": "",
-    "text": "Open a terminal window (.e.g, command prompt or PowerShell), then open an ssh tunnel to Hera by using the following command:\n\nssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov -p22\n\nReplace User.Name with your NOAA HPC account name, and bastion with either boulder or princeton depending on which ‘bastion’ you wish to log-in through. Note that the flag -p22 specifies opening port 22 and is optional. When prompted, put in your password followed by the RSA authentication code:\n\nXXXXXXXXRSACODE\n\nIf you see the following then you have connected successfully:\n\n________________________________________________________\n|                                                        |\n|                                                        |\n|  Welcome to the Hera High Performance Computing system |\n|                                                        |\n|        This system is located in Fairmont, WV          |\n|                                                        |\n|          Please Submit Helpdesk Requests to:           |\n|               rdhpcs.hera.help@noaa.gov                |\n|                                                        |\n|________________________________________________________|\n\nNote that you will also see the following terminal output upon connecting:\n\nLocal port XXXXX forwarded to remote host.\nRemote port YYYYY forwarded to local host.\n\nWhere XXXXX and YYYYY are your 4-5 digit port forwarding numbers. Make note of what your local port number (XXXXX) is since this will be used for scp file transfer using an ssh tunnel.",
+    "text": "The OSG is an example of an HTC computing environment where jobs are run and scheduled using HTCondor. OSG is free to use for US-based government staff conducting research or education related work, and HTCondor is well suited for running many short, non-sequential, single core jobs. Helpful documentation can be found on their website and the following information is based on this documentation.\n\n\n\n\n\n\nCoding alert!\n\n\n\nIn the following code you will need to, where necessary:\n\nReplace User.Name with your OSG user name.\nReplace osg.project_name your OSG project name.\n\nYou will also need to make these edits in each of osg_dir.txt and osg_array_lm.sub.",
     "crumbs": [
       "Documentation",
-      "Working with NOAA HPC Hera"
+      "Working with Open Science Grid"
     ]
   },
   {
-    "objectID": "assets/hera_documentation.html#transferring-files-tofrom-hera",
-    "href": "assets/hera_documentation.html#transferring-files-tofrom-hera",
-    "title": "Working with NOAA HPC Hera",
-    "section": "2 Transferring files to/from Hera",
-    "text": "2 Transferring files to/from Hera\n\n2.1 via scp using data transfer node (DTN)\nInformation in this section is largely based on this wiki(CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the scratch directory. However, this is ok since it is recommended that input/output data files are stored in the scratch directory. Using a DTN is faster than using the ssh tunnel.\n\n\n\n\n\n\nNote\n\n\n\nThe scratch1/NMFS/project_name/ directory is a shared space (shared access and shared disk space) for all users of a project. Rather than dumping files into the root project directory (e.g., project_name/) it is better to place them in your own sub-directory. Since this sub-directory structure does not already exist you will need to log into Hera and create it:\n\nmkdir scratch1/NMFS/project_name/User.Name/\n\nThis will avoid over-writing other users’ work.\n\n\nFile transfer takes place via scp using:\n\nscp /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/\n\nand replace User.Name and project_name with your HPC account name and project.\nIf trying to transfer from a machine not within the NOAA domain (or on the VPN) you can use scp with an untrusted DTN:\n\nscp /path/to/local/file User.Name@udtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/data_untrusted/User.Name/\n\nNote that dtn-hera was changed to udtn-hera. As before replace User.Name with your HPC account name. Since files can not stay in the data_untrusted directory we will need to log in to Hera and move it to the correct project directory on scratch. Once logged in, moving the files can be done with rsync (CAC login required), and then they can be deleted from data_untrusted by:\n\nrsync -axv /scratch1/data_untrusted/User.Name/file /scratch1/NMFS/project_name/User.Name/\nrm /scratch1/data_untrusted/User.Name/file\n\nBe sure to replace User.Name and project_name with your HPC account name and project.\nFiles can be downloaded using scp from either the trusted (dtn) or untrusted (udtn) DTN:\n\nscp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/file /path/to/local/file \n\n\n\n2.2 via scp using an ssh tunnel\nInformation in this section is largely based on this wiki (CAC login required). File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (we suggest using PowerShell):\n\nIn the first terminal window, open an ssh connection to Hera with port forwarding:\n\n\nssh -m hmac-sha2-256-etm@openssh.com -LXXXXX:localhost:XXXXX User.Name@hera-rsa.bastion.rdhpcs.noaa.gov\n\nReplace XXXXX with your local port number. As before replace User.Name and bastion.\n\nIn the second terminal window you can check to see if the tunnel was properly created:\n\n\nssh -p XXXXX User.Name@localhost\n\nif you get prompted for your password then success! Press CONTROL+C to ignore this prompt. Staying within this 2nd terminal window use scp to transfer your file:\n\nscp -P XXXXX /path/to/local/file User.Name@localhost:/home/User.Name/\n\nThis will copy your file from your local machine into your home directory on Hera. Simply append additional directory structure to /home/User.Name/ to copy it into a sub-directory that you have created on Hera (e.g., /home/User.Name/sub/dir/). To transfer files into your scratch directory, specify the proper destination path (e.g., /scratch1/NMFS/project_name/User.Name/ where project_name is your HPC account project).\nTo download a file from Hera using scp and the ssh tunnel use the following:\n\nscp -P XXXXX User.Name@localhost:/home/User.Name/file_name /path/to/local/file",
+    "objectID": "assets/osg_documentation.html#connecting-to-osg-vis-ssh",
+    "href": "assets/osg_documentation.html#connecting-to-osg-vis-ssh",
+    "title": "Working with Open Science Grid",
+    "section": "2 Connecting to OSG vis ssh",
+    "text": "2 Connecting to OSG vis ssh\nAccess to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first powershell terminal, log onto your access point. You will be prompted to enter your passphrase (password). It will then ask for an RSA token generated by the Google Authenticator app.\n\nssh User.Name@ap21.uc.osg-htc.org\n\nIf you see the following, you have connected successfully:\n\n\n                *** Unauthorized use is prohibited. ***\n\n      If you log on to this computer system, you acknowledge your\n  awareness of and concurrence with the OSG Acceptable Use Policy; see\n             https://www.osgconnect.net/aup or /etc/osg/AUP\n\n                              ***\n\n              Cite the OSPool in your publications!\n                https://osg-htc.org/acknowledging\n\n                              ***\n\n               OSPool Office Hours are twice a week:\n    Tues 4-5:30pm ET/1-2:30pm PT, Thurs 11:30am-1pm ET/8:30-10am PT\n             Zoom link: https://osg-htc.org/OfficeHoursZoom\n\n***********************************************************************",
     "crumbs": [
       "Documentation",
-      "Working with NOAA HPC Hera"
+      "Working with Open Science Grid"
+    ]
+  },
+  {
+    "objectID": "assets/osg_documentation.html#transferring-files-via-scp",
+    "href": "assets/osg_documentation.html#transferring-files-via-scp",
+    "title": "Working with Open Science Grid",
+    "section": "3 Transferring files via scp",
+    "text": "3 Transferring files via scp\n\n3.1 Move a file to OSG\nIf you want to transfer a file my_file.txt from your local machine to OSG, navigate to the directory of my_file.txt. Open a terminal and use scp and specifying the source file name and destination path as shown:\n\n\n## format is scp &lt;source&gt; &lt;destination&gt; \nscp my_file.txt User_Name@ap21.uc.osg-htc.org:/home/User_Name/\n\nNote, you do not need to login to OSG first, you will be prompted to enter your passphrase and then RSA code before the file transfers. And each time you transfer a file you will need to re-enter the information.\n\n\n3.2 Move multiple files at once\nTo transfer many files more efficiently, you can compress your files into tarballs (.tar.gz file). For example, to upload all of the input files for running an array of linear model jobs at once, in R, run:\n\nsystem(paste0(\"powershell cd \",file.path(\"examples\", \"osg\", \"array_lm\"),\";tar -czf inputs.tar.gz inputs\"))\n\nto create a tarball called inputs.tar.gz. To do this in a terminal, open a terminal window in the directory above the files to compress (e.g. examples/osg/array_lm) and run:\n\ntar -czf inputs.tar.gz inputs\n\n\n\n3.3 Move files back to local machine\nTo transfer files from OSG back to your local machine you can use the same command as above but swaping the source and destination paths. From the same terminal as before (or in the directory to put the file), use:\n\n\nscp User_Name@ap21.uc.osg-htc.org:/home/User_Name/my_file.txt ./\n\nwhere ./ is the current location on your local computer or you can specify the path relative to where you are (e.g. ./path/to/files).",
+    "crumbs": [
+      "Documentation",
+      "Working with Open Science Grid"
+    ]
+  },
+  {
+    "objectID": "assets/osg_documentation.html#transferring-large-files-to-osdf",
+    "href": "assets/osg_documentation.html#transferring-large-files-to-osdf",
+    "title": "Working with Open Science Grid",
+    "section": "4 Transferring large files to OSDF",
+    "text": "4 Transferring large files to OSDF\nFor large input and output files, including containers, it is recommended to use the Open Science Data Federation (OSDF). To see exactly which OSDF origins to use see this guidance on Where to Put Your Files. For this example, we will use the access point of ap21.uc.osg-htc.org. If you are working with a container, you can upload it to your files and transfer it using the following commands.\nFrom a terminal in the directory where the container files (linux.def and linux.sif) are stored on your local computer, run: ##TODO: Double check paths of where container is\n\nscp linux.def User.Name@ap21.uc.osg-htc.org:/home/User.Name\nscp linux.sif User.Name@ap21.uc.osg-htc.org:/home/User.Name\n\nAgain you will be prompted for your passphrase and RSA code each time. Then, in a second terminal that is logged into OSG, move the container to the OSDF location.\n\nmv linux.sif /ospool/ap21/data/User.Name\n##TODO: do I need to mv .def file too? \n\nTo test the container, in that same OSG terminal, run:\n\n\napptainer shell /ospool/ap21/data/User.Name/linux.sif\n\n#once it opens you can try running R and making sure the packages you need are there\nR\nlibrary(r4ss)\nq()",
+    "crumbs": [
+      "Documentation",
+      "Working with Open Science Grid"
     ]
   },
   {

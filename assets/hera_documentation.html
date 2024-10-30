@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nicholas Ducharme-Barth">
-<meta name="dcterms.date" content="2024-10-29">
+<meta name="dcterms.date" content="2024-10-30">
 
 <title>Working with NOAA HPC Hera – HTC/HPC for Stock Assessments</title>
 <style>
@@ -4819,6 +4819,12 @@ vertical-align: -.125em;
  <span class="menu-text">Submitting an array job</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assets/osg_documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with Open Science Grid</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -4871,11 +4877,12 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#connecting-to-hera-via-ssh" id="toc-connecting-to-hera-via-ssh" class="nav-link active" data-scroll-target="#connecting-to-hera-via-ssh"><span class="header-section-number">1</span> Connecting to Hera via ssh</a></li>
-  <li><a href="#transferring-files-tofrom-hera" id="toc-transferring-files-tofrom-hera" class="nav-link" data-scroll-target="#transferring-files-tofrom-hera"><span class="header-section-number">2</span> Transferring files to/from Hera</a>
+  <li><a href="#hera" id="toc-hera" class="nav-link active" data-scroll-target="#hera"><span class="header-section-number">1</span> Hera</a></li>
+  <li><a href="#connecting-to-hera-via-ssh" id="toc-connecting-to-hera-via-ssh" class="nav-link" data-scroll-target="#connecting-to-hera-via-ssh"><span class="header-section-number">2</span> Connecting to Hera via ssh</a></li>
+  <li><a href="#transferring-files-tofrom-hera" id="toc-transferring-files-tofrom-hera" class="nav-link" data-scroll-target="#transferring-files-tofrom-hera"><span class="header-section-number">3</span> Transferring files to/from Hera</a>
   <ul class="collapse">
-  <li><a href="#via-scp-using-data-transfer-node-dtn" id="toc-via-scp-using-data-transfer-node-dtn" class="nav-link" data-scroll-target="#via-scp-using-data-transfer-node-dtn"><span class="header-section-number">2.1</span> via scp using data transfer node (DTN)</a></li>
-  <li><a href="#via-scp-using-an-ssh-tunnel" id="toc-via-scp-using-an-ssh-tunnel" class="nav-link" data-scroll-target="#via-scp-using-an-ssh-tunnel"><span class="header-section-number">2.2</span> via scp using an ssh tunnel</a></li>
+  <li><a href="#via-scp-using-data-transfer-node-dtn" id="toc-via-scp-using-data-transfer-node-dtn" class="nav-link" data-scroll-target="#via-scp-using-data-transfer-node-dtn"><span class="header-section-number">3.1</span> via scp using data transfer node (DTN)</a></li>
+  <li><a href="#via-scp-using-an-ssh-tunnel" id="toc-via-scp-using-an-ssh-tunnel" class="nav-link" data-scroll-target="#via-scp-using-an-ssh-tunnel"><span class="header-section-number">3.2</span> via scp using an ssh tunnel</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/assets/hera_documentation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -4902,7 +4909,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-10-29</p>
+      <p class="date">2024-10-30</p>
     </div>
   </div>
   
@@ -4914,8 +4921,29 @@ vertical-align: -.125em;
 </header>
 
 
-<section id="connecting-to-hera-via-ssh" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="connecting-to-hera-via-ssh"><span class="header-section-number">1</span> Connecting to Hera via ssh</h2>
+<section id="hera" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="hera"><span class="header-section-number">1</span> Hera</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Coding alert!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the following code you will need to, where necessary:</p>
+<ol type="1">
+<li><p>Replace <code>User.Name</code> with your OSG user name.</p></li>
+<li><p>Replace <code>osg.project_name</code> your OSG project name.</p></li>
+</ol>
+<p>You will also need to make these edits in each of <code>osg_dir.txt</code> and <code>osg_array_lm.sub</code>.</p>
+</div>
+</div>
+</section>
+<section id="connecting-to-hera-via-ssh" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="connecting-to-hera-via-ssh"><span class="header-section-number">2</span> Connecting to Hera via ssh</h2>
 <p>Open a terminal window (.e.g, command prompt or PowerShell), then open an ssh tunnel to Hera by using the following command:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-m</span> hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov <span class="at">-p22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4945,10 +4973,10 @@ vertical-align: -.125em;
 </div>
 <p>Where <code>XXXXX</code> and <code>YYYYY</code> are your 4-5 digit port forwarding numbers. Make note of what your local port number (<code>XXXXX</code>) is since this will be used for scp file transfer using an ssh tunnel.</p>
 </section>
-<section id="transferring-files-tofrom-hera" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="transferring-files-tofrom-hera"><span class="header-section-number">2</span> Transferring files to/from Hera</h2>
-<section id="via-scp-using-data-transfer-node-dtn" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="via-scp-using-data-transfer-node-dtn"><span class="header-section-number">2.1</span> via scp using data transfer node (DTN)</h3>
+<section id="transferring-files-tofrom-hera" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="transferring-files-tofrom-hera"><span class="header-section-number">3</span> Transferring files to/from Hera</h2>
+<section id="via-scp-using-data-transfer-node-dtn" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="via-scp-using-data-transfer-node-dtn"><span class="header-section-number">3.1</span> via scp using data transfer node (DTN)</h3>
 <p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/index.html">this wiki</a>(CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the <em>scratch</em> directory. However, this is ok since it is recommended that input/output data files are stored in the <em>scratch</em> directory. Using a DTN is faster than using the <a href="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">ssh tunnel</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4967,9 +4995,10 @@ Note
 <p>This will avoid over-writing other users’ work.</p>
 </div>
 </div>
-<p>File transfer takes place via <em>scp</em> using:</p>
+<p>File transfer takes place via <em>scp</em> and specifying the source path and destination path as shown::</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## format is scp &lt;source&gt; &lt;destination&gt; </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and replace <code>User.Name</code> and <code>project_name</code> with your HPC account name and project.</p>
 <p>If trying to transfer from a machine not within the NOAA domain (or on the VPN) you can use <em>scp</em> with an <em>untrusted</em> DTN:</p>
@@ -4987,8 +5016,8 @@ Note
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/file /path/to/local/file </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="via-scp-using-an-ssh-tunnel" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="via-scp-using-an-ssh-tunnel"><span class="header-section-number">2.2</span> via scp using an ssh tunnel</h3>
+<section id="via-scp-using-an-ssh-tunnel" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="via-scp-using-an-ssh-tunnel"><span class="header-section-number">3.2</span> via scp using an ssh tunnel</h3>
 <p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/transferring_data.html">this wiki</a> (CAC login required). File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (we suggest using PowerShell):</p>
 <ol type="1">
 <li>In the first terminal window, open an ssh connection to Hera with port forwarding:</li>

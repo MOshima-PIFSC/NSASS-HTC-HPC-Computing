@@ -18,6 +18,20 @@ format:
     code-overflow: wrap
 ---
 
+## Hera
+
+::: {.callout-important}
+### Coding alert!
+In the following code you will need to, where necessary:
+
+1. Replace `User.Name` with your OSG user name.
+
+2. Replace `osg.project_name` your OSG project name.
+
+You will also need to make these edits in each of `osg_dir.txt` and `osg_array_lm.sub`.
+:::
+
+
 ## Connecting to Hera via ssh
 
 Open a terminal window (.e.g, command prompt or PowerShell), then open an ssh tunnel to Hera by using the following command:
@@ -71,8 +85,9 @@ mkdir scratch1/NMFS/project_name/User.Name/
 This will avoid over-writing other users' work.
 :::
 
-File transfer takes place via *scp* using:
+File transfer takes place via *scp* and specifying the source path and destination path as shown::
 ```{bash}
+## format is scp <source> <destination> 
 scp /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/
 ```
 and replace `User.Name` and `project_name` with your HPC account name and project.
