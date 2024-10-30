@@ -119,25 +119,36 @@ scenario_df = scenario_df[,c(3,1,2)]
 scenario_df$run_id = ifelse(scenario_df$run_id<10,paste0(0,scenario_df$run_id),as.character(scenario_df$run_id))
 
 # write text file
-hera_dir_lines = paste0("/scratch1/", hera_project, "examples/ss3/", apply(scenario_df,1,paste0,collapse="_"), "/")
+hera_dir_lines = paste0("/scratch1/", hera_project, "examples/ss3/output/", apply(scenario_df,1,paste0,collapse="-"), "/")
 writeLines(hera_dir_lines, con=paste0(proj_dir, "/examples/hera/ss3/inputs/hera_job_directories.txt"))
 ```
-3. Compress the `ss3/inputs/` directory as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
-```{r}
-#| eval: false
-#| code-fold: true
-shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ "))
-```
-## Develop job scripts
+
+## Prepare job scripts
 
 During benchmark testing, issues were identified when trying to apply an HTC workflow to Hera, and a seperate workflow was developed which may be more Hera/Slurm appropriate. This takes advantage of the *gnu* parallel utility to run batches of jobs on distinct compute nodes. In this particular example 90 models will be run across 3 nodes each using 30 CPUs. This reserves the entire node for computations thus reducing the competition for resources for any one job[^3]. In order to execute this workflow, instructions are coordinated using four nested scripts: 
 
 [^3]: While this workflow leads to better scheduling and makes HTC applications possible on Hera it may not be computationally efficient if users do not make use of all CPUs on a given node. For example, given that an entire compute node is requested, the user's allocation on Hera will be *billed* for use of all CPUs on that node even if not all are in use.
 
-* `parallel-submit.sh`: This script prepares files for slurm job execution, makes the directory structure specified by `hera_job_directories.txt`, and submits the parallel jobs.
+* `parallel-submit.sh`: This script prepares files for Slurm job execution, makes the directory structure specified by `hera_job_directories.txt`, and submits the parallel jobs.
 * `parallel-job-exec.sh`: This is a script that defines variables to be passed to the software container and a second bash script `wrapper-r.sh`.
 * `wrapper-r.sh`: This wrapper script controls file input/output to and from the R script `ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
 * `ss3-example-calcs.r`: This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
+
+::: {.callout-important}
+
+### Coding alert!
+In `parallel-submit.sh` you will need to change the following before you upload and run the script:
+
+1. Line 20-22: change account `project_name` to the name of your project. If you are using the NOAA htc4sa project, it would be `htc4sa`.
+
+:::
+
+1. Compress the `ss3/inputs/` and `ss3/slurm_scripts/` directories as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
+```{r}
+#| eval: false
+#| code-fold: true
+shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ slurm_scripts/"))
+```
 
 ## Hera workflow
 
@@ -151,19 +162,50 @@ ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov 
 
 2. Create directories  
 
-In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. 
+In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory, and make a directory for the current project `examples/ss3/`[^4].
+
+[^4]: Note that this path should match the path defined in `hera_job_directories.txt`.
+
 ```{bash}
 # navigate to project directory
 cd /scratch1/NMFS/project_name/
 # create new directory
 mkdir User.Name/
-```
-
-Jobs on Hera are scheduled using [SLURM](https://slurm.schedmd.com/documentation.html). We will upload our SLURM [submit script](../examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
-```{bash}
 # navigate into new directory
 cd User.Name/
 # create directory for SLURM scripts and logs
-mkdir submit_scripts/
-mkdir logs/
+mkdir -p examples/ss3/
+```
+
+3. Transfer files  
+
+Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/ss3/upload.example-ss3.tar.gz` and `apptainer/linux-r4ss-v4.sif`) to Hera. The `upload.example-ss3.tar.gz` will be uploaded to your directory within the project directory on `scratch1`. Make sure your VPN is active when attempting to upload using the [DTN](hera_documentation.qmd). You will be prompted for your RSA passcode after each *scp* command. Note that you will need to specify the MAC protocol needed for the *scp* file transfer similar to what was done for the initial *ssh* connection using `scp -o MACs=hmac-sha2-256-etm@openssh.com`.
+
+```{bash}
+scp -o MACs=hmac-sha2-256-etm@openssh.com examples/hera/ss3/upload.example-ss3.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
+scp -o MACs=hmac-sha2-256-etm@openssh.com apptainer/linux-r4ss-v4.sif User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
+```
+
+4. Prepare files and submit job on Hera
+
+In *Terminal A*, un-tar `upload.example-ss3.tar.gz`, change the permissions/line endings for `slurm_scripts/parallel-submit.sh` and execute the script.
+
+```{bash}
+tar -xzf upload.example-ss3.tar.gz
+chmod 777 slurm_scripts/parallel-submit.sh
+dos2unix slurm_scripts/parallel-submit.sh
+./slurm_scripts/parallel-submit.sh
+```
+After job submission you can check on job status using `squeue -u $USER` or you can use the following for more detailed information.
+```{bash}
+# count the number of output files (End.tar.gz) that have been produced
+find . -type f -name End.tar.gz -exec echo . \; | wc -l
+# list the size and location of all of the End.tar.gz files
+find . -type f -name End.tar.gz -exec du -ch {} +
+```
+
+Once all jobs are completed (or the job has hit its time limit), use your *Terminal B* to download your jobs.
+
+```{bash}
+scp -o MACs=hmac-sha2-256-etm@openssh.com -r User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/output/ examples/hera/ss3/
 ```
