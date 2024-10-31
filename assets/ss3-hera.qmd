@@ -1,0 +1,467 @@
+---
+title: "Running an array of SS3 jobs on Hera"
+date: last-modified
+date-format: iso
+published-title: "Last updated"
+author: 
+  - Nicholas Ducharme-Barth
+  - Megumi Oshima
+engine: knitr
+execute:
+    eval: false
+    echo: true
+    output: false
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: right
+    number-sections: true
+    code-overflow: wrap
+---
+
+Similar to the [array_lm](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/array_hera.html) example, this example also sets up running an array job on Hera. As before, we will use a `*.txt` to indicate which directories we want to run jobs in as a part of our array.
+
+There are a few main differences that serve to illustrate useful modifications to the workflow:
+
+* in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis) (SS3) on all models in the SS3 testing suite to conduct a retrospective analysis;
+* we will set up the job array to run using the *gnu* parallel utility in order to more effectively implement an HTC type workflow in an HPC system;
+* we will run our jobs within a software container;
+* lastly, we will define *variables* to be passed between job submission and job execution scripts to ensure that the correct output is produced.
+
+The *hera/ss3* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
+
+::: {.callout-important}
+### Coding alert!
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** with your actual user name and **NMFS/project_name** with your specific project name. 
+:::
+
+## Build software container
+
+Software containers allow for portable, reproducible research by allowing researchers to set-up a software environment to their exact spefications and being able to run it on any Linux system. The [Apptainer](https://apptainer.org/) container system is widely used across HPC/HTC systems, and make it easy to build a container from a definition file. Running a job within a container means that you are able to replicate an identical software environment in any location with Apptainer installed, no matter the native operating system, software and installed packages. The Apptainer container can be built from any Linux machine with Apptainer installed, including the [Open Science Grid](https://osg-htc.org/) (OSG) access points. Here we walk through the steps needed to build a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm from a definition file, [linux-r4ss-v4.def](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/apptainer/linux-r4ss-v4.def). In this case we will show the steps needed to build the container using the OSG access point as our Linux virtual machine (VM), though many may not be needed if working from an alternative Linux VM.
+
+::: {.callout-important}
+### Coding alert!
+Note: you will have to change **apXX** to match your OSG access point (e.g., `ap20` or `ap21`).
+:::
+
+The first step is to [log onto your OSG access point](https://portal.osg-htc.org/documentation/overview/account_setup/connect-access/) via ssh using a Terminal/PowerShell window and make a directory to build your container in this case `singularity`[^1].
+
+[^1]: This directory can be named anything that you like, in this case `singularity` is a legacy name from an earlier version of the code written before Singularity changed its name to Apptainer.
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+ssh User.Name@apXX.uc.osg-htc.org
+mkdir -p singularity/linux_r4ss
+```
+
+Using a second Terminal/PowerShell window, navigate to the directory that you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo into and upload the definition file (`linux-r4ss-v4.def`) to the directory you just created on OSG.
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+scp apptainer/linux-r4ss-v4.def User.Name@apXX.uc.osg-htc.org:/home/User.Name/singularity/linux_r4ss
+```
+
+Back in your first Terminal/PowerShell window manoeuvre into the directory, and build the container[^2]. The second line of code is what builds the Singularity Image File (*`.sif`*) and takes two arguments: the name of the output *`.sif`* file and the input definition file (*`.def`*).
+
+[^2]: This may take ~10-15 minutes depending on how long it takes to install R packages.
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+cd singularity/linux_r4ss
+apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
+```
+
+Using the second Terminal/PowerShell window, download the Singularity Image File (*`.sif`*) so that it can be uploaded for use on the NOAA Hera HPC system.
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+scp User.Name@apXX.uc.osg-htc.org:/home/User.Name/singularity/linux_r4ss/linux-r4ss-v4.sif apptainer/
+```
+
+
+## Setup data inputs and directories
+
+Given that our example is to run a 4-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main) Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/hera/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location.
+
+For the sake of example the job array will be set-up to run each retrospective peel (e.g., -0 years, -1 year, ... , -4 years of data) as individual jobs in the job array. This is more efficient in a true HTC environment such as OSG however on Hera it could make more sense to bundle the initial model run and subsequent retrospective peels as a single job. We will store the results of each retrospective peel in its own directory. The directories on Hera will be listed in a text file, and we will use this text file to launch jobs on Hera (as a part of the job array) in each of the named directories.
+
+Let us define that text file using R.
+
+1. Define a relative path, we are starting from the root directory of this project.
+
+```{r}
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show code used to define relative paths."
+proj_dir = this.path::this.proj()
+hera_project = "NMFS/project_name/User.Name/"
+```
+
+2. Write a text file containing the full path names for where the directories will be on Hera.
+```{r}
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show code used to define job directory structure."
+test_models=list.dirs(paste0(proj_dir,"/examples/hera/ss3/inputs/models/"),recursive=FALSE,full.names=FALSE)
+retro_peels=0:4
+
+# replace '-' with '_' in model names since we will use '-' as a delimiter
+    if(length(grep("-",test_models,fixed=TRUE))>0){
+        test_models_new = gsub("-","_",test_models)
+        rename_models_idx = grep("-",test_models,fixed=TRUE)
+        for(i in seq_along(rename_models_idx)){
+            # create new dir
+            dir.create(paste0(proj_dir,"/examples/hera/ss3/inputs/models/",test_models_new[rename_models_idx[i]]),recursive=TRUE)
+            # copy files
+            file.copy(paste0(proj_dir,"/examples/hera/ss3/inputs/models/",test_models[rename_models_idx[i]],"/",list.files(paste0(proj_dir,"/examples/hera/ss3/inputs/models/",test_models[rename_models_idx[i]]),full.names=FALSE,recursive=FALSE)),paste0(proj_dir,"/examples/hera/ss3/inputs/models/",test_models_new[rename_models_idx[i]]))
+            # delete old dir
+            # file.remove(paste0(proj_dir,"/examples/hera/ss3/inputs/models/",test_models[rename_models_idx[i]],"/"))
+            shell(paste0("powershell rm -r ",proj_dir,"/examples/hera/ss3/inputs/models/",test_models[rename_models_idx[i]],"/"))
+        }
+        test_models = test_models_new
+    }
+    
+
+# define scenarios
+scenario_df = expand.grid(model=test_models,peel=retro_peels)
+scenario_df$run_id = 1:nrow(scenario_df)
+scenario_df = scenario_df[,c(3,1,2)]
+scenario_df$run_id = ifelse(scenario_df$run_id<10,paste0(0,scenario_df$run_id),as.character(scenario_df$run_id))
+
+# write text file
+hera_dir_lines = paste0("/scratch1/", hera_project, "examples/ss3/output/", apply(scenario_df,1,paste0,collapse="-"), "/")
+writeLines(hera_dir_lines, con=paste0(proj_dir, "/examples/hera/ss3/inputs/hera_job_directories.txt"))
+```
+
+## Prepare job scripts
+
+During benchmark testing, issues were identified when trying to apply an HTC workflow to Hera, and a seperate workflow was developed which may be more Hera/Slurm appropriate. This takes advantage of the *gnu* parallel utility to run batches of jobs on distinct compute nodes. In this particular example 90 models will be run across 3 nodes each using 30 CPUs, and we will set the maximum run time to 1 hour. This reserves the entire node for computations thus reducing the competition for resources for any one job[^3]. In order to execute this workflow, instructions are coordinated using four nested scripts: 
+
+[^3]: While this workflow leads to better scheduling and makes HTC applications possible on Hera it may not be computationally efficient if users do not make use of all CPUs on a given node. For example, given that an entire compute node is requested, the user's allocation on Hera will be *billed* for use of all CPUs on that node even if not all are in use.
+
+* `parallel-submit.sh`: This script prepares files for Slurm job execution, makes the directory structure specified by `hera_job_directories.txt`, specifies the job requirements and submits the parallel jobs.
+* `parallel-job-exec.sh`: This is a script that defines variables to be passed to the software container and a second bash script `wrapper-r.sh`.
+* `wrapper-r.sh`: This wrapper script controls file input/output to and from the R script `ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
+* `ss3-example-calcs.r`: This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
+
+::: {.callout-important}
+
+### Coding alert!
+In `parallel-submit.sh` you will need to change the following before you upload and run the script:
+
+1. Line 20-22: change account `project_name` to the name of your project. If you are using the NOAA htc4sa project, it would be `htc4sa`.
+
+:::
+
+1. From within R, compress the `ss3/inputs/` and `ss3/slurm_scripts/` directories as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
+```{r}
+#| eval: false
+shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ slurm_scripts/"))
+```
+
+## Hera workflow
+
+1. Connect to Hera  
+
+Open a PowerShell terminal and [connect to Hera](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your [RSA passcode](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html#connecting-to-hera-via-ssh), which is your password followed by the 8-digit code from the authenticator app.
+
+```{bash}
+ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22
+```
+
+2. Create directories  
+
+In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory, and make a directory for the current project `examples/ss3/`[^4].
+
+[^4]: Note that this path should match the path defined in `hera_job_directories.txt`.
+
+```{bash}
+# navigate to project directory
+cd /scratch1/NMFS/project_name/
+# create new directory
+mkdir User.Name/
+# navigate into new directory
+cd User.Name/
+# create directory for SLURM scripts and logs
+mkdir -p examples/ss3/
+```
+
+3. Transfer files  
+
+Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/ss3/upload.example-ss3.tar.gz` and `apptainer/linux-r4ss-v4.sif`) to Hera. The `upload.example-ss3.tar.gz` will be uploaded to your directory within the project directory on `scratch1`. Make sure your VPN is active when attempting to upload using the [DTN](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html). You will be prompted for your RSA passcode after each *scp* command. Note that you will need to specify the MAC protocol needed for the *scp* file transfer similar to what was done for the initial *ssh* connection using `scp -o MACs=hmac-sha2-256-etm@openssh.com`.
+
+```{bash}
+scp -o MACs=hmac-sha2-256-etm@openssh.com examples/hera/ss3/upload.example-ss3.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
+scp -o MACs=hmac-sha2-256-etm@openssh.com apptainer/linux-r4ss-v4.sif User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
+```
+
+4. Prepare files and submit job on Hera
+
+In *Terminal A*, un-tar `upload.example-ss3.tar.gz`, change the permissions/line endings for `slurm_scripts/parallel-submit.sh` and execute the script.
+
+```{bash}
+tar -xzf upload.example-ss3.tar.gz
+chmod 777 slurm_scripts/parallel-submit.sh
+dos2unix slurm_scripts/parallel-submit.sh
+./slurm_scripts/parallel-submit.sh
+```
+After job submission you can check on job status using `squeue -u $USER` or you can use the following for more detailed information.
+```{bash}
+# count the number of output files (End.tar.gz) that have been produced
+find . -type f -name End.tar.gz -exec echo . \; | wc -l
+# list the size and location of all of the End.tar.gz files
+find . -type f -name End.tar.gz -exec du -ch {} +
+```
+
+5. Download jobs and clean-up workspace
+
+Once all jobs are completed (or the job has hit its time limit), use your *Terminal B* to download your jobs.
+
+```{bash}
+scp -o MACs=hmac-sha2-256-etm@openssh.com -r User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/output/ examples/hera/ss3/
+```
+
+Lastly in *Terminal A*, clean-up the `/scratch1/NMFS/project_name/User.Name/` directory since it is a shared space.
+
+::: {.callout-important}
+### Warning!
+Make sure that you have verified that your jobs completed successfully and that all results have been downloaded before cleaning-up the directory.
+:::
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+# move back up a level in the directory structure
+cd ..
+# delete the ss3/ directory
+rm -r ss3/
+```
+
+## Process results
+
+After results are downloaded they can be processed in R to extract the model run times, time series of estimated biomass for each model run, and Mohn's rho across retrospective peels for a given model 'family'.
+
+```{r}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show output processing code"
+# iterate over output files and extract quantities
+library(data.table)
+library(magrittr)
+library(r4ss)
+
+output_dirs = list.dirs(paste0(proj_dir,"/examples/hera/ss3/output/"),recursive=FALSE,full.names=FALSE)
+ssb_dt.list = comptime_dt.list = as.list(rep(NA,length(output_dirs)))
+ss_output_list =  as.list(rep(NA,length(output_dirs)))
+names(ss_output_list) = output_dirs
+
+for(i in seq_along(output_dirs)){
+    tmp_model = strsplit(output_dirs[i],"-")[[1]][2]
+    tmp_peel = as.numeric(strsplit(output_dirs[i],"-")[[1]][3])
+    tmp_index = as.numeric(strsplit(output_dirs[i],"-")[[1]][1])
+
+    # check if the End.tar.gz file got created
+    if(file.exists(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/End.tar.gz")))
+    {
+        # get snapshot of original files in the directory
+        tmp_orig_files = list.files(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/"))
+
+        # un-tar if the End.tar.gz file gets made
+        shell(paste0("powershell cd ", paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/"), ";tar -xzf End.tar.gz"))
+
+        # check if runtime.txt was produced and extract output
+        if(file.exists(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/runtime.txt"))){
+            tmp_time = readLines(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/runtime.txt")) %>%
+            gsub(".*?([0-9]+).*", "\\1", .) %>%
+            as.numeric(.) %>%
+            as.data.table(.) %>%
+            setnames(.,".","time")
+            comptime_dt.list[[i]] = data.table(id = output_dirs[i])    
+            comptime_dt.list[[i]]$index = tmp_index
+            comptime_dt.list[[i]]$model = tmp_model
+            comptime_dt.list[[i]]$peel = tmp_peel
+            comptime_dt.list[[i]]$hera_start = as.POSIXct(tmp_time$time[1],origin="1970-01-01")
+            comptime_dt.list[[i]]$hera_end = as.POSIXct(tmp_time$time[2],origin="1970-01-01")
+            comptime_dt.list[[i]]$hera_runtime = tmp_time$time[3]/60
+
+            # clean-up
+            rm(list=c("tmp_time"))
+        }
+
+        # if "ss_report.RData" is produced put it into the storage list
+        if(file.exists(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/ss_report.RData"))){
+            load(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/ss_report.RData"))
+            ss_output_list[[i]] = ss_report
+
+            ssb_dt.list[[i]] = ss_report$derived_quants %>%
+                as.data.table(.) %>%
+                .[Label %in% paste0("SSB_", ss_report$startyr:ss_report$endyr)] %>%
+                .[,id := output_dirs[i]] %>%
+                .[,sbo:=Value/subset(ss_report$derived_quants,Label=="SSB_Virgin")$Value] %>%
+                .[,yr:=sapply(Label,function(x)as.numeric(strsplit(x,"_")[[1]][2]))] %>%
+                .[,.(id,yr,sbo)]
+            # clean-up
+                rm(list=c("ss_report"))
+        }    
+
+        # clean-up
+        file.remove(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/",setdiff(list.files(paste0(proj_dir,"/examples/hera/ss3/output/",output_dirs[i],"/")),tmp_orig_files)))
+        rm(list=c("tmp_orig_files"))
+    } else {
+        comptime_dt.list[[i]] = data.table(id=output_dirs[i],index=tmp_index,model=tmp_model,peel=tmp_peel,hera_start=NA,hera_end=NA,hera_runtime=NA)
+        ssb_dt.list[[i]] = data.table(id=output_dirs[i],yr=2023,sbo=NA)
+    }
+
+    # clean-up
+    rm(list=c("tmp_model","tmp_peel","tmp_index"))
+}
+
+comptime_dt = rbindlist(na.omit(comptime_dt.list))
+ssb_dt = rbindlist(ssb_dt.list) %>% merge(comptime_dt[,.(id,index,model,peel)],.,by="id")
+ss_output_list = na.omit(ss_output_list)
+
+# adjust times to account for the fact that model 79 did not finish within the 1 hour allocation
+comptime_dt$hera_start[79] = comptime_dt$hera_start[80]
+comptime_dt$hera_end[79] = comptime_dt$hera_start[79] + 60^2
+comptime_dt$hera_runtime[79] = 60
+
+# save
+fwrite(comptime_dt,file=paste0(proj_dir,"/examples/hera/ss3/output/comptime_dt.csv"))
+fwrite(ssb_dt,file=paste0(proj_dir,"/examples/hera/ss3/output/ssb_dt.csv"))
+
+# calculate Mohn's rho
+unique_models = unique(comptime_dt$model)
+retro_dt.list = as.list(rep(NA,length(unique_models)))
+
+for(i in seq_along(unique_models)){
+    tmp_model = unique_models[i]
+
+    retro_dt.list[[i]] = data.table(model=tmp_model)
+    retro_dt.list[[i]]$type = c("SBO")
+    retro_dt.list[[i]]$rho = NA
+
+    if(uniqueN(na.omit(ssb_dt[model==tmp_model])$peel)==5){
+        tmp_dt = ssb_dt[model==tmp_model]
+        base_dt = tmp_dt[peel==0]
+        year_vec = max(base_dt$yr) - 1:4
+        bias_vec = rep(NA,length(year_vec))
+        # calc Mohn's rho for runs where all models completed
+        for(j in 1:4){
+            bias_vec[j] = (ssb_dt[model==tmp_model&peel==j&yr==year_vec[j]]$sbo - base_dt[yr==year_vec[j]]$sbo)/base_dt[yr==year_vec[j]]$sbo
+        }
+        retro_dt.list[[i]]$rho = mean(bias_vec)
+        rm(list=c("tmp_dt","base_dt","year_vec","bias_vec"))
+    } 
+    
+    rm(list=c("tmp_model"))
+}
+
+retro_dt = rbindlist(retro_dt.list)
+fwrite(retro_dt,file=paste0(proj_dir,"/examples/hera/ss3/output/retro_dt.csv"))
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| output: false
+library(data.table)
+library(magrittr)
+comptime_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/comptime_dt.csv"))
+comptime_dt_minus = comptime_dt[index!=79]
+ssb_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/ssb_dt.csv"))
+retro_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/retro_dt.csv"))
+```
+
+### Job runtime
+
+The `r nrow(comptime_dt)` jobs run on Hera completed `r round(sum(comptime_dt$hera_runtime)/60,digits=2)` hours of calculations (`r round(mean(comptime_dt$hera_runtime),digits=2)` minutes per job) in an elapsed time of `r round(as.numeric(abs(difftime(min(comptime_dt$hera_start),max(comptime_dt$hera_end),units="hours"))),digits=2)` hour.
+
+Excluding the job that timed out at the 1-hour limit the `r nrow(comptime_dt_minus)` jobs run on Hera completed `r round(sum(comptime_dt_minus$hera_runtime)/60,digits=2)` hours of calculations (`r round(mean(comptime_dt_minus$hera_runtime),digits=2)` minutes per job) in an elapsed time of `r round(as.numeric(abs(difftime(min(comptime_dt_minus$hera_start),max(comptime_dt_minus$hera_end),units="mins"))),digits=2)` minutes or $\sim$ `r round(1/(as.numeric(abs(difftime(min(comptime_dt_minus$hera_start),max(comptime_dt_minus$hera_end),units="mins")))/sum(comptime_dt_minus$hera_runtime)))` times faster (@fig-hera-elapsed).
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| code-summary: "Show plotting code"
+#| label: fig-hera-elapsed
+#| fig-cap: "Start and stop time for jobs run on Hera, excluding the job that timed out."
+#| fig-alt: "Each line indicates a job, with longer lines indicating longer run times."
+#| fig-width: 8
+#| fig-height: 4.5
+#| fig-dpi: 300
+library(ggplot2)
+
+comptime_dt_minus %>%
+.[,.(id,hera_start,hera_end)] %>%
+melt(.,id.vars="id") %>%
+.[,variable:=ifelse(variable%in%c("hera_start"),"start","end")] %>%
+dcast(.,id~variable) %>%
+.[order(start)] %>%
+ggplot() +
+xlab("Time (GMT)") +
+ylab("Job") +
+geom_segment(aes(x=start,xend=end,y=id,yend=id),color="#003087",alpha=0.5,linewidth=2) +
+theme(panel.background = element_rect(fill = "transparent", color = "black", linetype = "solid"),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),  
+            strip.background =element_rect(fill="transparent"),
+            legend.key = element_rect(fill = "transparent"),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank())
+```
+
+## Example results
+### Retrospectives
+
+Retrospective plots of static biomass depletion for the SS3 test models are shown in @fig-retro.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| code-summary: "Show plotting code"
+#| label: fig-retro
+#| fig-cap: "Depletion estimates across retrospective peels from the Stock Synthesis testing model suite examples. Mohn's rho values are printed in each panel."
+#| fig-alt: "Colored lines depicting the Stock Synthesis model fits to the testing model suite examples. The lines depict the depletion in spawning biomass over time. The colors correspond to the different retrospective peels that were fit in this example. The plot displays a variety of trends from these models."
+#| fig-width: 8 
+#| fig-height: 4.5
+#| fig-dpi: 300
+
+text_dt.list = as.list(rep(NA,uniqueN(ssb_dt$model)))
+for(i in seq_along(text_dt.list)){
+    tmp_dt = ssb_dt[model==unique(ssb_dt$model)[i]]
+    tmp_min_yr = min(tmp_dt$yr)
+    text_dt.list[[i]] = data.table(model=unique(ssb_dt$model)[i],yr=tmp_min_yr,sbo=0.2,rho=round(retro_dt[model==unique(ssb_dt$model)[i]]$rho,digits=2))
+}
+text_dt = rbindlist(text_dt.list)
+
+
+ssb_dt %>%
+		    ggplot() +
+		    facet_wrap(~model,scales="free_x") +
+		    xlab("Year") +
+		    ylab(expression(SB/SB[0])) +
+		    ylim(0,NA) +
+		    geom_hline(yintercept=0) +
+		    geom_path(aes(x=yr,y=sbo,color=as.character(peel),group=id)) +
+            geom_text(data=text_dt,aes(x=yr,y=sbo,label=rho),size=3,hjust = 0) +
+		    viridis::scale_color_viridis("Peel",begin = 0.1,end = 0.8,direction = 1,option = "H",discrete=TRUE) +
+		    viridis::scale_fill_viridis("Peel",begin = 0.1,end = 0.8,direction = 1,option = "H",discrete=TRUE) +
+            theme(panel.background = element_rect(fill = "transparent", color = "black", linetype = "solid"),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            strip.background =element_rect(fill="transparent"),
+            legend.key = element_rect(fill = "transparent"))
+```

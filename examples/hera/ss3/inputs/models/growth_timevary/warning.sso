@@ -1,0 +1,4 @@
+Warning 1 : At least one block pattern ends in endyr. Check the output parameter value time series to see if the values in forecast years are as intended.
+Note 1 Information: Max harvest rate typically is >1.0 for F_method 2, 3 or 4 0.9
+Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended.
+ 1 warning  and 2 notes 

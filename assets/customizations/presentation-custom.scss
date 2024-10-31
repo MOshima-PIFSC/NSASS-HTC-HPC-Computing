@@ -108,3 +108,23 @@ $colors: (
     }
   }
 }
+
+// fade text; define colors
+$colors: (
+  "blue": $theme-noaa-sky,
+  "mb-blue": $theme-moby-blue,
+  "pc-orange": $theme-posit-orange,
+  "black": $theme-black,
+  "body": $body-color
+);
+// loop over defined colors
+@each $name, $color in $colors {
+  .reveal .slides section .fragment.fade-#{$name} {
+    opacity: unset;
+    visibility: unset;
+
+    &.visible {
+      color: rgba($color, .5);
+    }
+  }
+}

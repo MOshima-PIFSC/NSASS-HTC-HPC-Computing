@@ -23,7 +23,7 @@ jobs:
           # To install LaTeX to build PDF book 
           tinytex: true 
           # uncomment below and fill to pin a version
-          # version: 0.9.600
+          version: 1.6.32
       
       # add software dependencies here
 
