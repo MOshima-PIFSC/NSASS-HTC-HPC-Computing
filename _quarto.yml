@@ -35,6 +35,8 @@ website:
           file: "assets/osg_documentation.qmd"
         - text: "Submitting an array job with OSG"
           file: "assets/array_osg.qmd"
+        - text: "Running an array of SS3 jobs on Hera" 
+          file: assets/ss3-hera.qmd
       - section: "Contact us"
         contents:
         - text: "Nicholas Ducharme-Barth"

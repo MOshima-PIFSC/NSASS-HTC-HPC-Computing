@@ -1,0 +1,4 @@
+Note 1 Information: sd_ratio read is < 0, so expecting sd parameter after movement params.; search for <now check> in echoinput.sso for parm_type
+Warning 1 : At least one block pattern ends in endyr. Check the output parameter value time series to see if the values in forecast years are as intended.
+Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended.
+ 1 warning  and 2 notes 

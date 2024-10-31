@@ -10,3 +10,13 @@
 /_book/
 site_libs
 *.sif
+*.tar.gz
+# ignore SS output
+*.ss
+*.tmp
+*.sso
+fmin.log
+ss3_linux.log
+ss3-example-calcs.r
+ss3.*
+*.ss_new
