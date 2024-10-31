@@ -101,6 +101,7 @@ Let us define that text file using R.
 ```{r}
 #| eval: true
 #| code-fold: true
+#| code-summary: "Show code used to define relative paths."
 proj_dir = this.path::this.proj()
 hera_project = "NMFS/project_name/User.Name/"
 ```
@@ -109,11 +110,12 @@ hera_project = "NMFS/project_name/User.Name/"
 ```{r}
 #| eval: true
 #| code-fold: true
+#| code-summary: "Show code used to define job directory structure."
 test_models=list.dirs(paste0(proj_dir,"/examples/hera/ss3/inputs/models/"),recursive=FALSE,full.names=FALSE)
 retro_peels=0:4
 
 # replace '-' with '_' in model names since we will use '-' as a delimiter
-    if(length(grep("-",test_models,fixed=TRUE))){
+    if(length(grep("-",test_models,fixed=TRUE))>0){
         test_models_new = gsub("-","_",test_models)
         rename_models_idx = grep("-",test_models,fixed=TRUE)
         for(i in seq_along(rename_models_idx)){
@@ -125,8 +127,9 @@ retro_peels=0:4
             # file.remove(paste0(proj_dir,"/examples/hera/ss3/inputs/models/",test_models[rename_models_idx[i]],"/"))
             shell(paste0("powershell rm -r ",proj_dir,"/examples/hera/ss3/inputs/models/",test_models[rename_models_idx[i]],"/"))
         }
+        test_models = test_models_new
     }
-    test_models = test_models_new
+    
 
 # define scenarios
 scenario_df = expand.grid(model=test_models,peel=retro_peels)
@@ -141,11 +144,11 @@ writeLines(hera_dir_lines, con=paste0(proj_dir, "/examples/hera/ss3/inputs/hera_
 
 ## Prepare job scripts
 
-During benchmark testing, issues were identified when trying to apply an HTC workflow to Hera, and a seperate workflow was developed which may be more Hera/Slurm appropriate. This takes advantage of the *gnu* parallel utility to run batches of jobs on distinct compute nodes. In this particular example 90 models will be run across 3 nodes each using 30 CPUs. This reserves the entire node for computations thus reducing the competition for resources for any one job[^3]. In order to execute this workflow, instructions are coordinated using four nested scripts: 
+During benchmark testing, issues were identified when trying to apply an HTC workflow to Hera, and a seperate workflow was developed which may be more Hera/Slurm appropriate. This takes advantage of the *gnu* parallel utility to run batches of jobs on distinct compute nodes. In this particular example 90 models will be run across 3 nodes each using 30 CPUs, and we will set the maximum run time to 1 hour. This reserves the entire node for computations thus reducing the competition for resources for any one job[^3]. In order to execute this workflow, instructions are coordinated using four nested scripts: 
 
 [^3]: While this workflow leads to better scheduling and makes HTC applications possible on Hera it may not be computationally efficient if users do not make use of all CPUs on a given node. For example, given that an entire compute node is requested, the user's allocation on Hera will be *billed* for use of all CPUs on that node even if not all are in use.
 
-* `parallel-submit.sh`: This script prepares files for Slurm job execution, makes the directory structure specified by `hera_job_directories.txt`, and submits the parallel jobs.
+* `parallel-submit.sh`: This script prepares files for Slurm job execution, makes the directory structure specified by `hera_job_directories.txt`, specifies the job requirements and submits the parallel jobs.
 * `parallel-job-exec.sh`: This is a script that defines variables to be passed to the software container and a second bash script `wrapper-r.sh`.
 * `wrapper-r.sh`: This wrapper script controls file input/output to and from the R script `ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
 * `ss3-example-calcs.r`: This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
@@ -159,10 +162,9 @@ In `parallel-submit.sh` you will need to change the following before you upload 
 
 :::
 
-1. Compress the `ss3/inputs/` and `ss3/slurm_scripts/` directories as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
+1. From within R, compress the `ss3/inputs/` and `ss3/slurm_scripts/` directories as a tar.gz file `upload.example-ss3.tar.gz`. This simplifies the number of steps needed for file transfers.
 ```{r}
 #| eval: false
-#| code-fold: true
 shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "ss3"), ";tar -czf upload.example-ss3.tar.gz inputs/ slurm_scripts/"))
 ```
 
@@ -195,7 +197,7 @@ mkdir -p examples/ss3/
 
 3. Transfer files  
 
-Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/ss3/upload.example-ss3.tar.gz` and `apptainer/linux-r4ss-v4.sif`) to Hera. The `upload.example-ss3.tar.gz` will be uploaded to your directory within the project directory on `scratch1`. Make sure your VPN is active when attempting to upload using the [DTN](hera_documentation.qmd). You will be prompted for your RSA passcode after each *scp* command. Note that you will need to specify the MAC protocol needed for the *scp* file transfer similar to what was done for the initial *ssh* connection using `scp -o MACs=hmac-sha2-256-etm@openssh.com`.
+Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/ss3/upload.example-ss3.tar.gz` and `apptainer/linux-r4ss-v4.sif`) to Hera. The `upload.example-ss3.tar.gz` will be uploaded to your directory within the project directory on `scratch1`. Make sure your VPN is active when attempting to upload using the [DTN](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html). You will be prompted for your RSA passcode after each *scp* command. Note that you will need to specify the MAC protocol needed for the *scp* file transfer similar to what was done for the initial *ssh* connection using `scp -o MACs=hmac-sha2-256-etm@openssh.com`.
 
 ```{bash}
 scp -o MACs=hmac-sha2-256-etm@openssh.com examples/hera/ss3/upload.example-ss3.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
@@ -229,10 +231,12 @@ scp -o MACs=hmac-sha2-256-etm@openssh.com -r User.Name@dtn-hera.fairmont.rdhpcs.
 ```
 
 Lastly in *Terminal A*, clean-up the `/scratch1/NMFS/project_name/User.Name/` directory since it is a shared space.
+
 ::: {.callout-important}
 ### Warning!
 Make sure that you have verified that your jobs completed successfully and that all results have been downloaded before cleaning-up the directory.
 :::
+
 ```{bash}
 #| eval: false
 #| echo: true
@@ -250,6 +254,7 @@ After results are downloaded they can be processed in R to extract the model run
 ```{r}
 #| eval: false
 #| code-fold: true
+#| code-summary: "Show output processing code"
 # iterate over output files and extract quantities
 library(data.table)
 library(magrittr)
@@ -363,4 +368,100 @@ for(i in seq_along(unique_models)){
 
 retro_dt = rbindlist(retro_dt.list)
 fwrite(retro_dt,file=paste0(proj_dir,"/examples/hera/ss3/output/retro_dt.csv"))
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| output: false
+library(data.table)
+library(magrittr)
+comptime_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/comptime_dt.csv"))
+comptime_dt_minus = comptime_dt[index!=79]
+ssb_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/ssb_dt.csv"))
+retro_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/retro_dt.csv"))
+```
+
+### Job runtime
+
+The `r nrow(comptime_dt)` jobs run on Hera completed `r round(sum(comptime_dt$hera_runtime)/60,digits=2)` hours of calculations (`r round(mean(comptime_dt$hera_runtime),digits=2)` minutes per job) in an elapsed time of `r round(as.numeric(abs(difftime(min(comptime_dt$hera_start),max(comptime_dt$hera_end),units="hours"))),digits=2)` hour.
+
+Excluding the job that timed out at the 1-hour limit the `r nrow(comptime_dt_minus)` jobs run on Hera completed `r round(sum(comptime_dt_minus$hera_runtime)/60,digits=2)` hours of calculations (`r round(mean(comptime_dt_minus$hera_runtime),digits=2)` minutes per job) in an elapsed time of `r round(as.numeric(abs(difftime(min(comptime_dt_minus$hera_start),max(comptime_dt_minus$hera_end),units="mins"))),digits=2)` minutes or $\sim$ `r round(1/(as.numeric(abs(difftime(min(comptime_dt_minus$hera_start),max(comptime_dt_minus$hera_end),units="mins")))/sum(comptime_dt_minus$hera_runtime)))` times faster (@fig-hera-elapsed).
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| code-summary: "Show plotting code"
+#| label: fig-hera-elapsed
+#| fig-cap: "Start and stop time for jobs run on Hera, excluding the job that timed out."
+#| fig-alt: "Each line indicates a job, with longer lines indicating longer run times."
+#| fig-width: 8
+#| fig-height: 4.5
+#| fig-dpi: 300
+library(ggplot2)
+
+comptime_dt_minus %>%
+.[,.(id,hera_start,hera_end)] %>%
+melt(.,id.vars="id") %>%
+.[,variable:=ifelse(variable%in%c("hera_start"),"start","end")] %>%
+dcast(.,id~variable) %>%
+.[order(start)] %>%
+ggplot() +
+xlab("Time (GMT)") +
+ylab("Job") +
+geom_segment(aes(x=start,xend=end,y=id,yend=id),color="#003087",alpha=0.5,linewidth=2) +
+theme(panel.background = element_rect(fill = "transparent", color = "black", linetype = "solid"),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),  
+            strip.background =element_rect(fill="transparent"),
+            legend.key = element_rect(fill = "transparent"),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank())
+```
+
+## Example results
+### Retrospectives
+
+Retrospective plots of static biomass depletion for the SS3 test models are shown in @fig-retro.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| code-summary: "Show plotting code"
+#| label: fig-retro
+#| fig-cap: "Depletion estimates across retrospective peels from the Stock Synthesis testing model suite examples. Mohn's rho values are printed in each panel."
+#| fig-alt: "Colored lines depicting the Stock Synthesis model fits to the testing model suite examples. The lines depict the depletion in spawning biomass over time. The colors correspond to the different retrospective peels that were fit in this example. The plot displays a variety of trends from these models."
+#| fig-width: 8 
+#| fig-height: 4.5
+#| fig-dpi: 300
+
+text_dt.list = as.list(rep(NA,uniqueN(ssb_dt$model)))
+for(i in seq_along(text_dt.list)){
+    tmp_dt = ssb_dt[model==unique(ssb_dt$model)[i]]
+    tmp_min_yr = min(tmp_dt$yr)
+    text_dt.list[[i]] = data.table(model=unique(ssb_dt$model)[i],yr=tmp_min_yr,sbo=0.2,rho=round(retro_dt[model==unique(ssb_dt$model)[i]]$rho,digits=2))
+}
+text_dt = rbindlist(text_dt.list)
+
+
+ssb_dt %>%
+		    ggplot() +
+		    facet_wrap(~model,scales="free_x") +
+		    xlab("Year") +
+		    ylab(expression(SB/SB[0])) +
+		    ylim(0,NA) +
+		    geom_hline(yintercept=0) +
+		    geom_path(aes(x=yr,y=sbo,color=as.character(peel),group=id)) +
+            geom_text(data=text_dt,aes(x=yr,y=sbo,label=rho),size=3,hjust = 0) +
+		    viridis::scale_color_viridis("Peel",begin = 0.1,end = 0.8,direction = 1,option = "H",discrete=TRUE) +
+		    viridis::scale_fill_viridis("Peel",begin = 0.1,end = 0.8,direction = 1,option = "H",discrete=TRUE) +
+            theme(panel.background = element_rect(fill = "transparent", color = "black", linetype = "solid"),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank(),
+            strip.background =element_rect(fill="transparent"),
+            legend.key = element_rect(fill = "transparent"))
 ```
