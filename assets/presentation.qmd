@@ -9,6 +9,7 @@ format:
   slide-number: true
   revealjs-plugins:
   - codewindow
+  mermaid-format: svg
 author: Nicholas Ducharme-Barth and Megumi Oshima
 date: Nov 5, 2024
 embed-resources: true
@@ -49,7 +50,7 @@ Improve efficiency by running 10s - 1000s of models ['simultaneously']{.blue}.
 :::
 
 ::: {.fragment .fade-in fragment-index=2}
-![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="border: 1px solid #323C46; max-height: unset; max-width: unset;"}
+![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="border: 1px solid #323C46; max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
 ![](static/wcpfc-logo.png){.absolute top="6%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
 ![](static/spc-logo.png){.absolute top="15%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
 
@@ -292,7 +293,7 @@ Many may already be using containers such as [GitHub Codespaces]{.fragment .hl-c
 :::
 
 ::: {.fragment .fade-in fragment-index=4}
-- Plays nice with existing containers (e.g., [Docker]{.fragment .hl-cur-mb-blue fragment-index=5})
+- Plays nice with existing containers (e.g., [Docker]{.fragment .hl-cur-mb-blue fragment-index=4})
 :::
 
 :::
@@ -300,7 +301,7 @@ Many may already be using containers such as [GitHub Codespaces]{.fragment .hl-c
 
 ![](static/apptainer-logo.png){.absolute top="0%" right="0%" width="15%" style="max-height: unset; max-width: unset;"}
 
-::: {.fragment .fade-in fragment-index=5}
+::: {.fragment .fade-in fragment-index=4}
 ![](static/docker-logo-blue.png){.absolute bottom="27.5%" right="0%" width="20%" style="max-height: unset; max-width: unset;"}
 :::
 
@@ -393,41 +394,96 @@ apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
 ```
 :::
 
+## Let's walk through an example {.smaller}
 
-
-<!-- 
-## How can we do this? 
-<br/>  
-
-::: columns
-::: {.column width="45%"}
-###### High-throughput computing (HTC)
+::: {.fragment .fade-in fragment-index=1}
+In this case we will use Hera to conduct a quick retrospective analysis on all models in the [SS3 testing suite](https://github.com/nmfs-ost/ss3-test-models).
 :::
 
-::: {.column width="45%"}
-###### High-performance computing (HPC)
+::: {.fragment .fade-in fragment-index=2}
+More complete documentation of this example can be found on the [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html).
 :::
+
+::: {.fragment .fade-in fragment-index=1}
+![](static/ss3-test-models.png){.absolute bottom="10%" left="5%" width="90%" style="border: 1px solid #323C46; max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
 :::
-
-## Why use HTC/HPC computing? 
-<br/>  
-
--   Efficiency
-
--   Reproducibility
-
--   Documentation
-
--   Transparency
-
--   Automation [?]{.fragment .fade-in}
 
 ## Workflow  
 
-::: incremental
-1.  create container
-2.  create scripts
-3.  transfer files
-4.  submit jobs
-5.  transfer files back to local machine
-::: -->
+1.  [Create container]{.fragment .fade-body fragment-index=1}
+
+::: {.fragment .fade-in fragment-index=2}
+2.  Create scripts
+:::
+
+::: {.fragment .fade-in fragment-index=3}
+3.  Transfer files
+:::
+
+::: {.fragment .fade-in fragment-index=4}
+4.  Submit jobs
+:::
+
+::: {.fragment .fade-in fragment-index=5}
+5.  Transfer files back to local machine
+:::
+
+## Workflow
+
+::: {.fragment .fade-out fragment-index=3}
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[(Shared storage)]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+:::
+
+::: {.absolute bottom="5%" top="15%" left="30%" right="0%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+::: {.fragment .fade-in fragment-index=2}
+::: {.absolute left="40%" right="0%" top="10%" style="font-color: #323C46; font-size:0.75em; padding: 0.25em 1em; background-color: #C6E6F0; box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+[IDE:]{.blue} Develop and make job script files 
+:::
+:::
