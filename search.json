@@ -167,7 +167,7 @@
     "href": "assets/presentation.html#workflow-1",
     "title": "Operationalizing available research computing resources for stock assessment",
     "section": "Workflow",
-    "text": "Workflow\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLogin node\n\n\n\nCompute node: 1\n\n\n\nCompute node: 2\n\n\n\nCompute node: 3\n\n\n\nShared storage\n\n\n\nIDE\n\n\n\nTerminal A: ssh\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE: Develop and make job script files\n\n\n\n\n\n\nNational Stock Assessment Science Seminar"
+    "text": "Workflow\n\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nShared storage\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE: Develop and make job script files"
   },
   {
     "objectID": "assets/ss3-hera.html",
