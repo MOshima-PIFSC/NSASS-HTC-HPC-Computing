@@ -18,7 +18,7 @@ format:
     code-overflow: wrap
 ---
 
-In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/hera/array_lm/inputs/run_lm_hera_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/hera/array_lm/inputs/hera_job_directories.txt) to specify the directory path names on Hera.
+In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/hera/array_lm/inputs/run_lm_hera_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the parameter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/hera/array_lm/inputs/hera_job_directories.txt) to specify the directory path names on Hera.
 
 The *hera/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
 
@@ -80,7 +80,7 @@ if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "h
 
 6. Compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. This simplifies the number of steps needed for file transfers.
 ```{r}
-shell(paste0("powershell cd ", file.path(proj_dir, "examples", "hera"), ";tar -czf upload.array_lm.tar.gz array_lm "))
+system(paste0("powershell cd ", file.path(proj_dir, "examples", "hera"), ";tar -czf upload.array_lm.tar.gz array_lm "))
 ```
 
 ## Hera workflow
