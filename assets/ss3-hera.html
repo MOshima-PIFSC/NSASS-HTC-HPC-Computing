@@ -5082,7 +5082,7 @@ window.Quarto = {
 <p>Similar to the <a href="https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/array_hera.html">array_lm</a> example, this example also sets up running an array job on Hera. As before, we will use a <code>*.txt</code> to indicate which directories we want to run jobs in as a part of our array.</p>
 <p>There are a few main differences that serve to illustrate useful modifications to the workflow:</p>
 <ul>
-<li>in this case we will run <a href="https://github.com/nmfs-stock-synthesis/stock-synthesis">Stock Synthesis</a> (SS3) on all models in the SS testing suite to conduct a retrospective analysis;</li>
+<li>in this case we will run <a href="https://github.com/nmfs-stock-synthesis/stock-synthesis">Stock Synthesis</a> (SS3) on all models in the SS3 testing suite to conduct a retrospective analysis;</li>
 <li>we will set up the job array to run using the <em>gnu</em> parallel utility in order to more effectively implement an HTC type workflow in an HPC system;</li>
 <li>we will run our jobs within a software container;</li>
 <li>lastly, we will define <em>variables</em> to be passed between job submission and job execution scripts to ensure that the correct output is produced.</li>

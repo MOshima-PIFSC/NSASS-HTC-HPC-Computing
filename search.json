@@ -146,7 +146,28 @@
     "href": "assets/presentation.html#apptainer-1",
     "title": "Operationalizing available research computing resources for stock assessment",
     "section": "Apptainer",
-    "text": "Apptainer\nLet’s look at an example (linux-r4ss-v4.def):\nBuild on Linux system with Apptainer installed.\n\napptainer build linux-r4ss-v4.sif linux-r4ss-v4.def\n\n\n\n\n\n\nNational Stock Assessment Science Seminar"
+    "text": "Apptainer\nLet’s look at an example (linux-r4ss-v4.def):\nBuild on Linux system with Apptainer installed.\n\napptainer build linux-r4ss-v4.sif linux-r4ss-v4.def"
+  },
+  {
+    "objectID": "assets/presentation.html#lets-walk-through-an-example",
+    "href": "assets/presentation.html#lets-walk-through-an-example",
+    "title": "Operationalizing available research computing resources for stock assessment",
+    "section": "Let’s walk through an example",
+    "text": "Let’s walk through an example\n\nIn this case we will use Hera to conduct a quick retrospective analysis on all models in the SS3 testing suite.\n\n\nMore complete documentation of this example can be found on the GitHub website."
+  },
+  {
+    "objectID": "assets/presentation.html#workflow",
+    "href": "assets/presentation.html#workflow",
+    "title": "Operationalizing available research computing resources for stock assessment",
+    "section": "Workflow",
+    "text": "Workflow\n\nCreate container\n\n\n\nCreate scripts\n\n\n\n\nTransfer files\n\n\n\n\nSubmit jobs\n\n\n\n\nTransfer files back to local machine"
+  },
+  {
+    "objectID": "assets/presentation.html#workflow-1",
+    "href": "assets/presentation.html#workflow-1",
+    "title": "Operationalizing available research computing resources for stock assessment",
+    "section": "Workflow",
+    "text": "Workflow\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLogin node\n\n\n\nCompute node: 1\n\n\n\nCompute node: 2\n\n\n\nCompute node: 3\n\n\n\nShared storage\n\n\n\nIDE\n\n\n\nTerminal A: ssh\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE: Develop and make job script files\n\n\n\n\n\n\nNational Stock Assessment Science Seminar"
   },
   {
     "objectID": "assets/ss3-hera.html",
