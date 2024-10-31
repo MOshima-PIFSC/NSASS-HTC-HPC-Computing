@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nicholas Ducharme-Barth">
-<meta name="dcterms.date" content="2024-10-30">
+<meta name="dcterms.date" content="2024-10-31">
 
 <title>Working with NOAA HPC Hera – HTC/HPC for Stock Assessments</title>
 <style>
@@ -4816,13 +4816,19 @@ vertical-align: -.125em;
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assets/array_hera.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Submitting an array job</span></a>
+ <span class="menu-text">Submitting an array job with Hera</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../assets/osg_documentation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Working with Open Science Grid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assets/array_osg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Submitting an array job with OSG</span></a>
   </div>
 </li>
       </ul>
@@ -4909,7 +4915,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-10-30</p>
+      <p class="date">2024-10-31</p>
     </div>
   </div>
   
@@ -4923,6 +4929,7 @@ vertical-align: -.125em;
 
 <section id="hera" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="hera"><span class="header-section-number">1</span> Hera</h2>
+<p>Hera is one of NOAA’s high performance computing resources available to NMFS scientists where jobs are run and scheduled with <a href="https://docs.rdhpcs.noaa.gov/slurm/overview.html#">SLURM</a>. In order to access the system, you must first have a <a href="https://docs.rdhpcs.noaa.gov/accounts/index.html">RDHPCS user account</a> and request access to a project. For all of the examples in this documentation, we will be working in the <code>htc4sa</code> project. For complete documentation about Hera and other RDHPCS resources, see the NOAA RDHPCS <a href="https://docs.rdhpcs.noaa.gov/index.html">website</a>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4935,10 +4942,10 @@ Coding alert!
 <div class="callout-body-container callout-body">
 <p>In the following code you will need to, where necessary:</p>
 <ol type="1">
-<li><p>Replace <code>User.Name</code> with your OSG user name.</p></li>
-<li><p>Replace <code>osg.project_name</code> your OSG project name.</p></li>
+<li><p>Replace <code>User.Name</code> with your RDHPCS user name.</p></li>
+<li><p>Replace <code>bastion</code> with either <code>boulder</code> or <code>princeton</code> depending on which bastion you wish to login in through.</p></li>
+<li><p>Replace <code>project_name</code> with your RDHPCS project name.</p></li>
 </ol>
-<p>You will also need to make these edits in each of <code>osg_dir.txt</code> and <code>osg_array_lm.sub</code>.</p>
 </div>
 </div>
 </section>
@@ -4948,7 +4955,7 @@ Coding alert!
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-m</span> hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov <span class="at">-p22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Replace <code>User.Name</code> with your NOAA HPC account name, and <code>bastion</code> with either <code>boulder</code> or <code>princeton</code> depending on which ‘bastion’ you wish to log-in through. Note that the flag <code>-p22</code> specifies opening port 22 and is optional. When prompted, put in your password followed by the <a href="https://docs.rdhpcs.noaa.gov/accounts/rsa_token.html">RSA authentication code</a>:</p>
+<p>Note that the flag <code>-p22</code> specifies opening port 22 and is optional. When prompted, put in your password followed by the <a href="https://docs.rdhpcs.noaa.gov/accounts/rsa_token.html">RSA authentication code</a>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">XXXXXXXXRSACODE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -4977,7 +4984,7 @@ Coding alert!
 <h2 data-number="3" class="anchored" data-anchor-id="transferring-files-tofrom-hera"><span class="header-section-number">3</span> Transferring files to/from Hera</h2>
 <section id="via-scp-using-data-transfer-node-dtn" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="via-scp-using-data-transfer-node-dtn"><span class="header-section-number">3.1</span> via scp using data transfer node (DTN)</h3>
-<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/index.html">this wiki</a>(CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the <em>scratch</em> directory. However, this is ok since it is recommended that input/output data files are stored in the <em>scratch</em> directory. Using a DTN is faster than using the <a href="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">ssh tunnel</a>.</p>
+<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/index.html">this wiki</a> (CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the <em>scratch</em> directory. However, this is ok since it is recommended that input/output data files are stored in the <em>scratch</em> directory. Using a DTN is faster than using the <a href="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">ssh tunnel</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4995,23 +5002,21 @@ Note
 <p>This will avoid over-writing other users’ work.</p>
 </div>
 </div>
-<p>File transfer takes place via <em>scp</em> and specifying the source path and destination path as shown::</p>
+<p>File transfer takes place via <em>scp</em> and you need to specify the source file (and path to the file if your terminal is not in that directory) and destination path as shown:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## format is scp &lt;source&gt; &lt;destination&gt; </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>and replace <code>User.Name</code> and <code>project_name</code> with your HPC account name and project.</p>
 <p>If trying to transfer from a machine not within the NOAA domain (or on the VPN) you can use <em>scp</em> with an <em>untrusted</em> DTN:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@udtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/data_untrusted/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that <code>dtn-hera</code> was changed to <code>udtn-hera</code>. As before replace <code>User.Name</code> with your HPC account name. Since files can not stay in the <code>data_untrusted</code> directory we will need to <a href="#connecting-to-hera-via-ssh">log in to Hera</a> and move it to the correct project directory on scratch. Once logged in, moving the files can be done with <a href="https://docs.rdhpcs.noaa.gov/data/local_migration.html"><em>rsync</em></a> (CAC login required), and then they can be deleted from <code>data_untrusted</code> by:</p>
+<p>Note that <code>dtn-hera</code> was changed to <code>udtn-hera</code>. Since files cannot stay in the <code>data_untrusted</code> directory we will need to <a href="#connecting-to-hera-via-ssh">log in to Hera</a> and move it to the correct project directory on scratch. Once logged in, moving the files can be done with <a href="https://docs.rdhpcs.noaa.gov/data/local_migration.html"><em>rsync</em></a> (CAC login required), and then they can be deleted from <code>data_untrusted</code> by:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-axv</span> /scratch1/data_untrusted/User.Name/file /scratch1/NMFS/project_name/User.Name/</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> /scratch1/data_untrusted/User.Name/file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Be sure to replace <code>User.Name</code> and <code>project_name</code> with your HPC account name and project.</p>
-<p>Files can be downloaded using <em>scp</em> from either the trusted (<code>dtn</code>) or untrusted (<code>udtn</code>) DTN:</p>
+<p>Files can be downloaded back to your local machine using <em>scp</em> from either the trusted (<code>dtn</code>) or untrusted (<code>udtn</code>) DTN:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/file /path/to/local/file </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -5025,7 +5030,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-m</span> hmac-sha2-256-etm@openssh.com <span class="at">-LXXXXX:localhost:XXXXX</span> User.Name@hera-rsa.bastion.rdhpcs.noaa.gov</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Replace <code>XXXXX</code> with your local port number. As before replace <code>User.Name</code> and <code>bastion</code>.</p>
+<p>Replace <code>XXXXX</code> with your local port number.</p>
 <ol start="2" type="1">
 <li>In the second terminal window you can check to see if the tunnel was properly created:</li>
 </ol>
@@ -5036,7 +5041,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-P</span> XXXXX /path/to/local/file User.Name@localhost:/home/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This will copy your file from your local machine into your home directory on Hera. Simply append additional directory structure to <code>/home/User.Name/</code> to copy it into a sub-directory that you have created on Hera (e.g., <code>/home/User.Name/sub/dir/</code>). To transfer files into your <em>scratch</em> directory, specify the proper destination path (e.g., <code>/scratch1/NMFS/project_name/User.Name/</code> where <code>project_name</code> is your HPC account project).</p>
+<p>This will copy your file from your local machine into your home directory on Hera. Simply append additional directory structure to <code>/home/User.Name/</code> to copy it into a sub-directory that you have created on Hera (e.g., <code>/home/User.Name/sub/dir/</code>). To transfer files into your <em>scratch</em> directory, specify the proper destination path (e.g., <code>/scratch1/NMFS/project_name/User.Name/</code>).</p>
 <p>To download a file from Hera using <em>scp</em> and the ssh tunnel use the following:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-P</span> XXXXX User.Name@localhost:/home/User.Name/file_name /path/to/local/file </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
