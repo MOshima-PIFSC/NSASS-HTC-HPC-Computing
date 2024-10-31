@@ -1,0 +1,114 @@
+---
+title: "Submitting an array job with OSG"
+date: last-modified
+date-format: iso
+published-title: "Last updated"
+author: Nicholas Ducharme-Barth
+engine: knitr
+execute:
+    eval: false
+    echo: true
+    output: false
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: right
+    number-sections: true
+    code-overflow: wrap
+---
+
+In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/osg/array_lm/inputs/run_lm_osg_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/osg/array_lm/inputs/osg_job_directories.txt) to specify the directory path names on OSG.
+
+The *osg/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
+
+::: {.callout-important}
+# Coding alert!
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **NMFS/project_name** with your specific project name. 
+:::
+
+## Setup data inputs and directories
+
+1. Define a relative path, we are starting from the root directory of this project.
+
+```{r}
+#| eval: true
+proj_dir = this.path::this.proj()
+osg_project = "" ##TDOD Do we need this? 
+```
+
+2. Define directory names for each run.
+```{r}
+#| eval: true
+dir_name = paste0("rep_0", 0:9)
+```
+
+3. Iterate across directories, create them, and then write a simple *.csv* file into them containing data to fit a linear model.
+```{r}
+for(i in seq_along(dir_name)){
+    
+    if(!file.exists(file.path(proj_dir, "example", "OSG", "array_lm", "inputs", dir_name[i], "data.csv")))
+    {
+        set.seed(i)
+        dir.create(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", dir_name[i]), recursive=TRUE)
+        tmp = data.frame(x=1:1000)
+        tmp$y = (i + (0.5*i)*tmp$x) + rnorm(1000,0,i)
+        write.csv(tmp, file = file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", dir_name[i], "data.csv"))
+    }
+}
+```
+
+4. Write an R script to read in the data, run a linear model, and report back the estimated parameters.
+```{r}
+if(!file.exists(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "run_lm_osg_array.r"))){
+    script_lines = c("tmp=read.csv('data.csv')", 
+    "fit=lm(y~x,data=tmp)", 
+    "out = data.frame(par=unname(fit$coefficients))", 
+    "write.csv(out,file='par.csv')"
+    )
+    writeLines(script_lines, con = file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "run_lm_osg_array.r"))
+}
+```
+
+5. Write a text file containing the full path names for where the directories will be on OSG.
+```{r}
+if(!file.exists(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "osg_job_directories.txt"))){
+    dir_lines = paste0("array_osg/", dir_name, "/")
+    writeLines(dir_lines, con = file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "osg_job_directories.txt"))
+}
+```
+
+6. In addtion to the input files, you will need to have 2 additional scripts: a wrapper script (`wrapper.sh`) and a submission script (`submission.sub`). To easily upload all the necessary files at once, compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. 
+```{r}
+shell(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG"), ";tar -czf upload.array_lm.tar.gz array_lm "))
+```
+
+## OSG workflow  
+
+As [before](#singularity-container), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create directory for this example.
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+ssh nicholas.ducharmebarth@ap21.uc.osg-htc.org
+mkdir r_and_ss
+```
+
+In the second window, upload the files contained in `example/r_and_ss/osg/` into the OSG directory that you just created. These files include:
+
+* the base SS files to be modified (as a compressed file) `Start.tar.gz`;
+* the [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_dir.txt) `osg_dir.txt` that was created in the above R code chunk;
+* the [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/r_and_ss.r) `r_and_ss.r` for the job (manipulating SS input files, running SS, and bootstrapping the results to generate uncertainty around management quantities);
+* the [HTCondor submit script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/r_and_ss.sub) `r_and_ss.sub`;
+* the [bash wrapper script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_wrapper_r_and_ss.sh) `osg_wrapper_r_and_ss.sh` executing the condor job (unpacks files, sets up job timing, executes R script, and packages results);
+* and a [bash script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_prep.sh) `osg_prep.sh` preparing the before-listed files for being run on HTCondor (change file permissions, make directory structure, and change dos2unix line endings).  
+
+```{bash}
+#| eval: false
+#| echo: true
+#| output: false
+scp -r example/r_and_ss/osg/* nicholas.ducharmebarth@ap21.uc.osg-htc.org:/home/nicholas.ducharmebarth/r_and_ss
+```
+
+In the first window, change the permissions and line endings for `osg_prep.sh`. Since the OSG access point does not have the `dos2unix` utility installed we can quickly jump into the Singularity container that we created to access `dos2unix`, change the line endings and execute the script. Use `condor_submit` to submit your HTCondor job.

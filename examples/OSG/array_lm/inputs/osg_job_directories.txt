@@ -1,0 +1,10 @@
+array_osg/rep_00/
+array_osg/rep_01/
+array_osg/rep_02/
+array_osg/rep_03/
+array_osg/rep_04/
+array_osg/rep_05/
+array_osg/rep_06/
+array_osg/rep_07/
+array_osg/rep_08/
+array_osg/rep_09/

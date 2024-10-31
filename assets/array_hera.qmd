@@ -1,5 +1,5 @@
 ---
-title: "Running an array job on Hera"
+title: "Submitting an array job with Hera"
 date: last-modified
 date-format: iso
 published-title: "Last updated"
@@ -117,6 +117,12 @@ Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on 
 ```{bash}
 scp examples/hera/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name
 ```
+
+:::{.callout-tip}
+### Troubleshooting Tip
+If you are getting an error `Corrupted MAC on input` when uploading files, add `-o MACs=hmac-sha2-512` between `scp` and the name of the file to upload. 
+:::
+
 ::: {.callout-important}
 
 ### Coding alert!
