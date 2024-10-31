@@ -2,7 +2,7 @@
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/02-Empirical_Wtatage_Age_Selex-0/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/03-growth_timevary-0/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/04-Hake_2018-0/
-/scratch1/NMFS/project_name/User.Name/examples/ss3/output/05-Hake_2019_semi-parametric_selex-0/
+/scratch1/NMFS/project_name/User.Name/examples/ss3/output/05-Hake_2019_semi_parametric_selex-0/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/06-platoons-0/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/07-Sablefish2015-0/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/08-Simple-0/
@@ -20,7 +20,7 @@
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/20-Empirical_Wtatage_Age_Selex-1/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/21-growth_timevary-1/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/22-Hake_2018-1/
-/scratch1/NMFS/project_name/User.Name/examples/ss3/output/23-Hake_2019_semi-parametric_selex-1/
+/scratch1/NMFS/project_name/User.Name/examples/ss3/output/23-Hake_2019_semi_parametric_selex-1/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/24-platoons-1/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/25-Sablefish2015-1/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/26-Simple-1/
@@ -38,7 +38,7 @@
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/38-Empirical_Wtatage_Age_Selex-2/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/39-growth_timevary-2/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/40-Hake_2018-2/
-/scratch1/NMFS/project_name/User.Name/examples/ss3/output/41-Hake_2019_semi-parametric_selex-2/
+/scratch1/NMFS/project_name/User.Name/examples/ss3/output/41-Hake_2019_semi_parametric_selex-2/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/42-platoons-2/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/43-Sablefish2015-2/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/44-Simple-2/
@@ -56,7 +56,7 @@
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/56-Empirical_Wtatage_Age_Selex-3/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/57-growth_timevary-3/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/58-Hake_2018-3/
-/scratch1/NMFS/project_name/User.Name/examples/ss3/output/59-Hake_2019_semi-parametric_selex-3/
+/scratch1/NMFS/project_name/User.Name/examples/ss3/output/59-Hake_2019_semi_parametric_selex-3/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/60-platoons-3/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/61-Sablefish2015-3/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/62-Simple-3/
@@ -74,7 +74,7 @@
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/74-Empirical_Wtatage_Age_Selex-4/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/75-growth_timevary-4/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/76-Hake_2018-4/
-/scratch1/NMFS/project_name/User.Name/examples/ss3/output/77-Hake_2019_semi-parametric_selex-4/
+/scratch1/NMFS/project_name/User.Name/examples/ss3/output/77-Hake_2019_semi_parametric_selex-4/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/78-platoons-4/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/79-Sablefish2015-4/
 /scratch1/NMFS/project_name/User.Name/examples/ss3/output/80-Simple-4/

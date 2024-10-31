@@ -6,3 +6,7 @@ library(knitr)
 # below libraries are only needed for VSCode-R functionality
 library(rlang)
 library(jsonlite)
+# libraries that are used in R code that is not evaluated
+library(data.table)
+library(magrittr)
+library(r4ss)
