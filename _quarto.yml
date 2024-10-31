@@ -29,10 +29,12 @@ website:
         contents: 
         - text: "Working with NOAA HPC Hera"
           file: "assets/hera_documentation.qmd"
-        - text: "Submitting an array job" 
+        - text: "Submitting an array job with Hera" 
           file: assets/array_hera.qmd
         - text: "Working with Open Science Grid"
           file: "assets/osg_documentation.qmd"
+        - text: "Submitting an array job with OSG"
+          file: "assets/array_osg.qmd"
       - section: "Contact us"
         contents:
         - text: "Nicholas Ducharme-Barth"
