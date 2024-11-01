@@ -11,24 +11,19 @@ echo $@
 mkdir -p working/
 mkdir -p working/rtmp
 export TMPDIR=$_CONDOR_SCRATCH_DIR/rtmp
-mv Start.tar.gz working/
-mv r_and_ss.r working/
+mv data.csv working/
+mv run_lm_osg_array.r working/
 cd working/
 
-# unpack everything from initial tar file
-tar -xzf Start.tar.gz
+# get names of input files
 orig_files=$(ls)
 
 # rename variables passed into the script
 target_dir=$1
 
-# define variables for R script
-random_seed=123
-n_replicates=500
-
 # begin calcs
 start=`date +%s`
-Rscript r_and_ss.r $target_dir $random_seed $n_replicates
+Rscript run_lm_osg_array.r $target_dir 
 
 # end of calcs book-keeping
 end=`date +%s`
@@ -39,10 +34,10 @@ echo End $end >> runtime.txt
 echo Runtime $runtime >> runtime.txt
 
 # Clean-up
-rm Start.tar.gz
+rm data.csv
 
 # Create empty file so that it does not mess up when repacking tar
 touch End.tar.gz
-tar -czf End.tar.gz ss_dMVLN.RData ss_report.RData runtime.txt 
+tar -czf End.tar.gz par.csv runtime.txt 
 cd ..
 mv working/End.tar.gz .
