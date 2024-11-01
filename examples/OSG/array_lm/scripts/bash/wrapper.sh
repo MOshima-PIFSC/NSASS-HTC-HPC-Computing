@@ -23,6 +23,7 @@ target_dir=$1
 
 # begin calcs
 start=`date +%s`
+# run R script
 Rscript run_lm_osg_array.r $target_dir 
 
 # end of calcs book-keeping
@@ -38,6 +39,7 @@ rm data.csv
 
 # Create empty file so that it does not mess up when repacking tar
 touch End.tar.gz
+# Tar outputs together
 tar -czf End.tar.gz par.csv runtime.txt 
 cd ..
 mv working/End.tar.gz .

@@ -4,20 +4,17 @@ universe = vanilla
 # Define initial directory
 initial_dir = $(target_dir)
 # Define executable and input
-executable = /home/nicholas.ducharmebarth/r_and_ss/osg_wrapper_r_and_ss.sh
+executable = /home/meg_oshima/array_lm/scripts/bash/wrapper.sh
 
 # Error logging
 log = job_$(Cluster)_$(Process).log
 error = job_$(Cluster)_$(Process).err
 output = job_$(Cluster)_$(Process).out
 
-# Define singularity
-+SingularityImage = "osdf:///ospool/ap21/data/nicholas.ducharmebarth/linux-r4ss-v3.sif"
-
 # Define resources
 request_cpus = 1
-request_memory = 2GB
-request_disk = 850MB
+request_memory = 1GB
+request_disk = 300MB
 +JobDurationCategory = "Medium"
 
 # Define arguments
@@ -28,11 +25,11 @@ arguments = $(target_dir)
 
 # Define input files
 should_transfer_files = YES
-transfer_input_files = /home/nicholas.ducharmebarth/r_and_ss/r_and_ss.r,/home/nicholas.ducharmebarth/r_and_ss/Start.tar.gz
+transfer_input_files = ../run_lm_osg_array.r,data.csv
 
 # Define output files
 when_to_transfer_output = ON_EXIT_OR_EVICT
 transfer_output_files = End.tar.gz
 
 # Define queue
-queue target_dir from /home/nicholas.ducharmebarth/r_and_ss/osg_dir.txt
+queue target_dir from array_lm/inputs/osg_job_directories.txt
