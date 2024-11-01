@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Nicholas Ducharme-Barth">
-<meta name="dcterms.date" content="2024-10-31">
+<meta name="dcterms.date" content="2024-11-01">
 
 <title>Submitting an array job with OSG – HTC/HPC for Stock Assessments</title>
 <style>
@@ -4919,7 +4919,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-10-31</p>
+      <p class="date">2024-11-01</p>
     </div>
   </div>
   
@@ -4931,7 +4931,7 @@ vertical-align: -.125em;
 </header>
 
 
-<p>In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple <a href="../examples/osg/array_lm/inputs/run_lm_osg_array.r">R script</a> that reads in the <em>data.csv</em> file stored in the directory, fits a linear model, and writes the paramter estimates to a <em>par.csv</em>. We specify which directories we want to run jobs in as a part of the job-array using a <a href="../examples/osg/array_lm/inputs/osg_job_directories.txt">text file</a> to specify the directory path names on OSG.</p>
+<p>In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple <a href="../examples/osg/array_lm/inputs/run_lm_osg_array.r">R script</a> that reads in the <em>data.csv</em> file stored in the directory, fits a linear model, and writes the parameter estimates to a <em>par.csv</em>. We specify which directories we want to run jobs in as a part of the job-array using a <a href="../examples/osg/array_lm/inputs/osg_job_directories.txt">text file</a> to specify the directory path names on OSG.</p>
 <p>The <em>osg/array_lm</em> example can be set-up either by cloning the repository <code>git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git</code>, or stepping through the following code:</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -4943,7 +4943,7 @@ Coding alert!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note: throughout this tutorial we are using <strong>User.Name</strong> as a stand-in for your actual username and <strong>NMFS/project_name</strong> as a stand-in for your project. In all cases, replace <strong>User.Name</strong> your actual user name and <strong>NMFS/project_name</strong> with your specific project name.</p>
+<p>Note: throughout this tutorial we are using <strong>User.Name</strong> as a stand-in for your actual username and <strong>NMFS/project_name</strong> as a stand-in for your project. In all cases, replace <strong>User.Name</strong> your actual user name and <strong>NMFS/project_name</strong> with your specific project name. ##TODO: project name still needed?</p>
 </div>
 </div>
 <section id="setup-data-inputs-and-directories" class="level2" data-number="1">
@@ -5000,32 +5000,84 @@ Coding alert!
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="6" type="1">
-<li>In addtion to the input files, you will need to have 2 additional scripts: a wrapper script (<code>wrapper.sh</code>) and a submission script (<code>submission.sub</code>). To easily upload all the necessary files at once, compress the entire <code>array_lm/</code> directory as a tar.gz file <code>upload.array_lm.tar.gz</code>.</li>
+<li>In addtion to the input files, you will need to have 2 additional scripts: a wrapper script (<code>wrapper.sh</code>) and a submission script (<code>submission.sub</code>), examples of both can be found in <code>examples/OSG/array_lm/scripts</code>. To easily upload all the necessary files at once, compress the entire <code>array_lm/</code> directory as a tar.gz file <code>upload.array_lm.tar.gz</code>.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shell</span>(<span class="fu">paste0</span>(<span class="st">&quot;powershell cd &quot;</span>, <span class="fu">file.path</span>(proj_dir, <span class="st">&quot;examples&quot;</span>, <span class="st">&quot;OSG&quot;</span>), <span class="st">&quot;;tar -czf upload.array_lm.tar.gz array_lm &quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="fu">paste0</span>(<span class="st">&quot;powershell cd &quot;</span>, <span class="fu">file.path</span>(proj_dir, <span class="st">&quot;examples&quot;</span>, <span class="st">&quot;OSG&quot;</span>, <span class="st">&quot;array_lm&quot;</span>), <span class="st">&quot;;tar -czf upload.array_lm.tar.gz * &quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="osg-workflow" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="osg-workflow"><span class="header-section-number">2</span> OSG workflow</h2>
-<p>As <a href="#singularity-container">before</a>, access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create directory for this example.</p>
+<ol type="1">
+<li>Connect to OSG<br>
+As <a href="../assets/osg_documentation.html#transferring-files-via-scp">mentioned</a>, access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create a directory for this example.</li>
+</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> nicholas.ducharmebarth@ap21.uc.osg-htc.org</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> r_and_ss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> User.Name@ap21.uc.osg-htc.org</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> array_lm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the second window, upload the files contained in <code>example/r_and_ss/osg/</code> into the OSG directory that you just created. These files include:</p>
+<ol start="2" type="1">
+<li>Transfer files</li>
+</ol>
+<p>We will upload the compressed file<code>upload.array_lm.tar.gz</code> into the OSG directory that you just created. The following files should be included:</p>
 <ul>
-<li>the base SS files to be modified (as a compressed file) <code>Start.tar.gz</code>;</li>
-<li>the <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_dir.txt">text file</a> <code>osg_dir.txt</code> that was created in the above R code chunk;</li>
-<li>the <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/r_and_ss.r">R script</a> <code>r_and_ss.r</code> for the job (manipulating SS input files, running SS, and bootstrapping the results to generate uncertainty around management quantities);</li>
-<li>the <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/r_and_ss.sub">HTCondor submit script</a> <code>r_and_ss.sub</code>;</li>
-<li>the <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_wrapper_r_and_ss.sh">bash wrapper script</a> <code>osg_wrapper_r_and_ss.sh</code> executing the condor job (unpacks files, sets up job timing, executes R script, and packages results);</li>
-<li>and a <a href="https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_prep.sh">bash script</a> <code>osg_prep.sh</code> preparing the before-listed files for being run on HTCondor (change file permissions, make directory structure, and change dos2unix line endings).</li>
+<li>all replicate data files to run the linear models on;</li>
+<li>the r script <a href="../examples/OSG/array_lm/inputs/run_lm_osg_array.r">run_lm_osg_array.r</a>;</li>
+<li>the text file <a href="../examples/OSG/array_lm/inputs/osg_job_directories.txt">osg_job_directories.txt</a> with the directory names;</li>
+<li>the wrapper script <a href="../examples/OSG/array_lm/scripts/bash/wrapper.sh">wrapper.sh</a> which unpacks files, sets up job timing, executes the R script, and packages results;</li>
+<li>the submission script <a href="../examples/OSG/array_lm/scripts/condor_submit/submission.sub">submission.sub</a>;</li>
+<li>and a bash script <a href="../examples/OSG/array_lm/scripts/bash/prep.sh">prep.sh</a> that prepares the files to be run on HTCondor, including changing file permissions, making directory structures, and changing dos2unix line endings.</li>
 </ul>
+<p>In the second terminal, navigate to the directory where the compressed file is on your local computer and run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> example/r_and_ss/osg/<span class="pp">*</span> nicholas.ducharmebarth@ap21.uc.osg-htc.org:/home/nicholas.ducharmebarth/r_and_ss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> upload.array_lm.tar.gz User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the first window, change the permissions and line endings for <code>osg_prep.sh</code>. Since the OSG access point does not have the <code>dos2unix</code> utility installed we can quickly jump into the Singularity container that we created to access <code>dos2unix</code>, change the line endings and execute the script. Use <code>condor_submit</code> to submit your HTCondor job.</p>
+<p>You will be prompted for your passphrase and RSA code before the file transfers. Once the file transfer is complete, go back to the first terminal and you can untar the files by navigating to the <code>array_lm</code> directory and running:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-</span> xvf upload.array_lm.tar.gz </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Prepare scripts</li>
+</ol>
+<p>Still in the first window, change the permissions and line endings for <code>osg_prep.sh</code>. Navigate to the <code>scripts/bash</code> directory and change the change the line endings for the <code>prep.sh</code> script and then execute it to prepare the other scripts as neccessary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># navigate to directory</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> scripts/bash</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># change permissions to make the file executable </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 777 prep.sh </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># change line endings </span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">dos2unix</span> prep.sh </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># run script</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./prep.sh</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Submit job</li>
+</ol>
+<p>Once you are ready, you can submit the job by running the command <code>condor_submit</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># navigate out of bash directory</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># submit job</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">condor_submit</span> condor_submit/submission.sub</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>While your job is running, you can check on it using the following commands:</p>
+<ul>
+<li><code>condor_q</code> shows status of all of your jobs: running, idle, or held</li>
+<li><code>condor_q -run</code> shows running jobs only</li>
+<li><code>condor_q -hold</code> shows jobs that are held</li>
+</ul>
+<p>Using these commands you can get the job id number and peek directly at what is happening on the compute node using <code>condor_ssh_to_the_job &lt;job_id&gt;</code>. This is most useful for look at longer jobs or to see if intermediate files are being produced correctly.</p>
+<p>For more information on tracking and restarting jobs, see <a href>here</a>. ##TODO: add link, check that the documentation below through log files is included in ss example</p>
+<p>Given the complexity of the OSG HTCondor network, there are inevitably going to jobs that have issues (can’t complete input/output file transfer to compute nodes or the compute node restarting for a software update) causing them to be held up. There is nothing you can do to prevent this, though typically shorter jobs with smaller files may have less exposure to these issues. Releasing these jobs using <code>condor_release</code> restarts their execution giving them an opportunity to try again on different compute node. This usually clears up any issues.</p>
+<p>Log files <code>*.log</code>, screen output files <code>*.out</code>, and error files <code>*.err</code> are written into each jobs directory. These will have the prefix <code>job_*</code> as specified in <code>r_and_ss.sub</code> and are useful for diagnosing any issues. However, once jobs have completed successfully there is no need to keep them and they should be deleted (to save disk space and bandwidth) prior to downloading the results.</p>
+<ol start="5" type="1">
+<li>Download results</li>
+</ol>
+<p>Once the jobs have completed, you can retrieve the results for further analysis on your local computer. On your local compter create a new directory <code>outputs</code> to put all of the downloaded results. Then, in the second terminal window, run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm/outputs /outputs </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again you will be prompted for your passphrase and RSA code.</p>
 
 
 </section>
