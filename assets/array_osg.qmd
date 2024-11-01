@@ -18,13 +18,13 @@ format:
     code-overflow: wrap
 ---
 
-In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/osg/array_lm/inputs/run_lm_osg_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the paramter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/osg/array_lm/inputs/osg_job_directories.txt) to specify the directory path names on OSG.
+In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/osg/array_lm/inputs/run_lm_osg_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the parameter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/osg/array_lm/inputs/osg_job_directories.txt) to specify the directory path names on OSG.
 
 The *osg/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
 
 ::: {.callout-important}
 # Coding alert!
-Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **NMFS/project_name** with your specific project name. 
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **NMFS/project_name** with your specific project name. ##TODO: project name still needed? 
 :::
 
 ## Setup data inputs and directories
@@ -78,37 +78,86 @@ if(!file.exists(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "os
 }
 ```
 
-6. In addtion to the input files, you will need to have 2 additional scripts: a wrapper script (`wrapper.sh`) and a submission script (`submission.sub`). To easily upload all the necessary files at once, compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. 
+6. In addtion to the input files, you will need to have 2 additional scripts: a wrapper script (`wrapper.sh`) and a submission script (`submission.sub`), examples of both can be found in `examples/OSG/array_lm/scripts`. To easily upload all the necessary files at once, compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. 
 ```{r}
-shell(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG"), ";tar -czf upload.array_lm.tar.gz array_lm "))
+system(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG", "array_lm"), ";tar -czf upload.array_lm.tar.gz * "))
 ```
 
 ## OSG workflow  
 
-As [before](#singularity-container), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create directory for this example.
+1. Connect to OSG  
+As [mentioned](osg_documentation.qmd#transferring-files-via-scp), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create a directory for this example.
 
 ```{bash}
-#| eval: false
-#| echo: true
-#| output: false
-ssh nicholas.ducharmebarth@ap21.uc.osg-htc.org
-mkdir r_and_ss
+ssh User.Name@ap21.uc.osg-htc.org
+mkdir array_lm
 ```
 
-In the second window, upload the files contained in `example/r_and_ss/osg/` into the OSG directory that you just created. These files include:
+2. Transfer files  
 
-* the base SS files to be modified (as a compressed file) `Start.tar.gz`;
-* the [text file](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_dir.txt) `osg_dir.txt` that was created in the above R code chunk;
-* the [R script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/r_and_ss.r) `r_and_ss.r` for the job (manipulating SS input files, running SS, and bootstrapping the results to generate uncertainty around management quantities);
-* the [HTCondor submit script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/r_and_ss.sub) `r_and_ss.sub`;
-* the [bash wrapper script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_wrapper_r_and_ss.sh) `osg_wrapper_r_and_ss.sh` executing the condor job (unpacks files, sets up job timing, executes R script, and packages results);
-* and a [bash script](https://github.com/N-DucharmeBarth-NOAA/noaa-hpc-hera/blob/main/example/r_and_ss/osg/osg_prep.sh) `osg_prep.sh` preparing the before-listed files for being run on HTCondor (change file permissions, make directory structure, and change dos2unix line endings).  
+We will upload the compressed file`upload.array_lm.tar.gz` into the OSG directory that you just created. The following files should be included:
+
+* all replicate data files to run the linear models on; 
+* the r script [run_lm_osg_array.r](/examples/OSG/array_lm/inputs/run_lm_osg_array.r); 
+* the text file [osg_job_directories.txt](/examples/OSG/array_lm/inputs/osg_job_directories.txt) with the directory names;
+* the wrapper script [wrapper.sh](/examples/OSG/array_lm/scripts/bash/wrapper.sh) which unpacks files, sets up job timing, executes the R script, and packages results;
+* the submission script [submission.sub](/examples/OSG/array_lm/scripts/condor_submit/submission.sub); 
+* and a bash script [prep.sh](/examples/OSG/array_lm/scripts/bash/prep.sh) that prepares the files to be run on HTCondor, including changing file permissions, making directory structures, and changing dos2unix line endings.
+ 
+In the second terminal, navigate to the directory where the compressed file is on your local computer and run:  
+```{bash}
+scp upload.array_lm.tar.gz User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm 
+```
+
+You will be prompted for your passphrase and RSA code before the file transfers. Once the file transfer is complete, go back to the first terminal and you can untar the files by navigating to the `array_lm` directory and running: 
 
 ```{bash}
-#| eval: false
-#| echo: true
-#| output: false
-scp -r example/r_and_ss/osg/* nicholas.ducharmebarth@ap21.uc.osg-htc.org:/home/nicholas.ducharmebarth/r_and_ss
+tar - xvf upload.array_lm.tar.gz 
 ```
 
-In the first window, change the permissions and line endings for `osg_prep.sh`. Since the OSG access point does not have the `dos2unix` utility installed we can quickly jump into the Singularity container that we created to access `dos2unix`, change the line endings and execute the script. Use `condor_submit` to submit your HTCondor job.
+3. Prepare scripts  
+
+Still in the first window, change the permissions and line endings for `osg_prep.sh`. Navigate to the `scripts/bash` directory and change the change the line endings for the `prep.sh` script and then execute it to prepare the other scripts as neccessary. 
+
+```{bash}
+# navigate to directory
+cd scripts/bash
+# change permissions to make the file executable 
+chmod 777 prep.sh 
+# change line endings 
+dos2unix prep.sh 
+# run script
+./prep.sh 
+```
+
+4. Submit job  
+
+Once you are ready, you can submit the job by running the command `condor_submit`. 
+```{bash}
+# navigate out of bash directory
+cd ..
+# submit job
+condor_submit condor_submit/submission.sub
+```
+
+While your job is running, you can check on it using the following commands: 
+
+* `condor_q` shows status of all of your jobs: running, idle, or held
+* `condor_q -run` shows running jobs only
+* `condor_q -hold` shows jobs that are held  
+
+Using these commands you can get the job id number and peek directly at what is happening on the compute node using `condor_ssh_to_the_job <job_id>`. This is most useful for look at longer jobs or to see if intermediate files are being produced correctly.
+
+For more information on tracking and restarting jobs, see [here](). ##TODO: add link, check that the documentation below through log files is included in ss example
+
+Given the complexity of the OSG HTCondor network, there are inevitably going to jobs that have issues (can't complete input/output file transfer to compute nodes or the compute node restarting for a software update) causing them to be held up. There is nothing you can do to prevent this, though typically shorter jobs with smaller files may have less exposure to these issues. Releasing these jobs using `condor_release` restarts their execution giving them an opportunity to try again on different compute node. This usually clears up any issues.
+
+Log files `*.log`, screen output files `*.out`, and error files `*.err` are written into each jobs directory. These will have the prefix `job_*` as specified in `r_and_ss.sub` and are useful for diagnosing any issues. However, once jobs have completed successfully there is no need to keep them and they should be deleted (to save disk space and bandwidth) prior to downloading the results. 
+
+5. Download results  
+
+Once the jobs have completed, you can retrieve the results for further analysis on your local computer. On your local compter create a new directory `outputs` to put all of the downloaded results. Then, in the second terminal window, run: 
+```{bash}
+scp -r User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm/outputs /outputs 
+```
+Again you will be prompted for your passphrase and RSA code. 

@@ -25,7 +25,7 @@ arguments = $(target_dir)
 
 # Define input files
 should_transfer_files = YES
-transfer_input_files = ../run_lm_osg_array.r,data.csv
+transfer_input_files = ./../run_lm_osg_array.r,data.csv
 
 # Define output files
 when_to_transfer_output = ON_EXIT_OR_EVICT
