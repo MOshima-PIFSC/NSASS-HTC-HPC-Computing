@@ -1,0 +1,13 @@
+/srv
+total 40
+-rw-r--r-- 1 osg gridusers     0 Nov  1 13:09 _condor_stderr
+-rw-r--r-- 1 osg gridusers     5 Nov  1 13:09 _condor_stdout
+-rw-r--r-- 1 osg gridusers 27684 Nov  1 13:09 data.csv
+-rw-r--r-- 1 osg gridusers   123 Nov  1 13:09 run_lm_osg_array.r
+drwxr-x--- 4 osg gridusers    28 Nov  1 13:09 scratch
+drwxrwxrwt 2 osg gridusers     6 Nov  1 13:09 tmp
+drwxrwxrwt 2 osg gridusers     6 Nov  1 13:09 var_tmp
+-rwxr-xr-x 1 osg gridusers   819 Nov  1 13:09 wrapper.sh
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+./../../inputs/rep_06/
+1
