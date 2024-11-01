@@ -397,7 +397,7 @@ apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
 ## Let's walk through an example {.smaller}
 
 ::: {.fragment .fade-in fragment-index=1}
-In this case we will use Hera to conduct a quick retrospective analysis on all models in the [SS3 testing suite](https://github.com/nmfs-ost/ss3-test-models).
+In this case we will use Hera to conduct a quick retrospective analysis on all models in the [SS3 testing suite](https://github.com/nmfs-ost/ss3-test-models){preview-link="true"}.
 :::
 
 ::: {.fragment .fade-in fragment-index=1}
@@ -406,7 +406,7 @@ In this case we will use Hera to conduct a quick retrospective analysis on all m
 
 ::: {.fragment .fade-in fragment-index=2}
 ::: {.absolute bottom="5%" width="100%" }
-More complete documentation of this example can be found on our [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html).
+More complete documentation of this example can be found on our [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html){preview-link="true"}.
 :::
 :::
 
@@ -1141,4 +1141,255 @@ scp -o MACs=hmac-sha2-256-etm@openssh.com apptainer/linux-r4ss-v4.sif User.Name@
 
 ## Workflow - Submit jobs
 
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2-->H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1-->H2_1
+H1-->H2_2
+H1-->H2_3
+
+H1-->H3
+
+H3<-->H2_1
+H3<-->H2_2
+H3<-->H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+
+::: {.codewindow .terminal .absolute top="55%" left="0%" style="font-size: 0.4em;"}
+Terminal A
+```{.bash}
+chmod 777 slurm_scripts/parallel-submit.sh
+dos2unix slurm_scripts/parallel-submit.sh
+./slurm_scripts/parallel-submit.sh
+```
+:::
+
 ## Workflow - Download results
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3<-->H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1<-->H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute bottom="25%" top="30%" left="70%" right="7.5%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+::: {.codewindow .terminal .absolute top="75%" left="0%" right="0%" style="font-size: 0.4em;"}
+Terminal B
+```{.bash}
+scp -o MACs=hmac-sha2-256-etm@openssh.com -r User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/output/ examples/hera/ss3/
+```
+:::
+
+## Workflow - OSG
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart TD
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2<-->H1
+L3<-->H1
+subgraph OSG [OSG]
+H1([Access point])
+H3[(File storage)]
+end
+subgraph OSPool1 [OSPool 1]
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H3_1[(File storage: 1)]
+H3_2[(File storage: 2)]
+end
+subgraph OSPool2 [OSPool 2]
+H2_3[/Compute node: 3/]
+H2_4[/Compute node: 4/]
+H3_3[(File storage: 3)]
+H3_4[(File storage: 4)]
+end
+subgraph OSPooln [OSPool n]
+H2_n[/Compute node: n/]
+H2_90[/Compute node: 90/]
+H3_n[(File storage: n)]
+H3_90[(File storage: 90)]
+end
+
+H1<-->H2_1
+H1<-->H2_2
+H1<-->H2_3
+H1<-->H2_4
+H1<-->H2_n
+H1<-->H2_90
+
+H2_1<-->H3_1
+H2_2<-->H3_2
+H2_3<-->H3_3
+H2_4<-->H3_4
+H2_n<-->H3_n
+H2_90<-->H3_90
+
+H1<-->H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+H3~~~H2_4
+H3~~~H2_n
+H3~~~H2_90
+style Local stroke-width:3px
+style OSG stroke-width:3px,stroke-dasharray: 5 5
+style OSPool1 stroke-width:3px,stroke-dasharray: 5 5
+style OSPool2 stroke-width:3px,stroke-dasharray: 5 5
+style OSPooln stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.fragment .fade-in fragment-index=1}
+::: {.absolute left="70%" right="10%" top="0%" style="font-color: #ffffff; font-size:0.65em; padding: 0.25em 1em; background-color: #002364; box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 15px;"}
+[**Biggest difference**: no shared file system between compute nodes]{.bg} 
+:::
+:::
+
+## Example results {.smaller}
+
+```{r}
+#| eval: true
+#| echo: false
+#| output: false
+library(data.table)
+library(magrittr)
+proj_dir = this.path::this.proj()
+comptime_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/comptime_dt.csv"))
+comptime_dt_minus = comptime_dt[index!=79]
+ssb_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/ssb_dt.csv"))
+retro_dt = fread(file=paste0(proj_dir,"/examples/hera/ss3/output/retro_dt.csv"))
+```
+
+
+::: columns
+::: {.column width="40%"}
+The example ran 90 jobs (18 test models $\times$ 5 runs each; base + 4 *peels*), with only one job 'timing out' at 1-hour limit.
+
+$~$
+$~$
+
+::: {.fragment .fade-in fragment-index=1}
+Excluding the job that timed out at the 1-hour limit the `r nrow(comptime_dt_minus)` jobs run on Hera completed [`r round(sum(comptime_dt_minus$hera_runtime)/60,digits=2)` hours]{.fragment .hl-blue fragment-index=2} of calculations (`r round(mean(comptime_dt_minus$hera_runtime),digits=2)` minutes per job) in an elapsed time of [`r round(as.numeric(abs(difftime(min(comptime_dt_minus$hera_start),max(comptime_dt_minus$hera_end),units="mins"))),digits=2)` minutes]{.fragment .hl-blue fragment-index=3} or $\sim$ `r round(1/(as.numeric(abs(difftime(min(comptime_dt_minus$hera_start),max(comptime_dt_minus$hera_end),units="mins")))/sum(comptime_dt_minus$hera_runtime)))` $\times$ faster.
+:::
+
+:::
+:::
+
+::: {.fragment .fade-out fragment-index=4}
+![](static/hera-ss3-retro.png){.absolute top="10%" left="45%" height="65%" style="max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+
+::: {.absolute top="80%" left="45%" right="0%" style="font-color: #323C46; font-size:0.75em;"}
+Depletion estimates across retrospective peels from the Stock Synthesis testing model suite examples. Mohn's rho values are printed in each panel.
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=4}
+![](static/hera-ss3-elapsed.png){.absolute top="10%" left="45%" height="65%" style="max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+
+::: {.absolute top="80%" left="45%" style="font-color: #323C46; font-size:0.75em;"}
+Start and stop time for jobs run on Hera, excluding the job that timed out.
+:::
+:::
+
+::: {.fragment .fade-in fragment-index=5}
+::: {.absolute left="10%" top="40%" style="font-color: #ffffff; font-size:2em; padding: 0.25em 1em; background-color: #002364; box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 15px;"}
+[Is this 'time-savings' worth it?]{.bg} 
+:::
+:::

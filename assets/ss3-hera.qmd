@@ -402,7 +402,7 @@ Excluding the job that timed out at the 1-hour limit the `r nrow(comptime_dt_min
 #| fig-dpi: 300
 library(ggplot2)
 
-comptime_dt_minus %>%
+p = comptime_dt_minus %>%
 .[,.(id,hera_start,hera_end)] %>%
 melt(.,id.vars="id") %>%
 .[,variable:=ifelse(variable%in%c("hera_start"),"start","end")] %>%
@@ -419,6 +419,20 @@ theme(panel.background = element_rect(fill = "transparent", color = "black", lin
             legend.key = element_rect(fill = "transparent"),
             axis.text.y=element_blank(),
             axis.ticks.y=element_blank())
+p
+
+# save plot
+ggsave(
+  "hera-ss3-elapsed.png",
+  plot = p,
+  device = "png",
+  path = paste0(proj_dir,"/assets/static/"),
+  width = 8,
+  height = 4.5,
+  units = c("in"),
+  dpi = 300,
+  bg = "transparent")
+
 ```
 
 ## Example results
@@ -448,7 +462,7 @@ for(i in seq_along(text_dt.list)){
 text_dt = rbindlist(text_dt.list)
 
 
-ssb_dt %>%
+p = ssb_dt %>%
 		    ggplot() +
 		    facet_wrap(~model,scales="free_x") +
 		    xlab("Year") +
@@ -464,4 +478,17 @@ ssb_dt %>%
             panel.grid.minor = element_blank(),
             strip.background =element_rect(fill="transparent"),
             legend.key = element_rect(fill = "transparent"))
+p
+
+# save plot
+ggsave(
+  "hera-ss3-retro.png",
+  plot = p,
+  device = "png",
+  path = paste0(proj_dir,"/assets/static/"),
+  width = 8,
+  height = 4.5,
+  units = c("in"),
+  dpi = 300,
+  bg = "transparent")
 ```
