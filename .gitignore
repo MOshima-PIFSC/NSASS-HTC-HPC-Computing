@@ -17,6 +17,6 @@ site_libs
 *.sso
 fmin.log
 ss3_linux.log
-ss3-example-calcs.r
+working/ss3-example-calcs.r
 ss3.*
 *.ss_new

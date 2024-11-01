@@ -50,7 +50,7 @@ Improve efficiency by running 10s - 1000s of models ['simultaneously']{.blue}.
 :::
 
 ::: {.fragment .fade-in fragment-index=2}
-![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="border: 1px solid #323C46; max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+![](static/swo-runtime.png){.absolute top="5%" right="-30%" height="75%" style="max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
 ![](static/wcpfc-logo.png){.absolute top="6%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
 ![](static/spc-logo.png){.absolute top="15%" right="-25%" width="14%" style="max-height: unset; max-width: unset;"}
 
@@ -400,12 +400,14 @@ apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
 In this case we will use Hera to conduct a quick retrospective analysis on all models in the [SS3 testing suite](https://github.com/nmfs-ost/ss3-test-models).
 :::
 
-::: {.fragment .fade-in fragment-index=2}
-More complete documentation of this example can be found on the [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html).
+::: {.fragment .fade-in fragment-index=1}
+![](static/ss3-test-models.png){.absolute top="27.5%" left="5%" width="90%" style="max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
 :::
 
-::: {.fragment .fade-in fragment-index=1}
-![](static/ss3-test-models.png){.absolute bottom="10%" left="5%" width="90%" style="border: 1px solid #323C46; max-height: unset; max-width: unset; box-shadow: 0 0 2rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+::: {.fragment .fade-in fragment-index=2}
+::: {.absolute bottom="5%" width="100%" }
+More complete documentation of this example can be found on our [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html).
+:::
 :::
 
 ## Workflow  
@@ -417,7 +419,7 @@ More complete documentation of this example can be found on the [GitHub website]
 :::
 
 ::: {.fragment .fade-in fragment-index=3}
-3.  Transfer files
+3.  Upload files
 :::
 
 ::: {.fragment .fade-in fragment-index=4}
@@ -425,12 +427,11 @@ More complete documentation of this example can be found on the [GitHub website]
 :::
 
 ::: {.fragment .fade-in fragment-index=5}
-5.  Transfer files back to local machine
+5.  Download files back to local machine
 :::
 
-## Workflow
+## Workflow - Create scripts
 
-::: {.fragment .fade-out fragment-index=3}
 ::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
 ```{mermaid}
 %%{
@@ -461,7 +462,7 @@ H1([Login node])
 H2_1[/Compute node: 1/]
 H2_2[/Compute node: 2/]
 H2_3[/Compute node: 3/]
-H3[(Shared storage)]
+H3[("scratch1/")]
 end
 H1~~~H2_1
 H1~~~H2_2
@@ -476,14 +477,668 @@ style Local stroke-width:3px
 style Hera stroke-width:3px,stroke-dasharray: 5 5
 ```
 :::
+
+::: {.absolute bottom="5%" top="15%" left="30%" right="0%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+::: {.absolute left="7.5%" top="37.5%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+
+:::
+
+
+::: {.absolute left="40%" right="0%" top="40%" style="font-color: #323C46; font-size:0.75em; padding: 0.25em 1em; background-color: #C6E6F0; box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
+[IDE:]{.blue} Develop and make job script files 
+:::
+
+::: {.fragment .fade-in}
+::: {.absolute left="40%" right="0%" top="55%" style="font-size:0.65em;"}
+::: {.callout-important }
+
+Note that you will need to replace [User.Name]{.blue} with your actual user name and [project_name]{.blue} with your specific project name in the following code.
+
+:::
+:::
+:::
+
+## Workflow - Create scripts
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
 :::
 
 ::: {.absolute bottom="5%" top="15%" left="30%" right="0%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
 
 :::
 
-::: {.fragment .fade-in fragment-index=2}
-::: {.absolute left="40%" right="0%" top="10%" style="font-color: #323C46; font-size:0.75em; padding: 0.25em 1em; background-color: #C6E6F0; box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 5px;"}
-[IDE:]{.blue} Develop and make job script files 
+
+::: {.absolute left="7.5%" top="37.5%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+[1.]{.blue} Prepare files for Slurm job execution, specify job requirements and submit the parallel jobs. 
 :::
+
+::: {.codewindow .terminal .absolute top="15%" left="30%" right="0%" bottom="0%" style="font-size: 0.4em;"}
+parallel-submit.sh
+```{.bash}
+#!/bin/bash
+
+# prep files for slurm job execution
+mkdir ./logs
+dos2unix ./inputs/hera_job_directories.txt
+dos2unix ./slurm_scripts/parallel-job-exec.sh
+chmod 777 ./slurm_scripts/parallel-job-exec.sh
+
+# make directory structure
+# recursively (mkdir -p) makes a new directory for each line in hera_job_directories.txt
+xargs -d '\n' mkdir -p -- < ./inputs/hera_job_directories.txt
+
+# Slurm job submission variables
+# -A project name
+# -t time requested (minutes)
+# -q queue type: batch (billed allocation) or windfall
+# -N nodes requested (leave at 1 since requesting additional nodes with each line)
+# -j number of jobs to run in parallel per node (restricted by number of total CPUs and available RAM)
+# seq job ids to run on each node (this can be greater than -j but only -j will be run at a time so the more job ids assigned to the node the longer they will wait to be executed)
+sbatch -A project_name -t 60 -q batch -N 1 --wrap 'set -x; parallel -j 30 -S `scontrol show hostnames "$SLURM_JOB_NODELIST"|paste -sd,` `pwd`/slurm_scripts/parallel-job-exec.sh `pwd` ::: `seq 0 29`; report-mem'
+sbatch -A project_name -t 60 -q batch -N 1 --wrap 'set -x; parallel -j 30 -S `scontrol show hostnames "$SLURM_JOB_NODELIST"|paste -sd,` `pwd`/slurm_scripts/parallel-job-exec.sh `pwd` ::: `seq 30 59`; report-mem'
+sbatch -A project_name -t 60 -q batch -N 1 --wrap 'set -x; parallel -j 30 -S `scontrol show hostnames "$SLURM_JOB_NODELIST"|paste -sd,` `pwd`/slurm_scripts/parallel-job-exec.sh `pwd` ::: `seq 60 89`; report-mem'
+```
 :::
+
+## Workflow - Create scripts
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute bottom="5%" top="15%" left="30%" right="0%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+
+::: {.absolute left="7.5%" top="37.5%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+[2.]{.blue} Define variables to be passed to the software container and a bash wrapper script. 
+:::
+
+::: {.codewindow .terminal .absolute top="15%" left="30%" right="0%" bottom="0%" style="font-size: 0.4em;"}
+parallel-job-exec.sh
+```{.bash}
+#!/bin/bash
+# read directories from a file list
+
+pwd; hostname; date
+
+cd $1
+export SLURM_ARRAY_TASK_ID=$2
+
+echo $SLURM_ARRAY_TASK_ID
+
+# define current directory
+cwd=$(pwd)
+
+# define paths for singularity container
+singularity_container=${cwd}/linux-r4ss-v4.sif
+
+# define variables and paths here to avoid hard coding insider the wrapper script
+job_wrapper_script=${cwd}/slurm_scripts/wrapper-r.sh
+dir_file=${cwd}/inputs/hera_job_directories.txt
+r_script=${cwd}/slurm_scripts/ss3-example-calcs.r
+input_data_path=${cwd}/inputs/models/
+r_script_name=ss3-example-calcs.r
+
+# change permissions on scripts to allow it to run
+chmod 777 $job_wrapper_script
+dos2unix $job_wrapper_script
+chmod 777 $r_script
+dos2unix $r_script
+
+# run bash wrapper script within singularity environment
+singularity exec $singularity_container $job_wrapper_script $SLURM_ARRAY_TASK_ID $dir_file $r_script $input_data_path $r_script_name >& logs/out-parallel.$SLURM_ARRAY_TASK_ID
+```
+:::
+
+
+## Workflow - Create scripts
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute bottom="5%" top="15%" left="30%" right="0%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+
+::: {.absolute left="7.5%" top="37.5%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+[3.]{.blue} Control file I/O to the R script, execute the R script, conduct job timing and package outputs. 
+:::
+
+::: {.codewindow .terminal .absolute top="15%" left="30%" right="0%" bottom="0%" style="font-size: 0.4em;"}
+wrapper-r.sh
+```{.bash}
+#!/bin/bash
+echo "Running on host `hostname`"
+
+# rename variables passed into the script
+slurm_array_task_id=$1
+dir_file=$2
+
+# create an array with all data directories
+line_index=$(($slurm_array_task_id+1))
+echo ${line_index}
+echo $dir_file
+rep_dir=$(sed -n ${line_index}p $dir_file) 
+echo $rep_dir
+
+# change to target directory
+cd ${rep_dir}
+
+# make working directory
+mkdir -p working/
+cd working/
+
+# copy files to working/
+cp $3 .
+
+# define variables for R script
+input_data_path=$4
+
+# begin calcs
+start=`date +%s`
+Rscript $5 $rep_dir $input_data_path 
+
+# end of calcs book-keeping
+end=`date +%s`
+runtime=$((end-start))
+echo $runtime
+echo Start $start >  runtime.txt
+echo End $end >> runtime.txt
+echo Runtime $runtime >> runtime.txt
+
+# Create empty file so that it does not mess up when repacking tar
+touch End.tar.gz
+# only pack up certain items
+tar -czf End.tar.gz ss_report.RData runtime.txt 
+# move tar out of working/
+cd ..
+mv working/End.tar.gz .
+# delete working/
+rm -r working/
+```
+:::
+
+## Workflow - Create scripts
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute bottom="5%" top="15%" left="30%" right="0%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+
+::: {.absolute left="7.5%" top="37.5%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+[4.]{.blue} Calculation script modifies SS3 input files, executes SS3 model run and conducts post-processing of output within R. 
+:::
+
+::: {.codewindow .r .absolute top="15%" left="30%" right="0%" bottom="0%" style="font-size: 0.4em;"}
+ss3-example-calcs.r
+```{.r}
+# where is the job executing
+    print(getwd())
+
+# load packages
+    library(r4ss)
+
+# get args from bash environment
+    args = commandArgs(trailingOnly = TRUE)
+    print(args)
+
+# get scenario
+    scenario = tail(strsplit(args[1],"/")[[1]],n=1)
+    model = strsplit(scenario,"-")[[1]][2]
+    peel = as.numeric(strsplit(scenario,"-")[[1]][3])
+
+# copy model files
+    model_files = list.files(paste0(args[2],model,"/"),full.names=TRUE)
+    file.copy(from=model_files,to=getwd())
+
+# modify starter
+    tmp_starter = SS_readstarter()
+    tmp_starter$retro_yr = -peel
+
+# write files
+    SS_writestarter(tmp_starter, overwrite = TRUE)
+
+# run stock synthesis
+    run(exe="ss3_linux")
+
+# extract model output
+    ss_report = try(SS_output(dir=getwd()),silent=TRUE) 
+
+# save output
+    save(ss_report,file="ss_report.RData")
+```
+:::
+
+## Workflow - Upload files
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute left="7.5%" top="55%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+ 
+:::
+
+::: {.absolute bottom="25%" top="30%" left="50%" right="7.5%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+## Workflow - Upload files
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2-->H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1~~~H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute left="7.5%" top="55%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+ 
+:::
+
+::: {.absolute bottom="25%" top="30%" left="50%" right="7.5%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+::: {.codewindow .terminal .absolute top="55%" left="10%" style="font-size: 0.4em;"}
+Terminal A
+```{.bash}
+ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22
+```
+:::
+
+## Workflow - Upload files
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2-->H1
+L3~~~H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1-->H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+::: {.absolute left="7.5%" top="55%" right="75%" bottom="30%" style="font-color: #323C46; font-size:0.5em; background-color: #e9f3f6;"}
+ 
+:::
+
+::: {.absolute bottom="25%" top="30%" left="70%" right="7.5%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+::: {.codewindow .terminal .absolute top="57.5%" left="0%" style="font-size: 0.4em;"}
+Terminal A
+```{.bash}
+# navigate to project directory
+cd /scratch1/NMFS/project_name/
+# create new directory
+mkdir User.Name/
+# navigate into new directory
+cd User.Name/
+# create directory for SLURM scripts and logs
+mkdir -p examples/ss3/
+```
+:::
+
+## Workflow - Upload files
+
+::: {.absolute bottom="5%" top="15%" width="100%" style="max-height: unset; max-width: unset;"}
+```{mermaid}
+%%{
+  init: {
+    "theme": "base",
+    "themeVariables": {
+      "background": "#f4f4f4",
+      "primaryColor": "#0085CA",
+      "primaryTextColor": "#e9f3f6",
+      "primaryBorderColor": "#003087",
+      "lineColor": "#002364",
+      "clusterBkg": "#e9f3f6",
+      "clusterBorder": "#323C46",
+      "titleColor": "#002364"
+    }
+  }
+}%%
+flowchart LR
+subgraph Local
+L1([IDE])
+L2([Terminal A: ssh])
+L3([Terminal B: scp])
+end
+L2~~~H1
+L3-->H1
+subgraph Hera [Hera]
+H1([Login node])
+H2_1[/Compute node: 1/]
+H2_2[/Compute node: 2/]
+H2_3[/Compute node: 3/]
+H3[("scratch1/")]
+end
+H1~~~H2_1
+H1~~~H2_2
+H1~~~H2_3
+
+H1-->H3
+
+H3~~~H2_1
+H3~~~H2_2
+H3~~~H2_3
+style Local stroke-width:3px
+style Hera stroke-width:3px,stroke-dasharray: 5 5
+```
+:::
+
+
+::: {.absolute bottom="25%" top="30%" left="70%" right="7.5%" style="border: 1px solid #e9f3f6; background-color: #e9f3f6; max-height: unset; max-width: unset;"}
+
+:::
+
+::: {.codewindow .terminal .absolute top="75%" left="0%" right="0%" style="font-size: 0.4em;"}
+Terminal B
+```{.bash}
+scp -o MACs=hmac-sha2-256-etm@openssh.com examples/hera/ss3/upload.example-ss3.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
+scp -o MACs=hmac-sha2-256-etm@openssh.com apptainer/linux-r4ss-v4.sif User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/
+```
+:::
+
+## Workflow - Submit jobs
+
+## Workflow - Download results

@@ -1,5 +1,4 @@
 #!/bin/bash
-# wrapper_r_and_ss.sh
 echo "Running on host `hostname`"
 
 # rename variables passed into the script
