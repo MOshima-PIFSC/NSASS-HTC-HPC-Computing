@@ -3,7 +3,9 @@ title: "Working with Open Science Grid"
 date: last-modified
 date-format: iso
 published-title: "Last updated"
-author: Nicholas Ducharme-Barth
+author: 
+  - Nicholas Ducharme-Barth
+  - Megumi Oshima
 engine: knitr
 execute:
     eval: false

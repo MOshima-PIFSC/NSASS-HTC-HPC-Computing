@@ -3,7 +3,9 @@ title: "Submitting an array job with OSG"
 date: last-modified
 date-format: iso
 published-title: "Last updated"
-author: Nicholas Ducharme-Barth
+author: 
+  - Nicholas Ducharme-Barth
+  - Megumi Oshima
 engine: knitr
 execute:
     eval: false
@@ -86,7 +88,7 @@ system(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG", "array_lm
 ## OSG workflow  
 
 1. Connect to OSG  
-As [mentioned](osg_documentation.qmd#transferring-files-via-scp), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create a directory for this example.
+As [mentioned](osg_documentation.qmd#transferring-files-via-scp), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows, we will call them *Terminal A* and *Terminal B*. In *Terminal A*, log onto your access point and create a directory for this example.
 
 ```{bash}
 ssh User.Name@ap21.uc.osg-htc.org
@@ -111,7 +113,7 @@ In the submission script `submission.sub` you will need to change the following 
 
 1. Line 7: Change `User.Name` to your user name. 
 
-2. Line 15: Change `User.Name` to your user name and `linux.sif` to the name of your container file. 
+2. Line 15: Change `User.Name` to your user name and `linux.sif` to the name of your container file. For more information on building containers, see [Running an array of SS3 jobs on Hera](ss3-hera.qmd##-Build-software-container). 
 
 2. Line 26: Change the project name from `osg.project_name` to the name of your OSG project.
 
@@ -121,12 +123,12 @@ In the submission script `submission.sub` you will need to change the following 
  
 :::
 
-In the second terminal, navigate to the directory where the compressed file is on your local computer and run:  
+In *Terminal B*, navigate to the directory where the compressed file is on your local computer and run:  
 ```{bash}
 scp upload.array_lm.tar.gz User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm 
 ```
 
-You will be prompted for your passphrase and RSA code before the file transfers. Once the file transfer is complete, go back to the first terminal and you can untar the files by navigating to the `array_lm` directory and running: 
+You will be prompted for your passphrase and RSA code before the file transfers. Once the file transfer is complete, go back to *Terminal A* and you can untar the files by navigating to the `array_lm` directory and running: 
 
 ```{bash}
 tar - xvf upload.array_lm.tar.gz 
@@ -134,7 +136,7 @@ tar - xvf upload.array_lm.tar.gz
 
 3. Prepare scripts  
 
-Still in the first window, change the permissions and line endings for `osg_prep.sh`. Navigate to the `scripts/bash` directory and change the change the line endings for the `prep.sh` script and then execute it to prepare the other scripts as neccessary. 
+Still in *Terminal A*, change the permissions and line endings for `osg_prep.sh`. Navigate to the `scripts/bash` directory and change the change the line endings for the `prep.sh` script and then execute it to prepare the other scripts as neccessary. 
 
 ```{bash}
 # navigate to directory
@@ -154,7 +156,7 @@ Once you are ready, you can submit the job by running the command `condor_submit
 # navigate out of bash directory and into condor_submit directory
 cd ../condor_submit
 # submit job
-condor_submit condor_submit/submission.sub
+condor_submit submission.sub
 ```
 
 While your job is running, you can check on it using the following commands: 
@@ -169,12 +171,12 @@ For more information on tracking and restarting jobs, see [here](). ##TODO: add 
 
 5. Download results  
 
-Once the jobs have completed, you can retrieve the results for further analysis on your local computer. The easiest way to do this is to compress all of the directories in `array_lm/inputs`. In the first terminal, logged into OSG, run:  
+Once the jobs have completed, you can retrieve the results for further analysis on your local computer. The easiest way to do this is to compress all of the directories in `array_lm/inputs`. In *Terminal A*, logged into OSG, run:  
 ```{bash}
 tar -czf download.array_lm.tar.gz ./rep_*
 ```
 We use the wildcard character `*` to indicate that we want to include everything with the name starting with rep_. This will give us all of the directory folders. 
-Then on your local compter create a new directory `outputs` to put all of the downloaded results. In the second terminal window, navigate to the outputs folder and run: 
+Then on your local compter create a new directory `outputs` to put all of the downloaded results. In *Terminal B*, navigate to the outputs folder and run: 
 ```{bash}
 # navigate to outputs folder, assuming you are in array_lm/
 cd outputs
@@ -188,7 +190,7 @@ You can then unzip the files by running:
 # untar results
 tar -xzf download.array_lm.tar.gz
 ```
-in the second terminal. 
+in *Terminal B*. 
 
 ## Process the output  
 In R, iterate through the sub-directories of the input and output data to extract the results of the linear model fits, and the model run time information. 
