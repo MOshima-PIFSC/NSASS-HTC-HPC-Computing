@@ -1,0 +1,47 @@
+000 (16807572.004.000) 2024-11-01 19:47:56 Job submitted from host: <192.170.231.142:9618?addrs=192.170.231.142-9618+[2605-9a00-10-200b-192-170-231-142]-9618&alias=ap21.uc.osg-htc.org&noUDP&sock=schedd_1860541_f389>
+...
+040 (16807572.004.000) 2024-11-01 19:49:53 Started transferring input files
+	Transferring to host: <10.125.8.30:37711?CCBID=128.105.82.148:9618%3faddrs%3d128.105.82.148-9618+[2607-f388-2200-bf-ddd9-71-bbd0-f979]-9618%26alias%3dospool-ccb.osg.chtc.io%26noUDP%26sock%3dcollector9#29785944%20192.170.231.11:9618%3faddrs%3d192.170.231.11-9618+[fd85-ee78-d8a6-8607--1-895]-9618%26alias%3dospool-ccb.osgprod.tempest.chtc.io%26noUDP%26sock%3dcollector5#10408642&PrivNet=node1815.palmetto.clemson.edu&addrs=10.125.8.30-37711&alias=node1815.palmetto.clemson.edu&noUDP>
+...
+040 (16807572.004.000) 2024-11-01 19:50:02 Finished transferring input files
+...
+021 (16807572.004.000) 2024-11-01 19:50:02 Message from starter on slot1_3@glidein_1249047_72900772@node1815.palmetto.clemson.edu:
+	PREPARE_JOB (prepare-hook) succeeded (reported status 000): Using Singularity image linux-r4ss-v4.sif
+...
+001 (16807572.004.000) 2024-11-01 19:50:02 Job executing on host: <10.125.8.30:45747?CCBID=128.105.82.148:9618%3faddrs%3d128.105.82.148-9618+[2607-f388-2200-bf-ddd9-71-bbd0-f979]-9618%26alias%3dospool-ccb.osg.chtc.io%26noUDP%26sock%3dcollector4#51243999%20192.170.231.11:9618%3faddrs%3d192.170.231.11-9618+[fd85-ee78-d8a6-8607--1-895]-9618%26alias%3dospool-ccb.osgprod.tempest.chtc.io%26noUDP%26sock%3dcollector4#10296148&PrivNet=node1815.palmetto.clemson.edu&addrs=10.125.8.30-45747&alias=node1815.palmetto.clemson.edu&noUDP>
+	SlotName: slot1_3@node1815.palmetto.clemson.edu
+	CondorScratchDir = "/local_scratch/slurm.907584/glide_35zASu/execute/dir_3638319"
+	Cpus = 1
+	Disk = 308224
+	GLIDEIN_ResourceName = "Clemson-Palmetto-CE1"
+	GPUs = 0
+	Memory = 1024
+...
+006 (16807572.004.000) 2024-11-01 19:50:04 Image size of job updated: 1
+	4  -  MemoryUsage of job (MB)
+	3780  -  ResidentSetSize of job (KB)
+...
+040 (16807572.004.000) 2024-11-01 19:50:04 Started transferring output files
+...
+040 (16807572.004.000) 2024-11-01 19:50:05 Finished transferring output files
+...
+005 (16807572.004.000) 2024-11-01 19:50:05 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	897  -  Run Bytes Sent By Job
+	28695  -  Run Bytes Received By Job
+	897  -  Total Bytes Sent By Job
+	28695  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   486594   307200    308224 
+	   GPUs                 :                           0 
+	   Memory (MB)          :        4     1024      1024 
+	   TimeExecute (s)      :        2                    
+	   TimeSlotBusy (s)     :       13                    
+
+	Job terminated of its own accord at 2024-11-02T00:50:04Z with exit-code 0.
+...

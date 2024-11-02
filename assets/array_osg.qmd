@@ -3,7 +3,9 @@ title: "Submitting an array job with OSG"
 date: last-modified
 date-format: iso
 published-title: "Last updated"
-author: Nicholas Ducharme-Barth
+author: 
+  - Nicholas Ducharme-Barth
+  - Megumi Oshima
 engine: knitr
 execute:
     eval: false
@@ -24,7 +26,7 @@ The *osg/array_lm* example can be set-up either by cloning the repository `git c
 
 ::: {.callout-important}
 # Coding alert!
-Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **NMFS/project_name** with your specific project name. ##TODO: project name still needed? 
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **project_name** with your specific project name. 
 :::
 
 ## Setup data inputs and directories
@@ -73,7 +75,7 @@ if(!file.exists(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "ru
 5. Write a text file containing the full path names for where the directories will be on OSG.
 ```{r}
 if(!file.exists(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "osg_job_directories.txt"))){
-    dir_lines = paste0("array_osg/", dir_name, "/")
+    dir_lines = paste0("./../../inputs/", dir_name, "/")
     writeLines(dir_lines, con = file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", "osg_job_directories.txt"))
 }
 ```
@@ -86,7 +88,7 @@ system(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG", "array_lm
 ## OSG workflow  
 
 1. Connect to OSG  
-As [mentioned](osg_documentation.qmd#transferring-files-via-scp), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows. In your first window, log onto your access point and create a directory for this example.
+As [mentioned](osg_documentation.qmd#transferring-files-via-scp), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows, we will call them *Terminal A* and *Terminal B*. In *Terminal A*, log onto your access point and create a directory for this example.
 
 ```{bash}
 ssh User.Name@ap21.uc.osg-htc.org
@@ -104,12 +106,29 @@ We will upload the compressed file`upload.array_lm.tar.gz` into the OSG director
 * the submission script [submission.sub](/examples/OSG/array_lm/scripts/condor_submit/submission.sub); 
 * and a bash script [prep.sh](/examples/OSG/array_lm/scripts/bash/prep.sh) that prepares the files to be run on HTCondor, including changing file permissions, making directory structures, and changing dos2unix line endings.
  
-In the second terminal, navigate to the directory where the compressed file is on your local computer and run:  
+::: {.callout-important}
+
+### Coding alert!
+In the submission script `submission.sub` you will need to change the following before you upload and run the script:
+
+1. Line 7: Change `User.Name` to your user name. 
+
+2. Line 15: Change `User.Name` to your user name and `linux.sif` to the name of your container file. For more information on building containers, see [Running an array of SS3 jobs on Hera](ss3-hera.qmd##-Build-software-container). 
+
+2. Line 26: Change the project name from `osg.project_name` to the name of your OSG project.
+
+3. Lines 30 and 37: Change `User.Name` in the file path to your user name. 
+
+4. **NOTE** There cannot be an empty last line in `submission.sub`. Make sure the script is 34 lines. If in doubt, backspace up to the last letter on the last line. 
+ 
+:::
+
+In *Terminal B*, navigate to the directory where the compressed file is on your local computer and run:  
 ```{bash}
 scp upload.array_lm.tar.gz User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm 
 ```
 
-You will be prompted for your passphrase and RSA code before the file transfers. Once the file transfer is complete, go back to the first terminal and you can untar the files by navigating to the `array_lm` directory and running: 
+You will be prompted for your passphrase and RSA code before the file transfers. Once the file transfer is complete, go back to *Terminal A* and you can untar the files by navigating to the `array_lm` directory and running: 
 
 ```{bash}
 tar - xvf upload.array_lm.tar.gz 
@@ -117,7 +136,7 @@ tar - xvf upload.array_lm.tar.gz
 
 3. Prepare scripts  
 
-Still in the first window, change the permissions and line endings for `osg_prep.sh`. Navigate to the `scripts/bash` directory and change the change the line endings for the `prep.sh` script and then execute it to prepare the other scripts as neccessary. 
+Still in *Terminal A*, change the permissions and line endings for `osg_prep.sh`. Navigate to the `scripts/bash` directory and change the change the line endings for the `prep.sh` script and then execute it to prepare the other scripts as neccessary. 
 
 ```{bash}
 # navigate to directory
@@ -134,10 +153,10 @@ dos2unix prep.sh
 
 Once you are ready, you can submit the job by running the command `condor_submit`. 
 ```{bash}
-# navigate out of bash directory
-cd ..
+# navigate out of bash directory and into condor_submit directory
+cd ../condor_submit
 # submit job
-condor_submit condor_submit/submission.sub
+condor_submit submission.sub
 ```
 
 While your job is running, you can check on it using the following commands: 
@@ -150,14 +169,99 @@ Using these commands you can get the job id number and peek directly at what is 
 
 For more information on tracking and restarting jobs, see [here](). ##TODO: add link, check that the documentation below through log files is included in ss example
 
-Given the complexity of the OSG HTCondor network, there are inevitably going to jobs that have issues (can't complete input/output file transfer to compute nodes or the compute node restarting for a software update) causing them to be held up. There is nothing you can do to prevent this, though typically shorter jobs with smaller files may have less exposure to these issues. Releasing these jobs using `condor_release` restarts their execution giving them an opportunity to try again on different compute node. This usually clears up any issues.
-
-Log files `*.log`, screen output files `*.out`, and error files `*.err` are written into each jobs directory. These will have the prefix `job_*` as specified in `r_and_ss.sub` and are useful for diagnosing any issues. However, once jobs have completed successfully there is no need to keep them and they should be deleted (to save disk space and bandwidth) prior to downloading the results. 
-
 5. Download results  
 
-Once the jobs have completed, you can retrieve the results for further analysis on your local computer. On your local compter create a new directory `outputs` to put all of the downloaded results. Then, in the second terminal window, run: 
+Once the jobs have completed, you can retrieve the results for further analysis on your local computer. The easiest way to do this is to compress all of the directories in `array_lm/inputs`. In *Terminal A*, logged into OSG, run:  
 ```{bash}
-scp -r User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm/outputs /outputs 
+tar -czf download.array_lm.tar.gz ./rep_*
 ```
-Again you will be prompted for your passphrase and RSA code. 
+We use the wildcard character `*` to indicate that we want to include everything with the name starting with rep_. This will give us all of the directory folders. 
+Then on your local compter create a new directory `outputs` to put all of the downloaded results. In *Terminal B*, navigate to the outputs folder and run: 
+```{bash}
+# navigate to outputs folder, assuming you are in array_lm/
+cd outputs
+# download all files from array_lm/inputs on OSG into current directory
+scp -r User.Name@ap21.uc.osg-htc.org:/home/User.Name/array_lm/inputs/download.array_lm.tar.gz ./ 
+```
+Again you will be prompted for your passphrase and RSA code before any files can transfer. 
+
+You can then unzip the files by running: 
+```{bash}
+# untar results
+tar -xzf download.array_lm.tar.gz
+```
+in *Terminal B*. 
+
+## Process the output  
+In R, iterate through the sub-directories of the input and output data to extract the results of the linear model fits, and the model run time information. 
+```{r}
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show code"
+library(data.table)
+library(magrittr)
+
+input_data.list = as.list(rep(NA,10))
+output_data.list = as.list(rep(NA,10))
+runtime_data.list = as.list(rep(NA,10))
+
+for(i in seq_along(dir_name)){
+    # get input data
+        input_data.list[[i]] = fread(file.path(proj_dir, "examples", "OSG", "array_lm", "inputs", dir_name[i],"data.csv")) %>%
+            .[,.(x,y)] %>%
+            .[,model := factor(as.character(i),levels=as.character(1:10))] %>%
+            .[,.(model,x,y)]
+    
+    # untar results
+        system(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG", "array_lm", "outputs", dir_name[i],"/"), ";tar -xzf End.tar.gz"))
+
+    # get output
+        output_data.list[[i]] = fread(file.path(proj_dir, "examples", "OSG", "array_lm", "outputs", dir_name[i],"par.csv")) %>%
+            .[,.(par)] %>%
+            .[,model := factor(as.character(i),levels=as.character(1:10))] %>%
+            .[,.(model,par)] %>%
+            melt(.,id.vars="model") %>%
+            .[,variable:=c("intercept","slope")] %>%
+            dcast(.,model ~ variable) %>%
+            merge(.,input_data.list[[i]][,.(model,x)],by="model") %>%
+            .[,pred_y := intercept+slope*x] %>%
+            .[,.(model,x,pred_y)]
+    # get time
+        runtime_data.list[[i]] = readLines(file.path(proj_dir, "examples", "OSG", "array_lm", "outputs", dir_name[i],"runtime.txt")) %>%
+            gsub(".*?([0-9]+).*", "\\1", .) %>%
+            as.numeric(.) %>%
+            as.data.table(.) %>%
+            setnames(.,".","time") %>%
+            .[,model := factor(as.character(i),levels=as.character(1:10))] %>%
+            melt(.,id.vars="model") %>%
+            .[,variable:=c("start","end","runtime")] %>%
+            dcast(.,model ~ variable) %>%
+            .[,.(model,start,end,runtime)]
+}
+
+input_data = rbindlist(input_data.list)
+output_data = rbindlist(output_data.list)
+runtime_data = rbindlist(runtime_data.list)
+```
+
+The jobs started execution at `r as.POSIXct(min(runtime_data$start)[1],origin="1970-01-01")` and all finished by `r as.POSIXct(max(runtime_data$end)[1],origin="1970-01-01")` for an elapsed runtime of `r (max(runtime_data$end)[1]-min(runtime_data$start)[1])` seconds and a total computation time of `r sum(runtime_data$runtime)` seconds. Use of Hera resulted in a job completing `r round(sum(runtime_data$runtime)/(max(runtime_data$end)[1]-min(runtime_data$start)[1]),digits=2)`$\times$ faster. @fig-example-fit shows the simulated data and estimated linear fits for each model run in the job-array.
+
+```{r}
+#| eval: true
+#| echo: true
+#| output: true
+#| code-fold: true
+#| code-summary: "Show code"
+#| label: fig-example-fit
+#| fig-cap: "Linear model fits from the 10 models run."
+#| fig-alt: "Scatterplot of simulated x and y values as colored points, and colored lines depicting the linear model fits to the simulated data. The colors correspond to the different models that were fit in this example. The plot displays a positive, linear, and strong relationship x and y."
+#| fig-width: 6
+#| fig-height: 3.5
+#| fig-dpi: 300
+library(ggplot2)
+input_data %>%
+ggplot() +
+geom_point(aes(x=x,y=y,fill=model),alpha=0.05,size=5,shape=21) +
+geom_line(data=output_data,aes(x=x,y=pred_y,color=model),linewidth=2)
+```
+
