@@ -1,0 +1,14 @@
+/srv
+total 486492
+-rw-r--r-- 1 osg01 msu-users         0 Nov  1 18:50 _condor_stderr
+-rw-r--r-- 1 osg01 msu-users         5 Nov  1 18:50 _condor_stdout
+-rw-r--r-- 1 osg01 msu-users     27684 Nov  1 18:49 data.csv
+-rw-r--r-- 1 osg01 msu-users 498126848 Nov  1 18:50 linux-r4ss-v4.sif
+-rw-r--r-- 1 osg01 msu-users       123 Nov  1 18:49 run_lm_osg_array.r
+drwxr-x--- 4 osg01 msu-users        28 Nov  1 18:50 scratch
+drwxrwxrwt 2 osg01 msu-users         6 Nov  1 18:50 tmp
+drwxrwxrwt 2 osg01 msu-users         6 Nov  1 18:50 var_tmp
+-rwxr-xr-x 1 osg01 msu-users       819 Nov  1 18:49 wrapper.sh
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+./../../inputs/rep_06/
+0

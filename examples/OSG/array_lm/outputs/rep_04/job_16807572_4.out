@@ -1,0 +1,14 @@
+/srv
+total 486492
+-rw-r--r-- 1 osg001 cuuser         0 Nov  1 20:50 _condor_stderr
+-rw-r--r-- 1 osg001 cuuser         5 Nov  1 20:50 _condor_stdout
+-rw-r--r-- 1 osg001 cuuser     27700 Nov  1 20:49 data.csv
+-rw-r--r-- 1 osg001 cuuser 498126848 Nov  1 20:50 linux-r4ss-v4.sif
+-rw-r--r-- 1 osg001 cuuser       123 Nov  1 20:49 run_lm_osg_array.r
+drwxr-x--- 4 osg001 cuuser        28 Nov  1 20:50 scratch
+drwxrwxrwt 2 osg001 cuuser         6 Nov  1 20:50 tmp
+drwxrwxrwt 2 osg001 cuuser         6 Nov  1 20:50 var_tmp
+-rwxr-xr-x 1 osg001 cuuser       819 Nov  1 20:49 wrapper.sh
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+./../../inputs/rep_04/
+1
