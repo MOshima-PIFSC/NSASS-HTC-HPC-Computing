@@ -11,6 +11,9 @@ log = job_$(Cluster)_$(Process).log
 error = job_$(Cluster)_$(Process).err
 output = job_$(Cluster)_$(Process).out
 
+# Define singularity
++SingularityImage = "osdf:///ospool/ap21/data/User.Name/linux.sif"
+
 # Define resources
 request_cpus = 1
 request_memory = 1GB
