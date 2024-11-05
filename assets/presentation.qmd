@@ -1535,6 +1535,11 @@ style OSPooln stroke-width:3px,stroke-dasharray: 5 5
 ```
 :::
 
+
+::: {.absolute top="85%" width="100%" style="font-size:0.65em;"}
+Documentation of this example using OSG can be found on our [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-osg.html){preview-link="true"}.
+:::
+
 ::: {.fragment .fade-in fragment-index=1}
 ::: {.absolute left="70%" right="10%" top="0%" style="font-color: #ffffff; font-size:0.65em; padding: 0.25em 1em; background-color: #002364; box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .5); border-radius: 15px;"}
 [**Biggest difference**: no shared file system between compute nodes]{.bg} 
