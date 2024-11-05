@@ -33,7 +33,7 @@ In the following code you will need to, where necessary:
 
 2. Replace `osg.project_name` your OSG project name.
 
-3. Replace `apXX` to match your OSG access point (e.g. `ap20` or `ap21`).
+3. Replace `apXX` to match your OSG access point (e.g. `ap20` or `ap21`). 
 
 :::
 

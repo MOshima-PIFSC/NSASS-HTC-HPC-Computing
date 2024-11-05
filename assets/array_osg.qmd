@@ -20,13 +20,13 @@ format:
     code-overflow: wrap
 ---
 
-In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/osg/array_lm/inputs/run_lm_osg_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the parameter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/osg/array_lm/inputs/osg_job_directories.txt) to specify the directory path names on OSG.
+In this example we step through submitting an array job on OSG where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/inputs/run_lm_osg_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the parameter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/inputs/osg_job_directories.txt) to specify the directory path names on OSG.
 
 The *osg/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
 
 ::: {.callout-important}
 # Coding alert!
-Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **project_name** with your specific project name. 
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **osg.project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **osg.project_name** with your specific project name. 
 :::
 
 ## Setup data inputs and directories
@@ -35,8 +35,7 @@ Note: throughout this tutorial we are using **User.Name** as a stand-in for your
 
 ```{r}
 #| eval: true
-proj_dir = this.path::this.proj()
-osg_project = "" ##TDOD Do we need this? 
+proj_dir = this.path::this.proj() 
 ```
 
 2. Define directory names for each run.
@@ -100,12 +99,14 @@ mkdir array_lm
 We will upload the compressed file`upload.array_lm.tar.gz` into the OSG directory that you just created. The following files should be included:
 
 * all replicate data files to run the linear models on; 
-* the r script [run_lm_osg_array.r](/examples/OSG/array_lm/inputs/run_lm_osg_array.r); 
-* the text file [osg_job_directories.txt](/examples/OSG/array_lm/inputs/osg_job_directories.txt) with the directory names;
-* the wrapper script [wrapper.sh](/examples/OSG/array_lm/scripts/bash/wrapper.sh) which unpacks files, sets up job timing, executes the R script, and packages results;
-* the submission script [submission.sub](/examples/OSG/array_lm/scripts/condor_submit/submission.sub); 
-* and a bash script [prep.sh](/examples/OSG/array_lm/scripts/bash/prep.sh) that prepares the files to be run on HTCondor, including changing file permissions, making directory structures, and changing dos2unix line endings.
+* the r script [run_lm_osg_array.r](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/inputs/run_lm_osg_array.r); 
+* the text file [osg_job_directories.txt](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/inputs/osg_job_directories.txt) with the directory names;
+* the wrapper script [wrapper.sh](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/scripts/bash/wrapper.sh) which unpacks files, sets up job timing, executes the R script, and packages results;
+* the submission script [submission.sub](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/scripts/condor_submit/submission.sub); 
+* and a bash script [prep.sh](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/array_lm/scripts/bash/prep.sh) that prepares the files to be run on HTCondor, including changing file permissions, making directory structures, and changing dos2unix line endings.
  
+For this example, we are using the container that was built in the [Hera SS3 example](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html#build-software-container). If you are unsure of how to build a container or access it in OSG please refer back to that example. 
+
 ::: {.callout-important}
 
 ### Coding alert!
@@ -113,7 +114,7 @@ In the submission script `submission.sub` you will need to change the following 
 
 1. Line 7: Change `User.Name` to your user name. 
 
-2. Line 15: Change `User.Name` to your user name and `linux.sif` to the name of your container file. For more information on building containers, see [Running an array of SS3 jobs on Hera](ss3-hera.qmd##-Build-software-container). 
+2. Line 15: Change `User.Name` to your user name and `linux-r4ss-v4.sif` to the name of your container file. For more information on building containers, see [Running an array of SS3 jobs on Hera](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-hera.html#build-software-container). 
 
 2. Line 26: Change the project name from `osg.project_name` to the name of your OSG project.
 
