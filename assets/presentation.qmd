@@ -1536,7 +1536,7 @@ style OSPooln stroke-width:3px,stroke-dasharray: 5 5
 :::
 
 
-::: {.absolute bottom="5%" width="100%" }
+::: {.absolute top="85%" width="100%" style="font-size:0.65em;"}
 Documentation of this example using OSG can be found on our [GitHub website](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/ss3-osg.html){preview-link="true"}.
 :::
 
