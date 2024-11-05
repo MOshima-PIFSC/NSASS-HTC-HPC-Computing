@@ -81,9 +81,10 @@ if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "h
 }
 ```
 
-6. Compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. This simplifies the number of steps needed for file transfers.
+6. Compress files and prepare for transfer  
+Compress the `array_lm/inputs` directory as a tar.gz file `upload.array_lm.tar.gz`. This simplifies the number of steps needed for file transfers.
 
-By compressing the entire array_lm folder, you will be able to transfer all of the input data (`inputs/*`) and the submission script (`slurm_scripts/submit_array_lm.sh`) at the same time.  
+We will also need to transfer the submission script, but before that, you will need to specify a few things in the script. 
 
 ::: {.callout-important}
 ### Coding alert!
@@ -101,7 +102,7 @@ In `submit_array_lm.sh` you will need to change the following before you upload 
 :::
 
 ```{r}
-system(paste0("powershell cd ", file.path(proj_dir, "examples", "hera"), ";tar -czf upload.array_lm.tar.gz array_lm "))
+system(paste0("powershell cd ", file.path(proj_dir, "examples", "hera", "array_lm"), ";tar -czf upload.array_lm.tar.gz inputs "))
 ```
 
 ## Hera workflow
@@ -131,10 +132,15 @@ mkdir logs/
 
 3. Transfer files  
 
-Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html#via-scp-using-data-transfer-node-dtn). You will be prompted for your RSA passcode after each *scp* command.
+Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/array_lm/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html#via-scp-using-data-transfer-node-dtn). You will be prompted for your RSA passcode after each *scp* command.
 
 ```{bash}
-scp examples/hera/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name
+# upload inputs
+scp -o MACs=hmac-sha2-512 examples/hera/array_lm/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name
+
+# upload submission script 
+scp -o MACs=hmac-sha2-512 examples/hera/array_lm/slurm_scripts/submit_array_lm.sh User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/submit_scripts
+
 ```
 
 :::{.callout-tip}
@@ -144,25 +150,23 @@ If you are getting an error `Corrupted MAC on input` when uploading files, add `
 
 4. Un-tar files  
 
-Back in *Terminal A* untar the uploaded directory and move the submission script to the `submit_scripts` directory you made in step 2.
+Back in *Terminal A* untar the inputs directory.
 ```{bash}
 # untar files
 tar -xzf upload.array_lm.tar.gz
-# move submission scripts 
-mv array_lm/slurm_scripts/submit_array_lm.sh submit_scripts/submit_array_lm.sh
 ```
 
 5. Prep files to be read on Hera  
 
 Make sure files that will be read/executed have unix line endings:
 ```{bash}
-dos2unix array_lm/inputs/run_lm_hera_array.r array_lm/inputs/hera_job_directories.txt submit_scripts/submit_array_lm.sh
+dos2unix inputs/run_lm_hera_array.r inputs/hera_job_directories.txt submit_scripts/submit_array_lm.sh
 ```
 6. Submit job  
 
 Now you are ready to submit the SLURM [submission script](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) `submit_array_lm.sh`.
 ```{bash}
-sbatch slurm_scripts/submit_array_lm.sh
+sbatch submit_scripts/submit_array_lm.sh
 ```
 As part of this job script, it cleans the directories specified in `hera_job_directories.txt` of the input file `data.csv`. The output is a compressed *tar.gz* containing the output produced by `run_lm_hera_array.r` (`par.csv`) and `runtime.txt` which logs the job start, end, and runtime. You can check your job status using `squeue` but this job should complete in a few seconds.
 ```{bash}
@@ -170,9 +174,10 @@ squeue -u User.Name
 ```
 7. Download results  
 
-Before sending back the results you need to compress `array_lm`.
+Before sending back the results you need to compress all of the outputs (stored in the `inputs` directory).
 ```{bash}
-tar -czf download.array_lm.tar.gz array_lm
+cd inputs
+tar -czf download.array_lm.tar.gz ./*
 ```
 Moving back to *Terminal B* you can download the results, but first you create a directory for it to be downloaded into. This can be done in R:
 ```{r}
@@ -180,7 +185,7 @@ dir.create(file.path(proj_dir, "examples", "hera", "array_lm", "output"), recurs
 ```
 Now you can use *scp* in *Terminal B* to download `download.array_lm.tar.gz` into `examples/hera/array_lm/output`
 ```{bash}
-scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/download.array_lm.tar.gz examples/hera/array_lm/output/
+scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/inputs/download.array_lm.tar.gz examples/hera/array_lm/output/
 ```
 Move into `examples/hera/array_lm/output/` and untar downloaded results.
 ```{bash}
