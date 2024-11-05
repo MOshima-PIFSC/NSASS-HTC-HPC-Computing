@@ -294,7 +294,7 @@
     "href": "assets/presentation.html#software-containers",
     "title": "HTC/HPC for Stock Assessments",
     "section": "Software containers",
-    "text": "Software containers\n\n\nMany may already be using containers such as GitHub Codespaces or Posit Workbench in existing cloud-based workflows\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplication: set up identical, custom software environments on OSG and Hera\n\n\n\n\nApplication: use to “version” analyses by “freezing” packages/libraries"
+    "text": "Software containers\n\n\nMany may already be using containers in existing cloud-based workspaces such as GitHub Codespaces or Posit Workbench\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplication: set up identical, custom software environments on OSG and Hera\n\n\n\n\nApplication: use to “version” analyses by “freezing” packages/libraries"
   },
   {
     "objectID": "assets/presentation.html#software-containers-1",
@@ -322,7 +322,7 @@
     "href": "assets/presentation.html#lets-walk-through-an-example",
     "title": "HTC/HPC for Stock Assessments",
     "section": "Let’s walk through an example",
-    "text": "Let’s walk through an example\n\nIn this case we will use NOAA Hera to conduct a quick retrospective analysis on all models in the Stock Synthesis (SS3) testing suite.\n\n\n\n\n\n\nMore complete documentation of this example can be found on our GitHub website."
+    "text": "Let’s walk through an example\n\nIn this case we will use NOAA Hera to conduct a quick retrospective analysis of all models in the Stock Synthesis (SS3) testing suite.\n\n\n\n\n\n\nMore complete documentation of this example can be found on our GitHub website."
   },
   {
     "objectID": "assets/presentation.html#workflow",
@@ -336,7 +336,7 @@
     "href": "assets/presentation.html#workflow---create-filesscripts",
     "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
-    "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE: Develop and make job files/scripts\n\n\n\n\n\n\n\n\n\nImportant\n\n\nNote that you will need to replace User.Name with your actual user name and project_name with your specific project name in the following code."
+    "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE: Develop and make job files/scripts\n\n\n\n\n\n\n\n\n\nImportant\n\n\nNote that you will need to replace User.Name with your actual NOAA RDHPCS user name and project_name with your specific Hera project name in the following code."
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts-1",
