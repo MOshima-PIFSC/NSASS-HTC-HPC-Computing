@@ -170,6 +170,7 @@ shell(paste0("powershell cd ", file.path(proj_dir, "examples", "OSG", "ss3"), ";
 ## OSG workflow  
 
 1. Connect to OSG  
+
 As [mentioned](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/osg_documentation.html#transferring-files-via-scp), access to OSG and file transfer is done using a pair of Terminal/PowerShell windows, we will call them *Terminal A* and *Terminal B*. In *Terminal A*, log onto your access point and create a directory for this example.
 
 ```{bash}
@@ -339,7 +340,7 @@ retro_dt = fread(file=paste0(proj_dir,"/examples/OSG/ss3/output/retro_dt.csv"))
 
 ### Job runtime
 
-The `r nrow(comptime_dt)` jobs run on OSG completed `r round(sum(comptime_dt$OSG_runtime)/60,digits=2)` hours of calculations (`r round(mean(comptime_dt$OSG_runtime),digits=2)` minutes per job) in an elapsed time of `r round(as.numeric(abs(difftime(min(comptime_dt$OSG_start),max(comptime_dt$OSG_end),units="hours"))),digits=2)` hour (@fig-OSG-elapsed).
+The `r nrow(comptime_dt)` jobs run on OSG completed `r round(sum(comptime_dt$OSG_runtime)/60,digits=2)` hours of calculations (`r round(mean(comptime_dt$OSG_runtime),digits=2)` minutes per job) in an elapsed time of $\sim$ `r round(as.numeric(abs(difftime(min(comptime_dt$OSG_start),max(comptime_dt$OSG_end),units="min"))))` minutes (@fig-OSG-elapsed).
 
 
 ```{r}
@@ -349,7 +350,7 @@ The `r nrow(comptime_dt)` jobs run on OSG completed `r round(sum(comptime_dt$OSG
 #| code-fold: true
 #| code-summary: "Show plotting code"
 #| label: fig-OSG-elapsed
-#| fig-cap: "Start and stop time for jobs run on Hera, excluding the job that timed out."
+#| fig-cap: "Start and stop time for jobs run on OSG."
 #| fig-alt: "Each line indicates a job, with longer lines indicating longer run times."
 #| fig-width: 8
 #| fig-height: 4.5
