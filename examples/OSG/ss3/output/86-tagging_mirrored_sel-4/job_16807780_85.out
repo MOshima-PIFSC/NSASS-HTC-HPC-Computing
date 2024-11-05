@@ -1,0 +1,262 @@
+/srv
+total 492448
+-rw-r--r-- 1 osg dept         0 Nov  4 19:38 _condor_stderr
+-rw-r--r-- 1 osg dept         5 Nov  4 19:38 _condor_stdout
+-rw-r--r-- 1 osg dept 503570432 Nov  4 19:38 linux-r4ss-v4.sif
+-rw-r--r-- 1 osg dept       819 Nov  4 19:38 osg-ss3-example-calcs.r
+-rwxr-xr-x 1 osg dept      1059 Nov  4 19:38 osg-wrapper-r.sh
+drwxr-x--- 4 osg dept      4096 Nov  4 19:38 scratch
+drwxrwxrwt 2 osg dept      4096 Nov  4 19:38 tmp
+-rw-r--r-- 1 osg dept    669783 Nov  4 19:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt 2 osg dept      4096 Nov  4 19:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/86-tagging_mirrored_sel-4/
+[1] "/srv/working"
+[1] "output/86-tagging_mirrored_sel-4/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Mon Nov 4 19:38:22 2024"
+
+$RunTime
+[1] "0 hours, 1 minutes, 45 seconds."
+
+$Files_used
+[1] "Data_File: data_boot_new.ss Control_File: control.ss"
+
+$log_det_hessian
+[1] 236.28
+
+$Final_phase
+[1] 5
+
+$N_iterations
+[1] 461
+
+$Nwarnings
+[1] 7
+
+$warnings
+[1] "Note 1 Information: Max data length bin: 180  < max pop len bins: 245; so will accumulate larger pop len bins"                              
+[2] "Warning 1 Adjustment: Fleet: 2  agecomp has N obs with partition==2 (retained); changed to partition=0 because retention not defined; N= 12"
+[3] "Warning 2 : Final gradient: 0.00369317 is larger than final_conv: 0.0001"                                                                   
+[4] "Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended."                                        
+[5] "Warning 3 : Reminder: Number of lamdas !=0.0 and !=1.0:  38"                                                                                
+[6] "Note 3 Information:  N parameters that are on or within 1% of min-max bound: 2; check results, variance may be suspect"                     
+[7] " 3 warnings  and 3 notes "                                                                                                                  
+
+$likelihoods_used
+                                 values lambdas
+TOTAL                1031.2000000000000      NA
+Catch                   0.0000000152989      NA
+Equil_catch             0.0000000000000      NA
+Survey                -39.2990000000000      NA
+Length_comp           552.8480000000000      NA
+Age_comp               38.5759000000000      NA
+Tag_comp                0.3346890000000      NA
+Tag_negbin            408.4250000000000      NA
+Recruitment           -23.3395000000000       1
+InitEQ_Regime           0.0000000000000       1
+Forecast_Recruitment    0.0000000000000       1
+Parm_priors            93.6570000000000       1
+Parm_softbounds         0.0008329770000      NA
+Parm_devs               0.0000000000000       1
+Crash_Pen               0.0000000000000       1
+
+$likelihoods_laplace
+                                      values lambdas
+NoBias_corr_Recruitment(info_only)  -29.2954       1
+Laplace_obj_fun(info_only)         1025.2500      NA
+
+$likelihoods_by_fleet
+              Label          ALL       cpue1        cpue2       cpue3
+177    Catch_lambda           NA 1.00000e+00  1.00000e+00 1.00000e+00
+178      Catch_like  1.52989e-08 3.49964e-09  5.24580e-09 4.55384e-09
+179 Init_equ_lambda           NA 1.00000e+00  1.00000e+00 1.00000e+00
+180   Init_equ_like  0.00000e+00 0.00000e+00  0.00000e+00 0.00000e+00
+181     Surv_lambda           NA 0.00000e+00  1.00000e+00 0.00000e+00
+182       Surv_like -3.92990e+01 0.00000e+00 -3.92990e+01 0.00000e+00
+183      Surv_N_use           NA 0.00000e+00  2.70000e+01 0.00000e+00
+184     Surv_N_skip           NA 0.00000e+00  3.00000e+00 0.00000e+00
+185   Length_lambda           NA 0.00000e+00  1.00000e+00 0.00000e+00
+186     Length_like  5.52848e+02 0.00000e+00  4.65160e+02 0.00000e+00
+187    Length_N_use           NA 0.00000e+00  5.80000e+01 0.00000e+00
+188   Length_N_skip           NA 0.00000e+00  4.00000e+00 0.00000e+00
+189      Age_lambda           NA 0.00000e+00  1.00000e+00 0.00000e+00
+190        Age_like  3.85759e+01 0.00000e+00  3.85759e+01 0.00000e+00
+191       Age_N_use           NA 0.00000e+00  1.20000e+01 0.00000e+00
+192      Age_N_skip           NA 0.00000e+00  0.00000e+00 0.00000e+00
+          cpue4       Cpue5
+177 1.00000e+00 1.00000e+00
+178 1.95593e-09 4.37293e-11
+179 1.00000e+00 1.00000e+00
+180 0.00000e+00 0.00000e+00
+181 0.00000e+00 0.00000e+00
+182 0.00000e+00 0.00000e+00
+183 0.00000e+00 0.00000e+00
+184 0.00000e+00 0.00000e+00
+185 1.00000e+00 0.00000e+00
+186 8.76887e+01 0.00000e+00
+187 1.00000e+01 0.00000e+00
+188 0.00000e+00 0.00000e+00
+189 0.00000e+00 0.00000e+00
+190 0.00000e+00 0.00000e+00
+191 0.00000e+00 0.00000e+00
+192 0.00000e+00 0.00000e+00
+
+$likelihoods_by_tag_group
+                Label        ALL TagGroup_1  TagGroup_2 TagGroup_3 TagGroup_4
+195         Tag_Group         NA   0.001000 1.00000e-03   0.001000    0.00100
+196     Tag_comp_Like   0.334689   0.056284 6.13812e-06   0.177615    2.40685
+197 Tag_negbin_Lambda         NA   1.000000 1.00000e+00   1.000000    1.00000
+198   Tag_negbin_Like 408.425000   7.407490 3.35662e+00  11.941400   26.81480
+    TagGroup_5 TagGroup_6 TagGroup_7 TagGroup_8 TagGroup_9 TagGroup_10
+195     0.0010     0.0010    0.00100    0.00100     0.0010      0.0010
+196    22.1584    47.3749    2.85196    1.07246    26.3168     28.7798
+197     1.0000     1.0000    1.00000    1.00000     1.0000      1.0000
+198    11.1671    27.3344    6.13715    9.72881    18.4475     23.1850
+    TagGroup_11 TagGroup_12 TagGroup_13 TagGroup_14 TagGroup_15 TagGroup_16
+195     0.00100      0.0010      0.0010      0.0010     0.00100     0.00100
+196     7.38806     14.7554     21.8009     24.1015    22.71130    12.43630
+197     1.00000      1.0000      1.0000      1.0000     1.00000     1.00000
+198    10.51050     19.1972     13.7295     16.7351     7.38574     9.60975
+    TagGroup_17 TagGroup_18 TagGroup_19 TagGroup_20 TagGroup_21 TagGroup_22
+195     0.00100     0.00100      0.0010     0.00100     0.00100     0.00100
+196     5.52224     4.96899     12.7798     6.00746     5.72482     4.42511
+197     1.00000     1.00000      1.0000     1.00000     1.00000     1.00000
+198    14.75450    10.59980     13.8935    12.85190     6.48017    11.56910
+    TagGroup_23 TagGroup_24 TagGroup_25 TagGroup_26 TagGroup_27 TagGroup_28
+195      0.0010      0.0010     0.00100     0.00100     0.00100     0.00100
+196     16.7988     10.0582     1.03446     3.19381     8.65858     5.33043
+197      1.0000      1.0000     1.00000     1.00000     1.00000     1.00000
+198     15.6843      8.8372    11.63520     4.97501    12.03150    10.24650
+    TagGroup_29 TagGroup_30 TagGroup_31 TagGroup_32 TagGroup_33 TagGroup_34
+195    0.001000    0.001000     0.00100     0.00100    0.001000     0.00100
+196    0.289875    0.378522     3.19884     0.33364    0.295141     3.60070
+197    1.000000    1.000000     1.00000     1.00000    1.000000     1.00000
+198    3.446070    3.819110     6.40239     3.25307    6.520780     7.30981
+    TagGroup_35 TagGroup_36 TagGroup_37 TagGroup_38
+195     0.00100     0.00100    0.001000    0.001000
+196     3.72342     3.29978    0.492634    0.185276
+197     1.00000     1.00000    1.000000    1.000000
+198     5.01620     6.00193    5.334540    5.074720
+
+$N_estimated_parameters
+[1] 49
+
+$table_of_phases
+
+-1025 -1017 -1015 -1013 -1000   -99   -50    -5    -4    -3    -2    -1     1 
+    1     3     3    15    92     1     1     1    14   243     2     2    43 
+    5 
+    6 
+
+$estimated_non_dev_parameters
+                                  Value Phase      Min   Max       Init Status
+NatM_uniform_Fem_GP_1         0.1500000     5   0.1500  0.30  0.1500000     LO
+CV_young_Fem_GP_1             0.0696084     5   0.0005  0.25  0.0685947     OK
+CV_old_Fem_GP_1               0.0299443     5   0.0005  0.25  0.0276726     OK
+NatM_uniform_Mal_GP_1         0.1500000     5   0.1500  0.30  0.1500000     LO
+CV_young_Mal_GP_1             0.0418684     5   0.0005  0.25  0.0460620     OK
+CV_old_Mal_GP_1               0.0730260     5   0.0005  0.25  0.0677320     OK
+SR_LN(R0)                     6.5503800     1   1.0000 15.00  6.5609700     OK
+Age_DblN_top_logit_cpue1(1)  -4.9737900     1 -10.0000 10.00 -4.4452800     OK
+Age_DblN_descend_se_cpue1(1)  2.4518200     1  -1.0000 10.00  2.3745500     OK
+Age_DblN_end_logit_cpue1(1)  -1.8045600     1  -5.0000 10.00 -1.7870200     OK
+                               Parm_StDev        Gradient Pr_type    Prior
+NatM_uniform_Fem_GP_1        0.0000663684 -0.003693170000  Normal   0.2446
+CV_young_Fem_GP_1            0.0153172000 -0.000030005400  Normal   0.0100
+CV_old_Fem_GP_1              0.0471468000 -0.000007134320  Normal   0.0100
+NatM_uniform_Mal_GP_1        0.0000574098 -0.003686920000  Normal   0.2446
+CV_young_Mal_GP_1            0.0138478000 -0.000005639540  Normal   0.0100
+CV_old_Mal_GP_1              0.0209782000  0.000000476239  Normal   0.0100
+SR_LN(R0)                    0.0355172000 -0.000946254000  Normal   9.3000
+Age_DblN_top_logit_cpue1(1)  2.8431400000 -0.000017019600  Normal 100.0000
+Age_DblN_descend_se_cpue1(1) 0.2699900000 -0.000160456000  Normal 100.0000
+Age_DblN_end_logit_cpue1(1)  0.1629660000 -0.000111122000  Normal 100.0000
+                             Pr_SD     Pr_Like Afterbound
+NatM_uniform_Fem_GP_1          0.8 0.006991510      CHECK
+CV_young_Fem_GP_1              0.8 0.002775910         OK
+CV_old_Fem_GP_1                0.8 0.000310762         OK
+NatM_uniform_Mal_GP_1          0.8 0.006991510      CHECK
+CV_young_Mal_GP_1              0.8 0.000793433         OK
+CV_old_Mal_GP_1                0.8 0.003103340         OK
+SR_LN(R0)                     10.0 0.037802200         OK
+Age_DblN_top_logit_cpue1(1)   99.0 0.562162000         OK
+Age_DblN_descend_se_cpue1(1)  99.0 0.485443000         OK
+Age_DblN_end_logit_cpue1(1)   99.0 0.528730000         OK
+
+$maximum_gradient_component
+[1] 0.00369317
+
+$parameters_with_highest_gradients
+                                Value     Gradient
+NatM_uniform_Fem_GP_1         0.15000 -0.003693170
+NatM_uniform_Mal_GP_1         0.15000 -0.003686920
+SR_LN(R0)                     6.55038 -0.000946254
+Age_DblN_descend_se_cpue1(1)  2.45182 -0.000160456
+Age_DblN_end_logit_cpue1(1)  -1.80456 -0.000111122
+
+$Length_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp
+2901         4     2          0.989682 # 62   58        50        50
+2902         4     4          0.927692 # 10   10        50        50
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+2901            50             50            NA          0        NA
+2902            50             50            NA          0        NA
+            par1 val1 par2 val2 mean_effN HarMean Curr_Var_Adj Fleet_name
+2901 multinomial   NA   NA   NA   62.9495 49.4841            1      cpue2
+2902 multinomial   NA   NA   NA   54.3792 46.3846            1      cpue4
+
+$Age_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+2921         5     2           1.27045 #        12   12        25        25
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+2921            25             25            NA          0        NA
+            par1 val1 par2 val2 mean_effN HarMean Curr_Var_Adj Fleet_name
+2921 multinomial   NA   NA   NA   37.5709 31.7614            1      cpue2
+
+$SBzero
+[1] 17224.2
+
+$current_depletion
+[1] 0.2002282
+
+$SPRratioLabel
+[1] "(1-SPR)/(1-SPR_at_B50%)"
+
+$sigma_R_in
+[1] 0.4
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+1            Main     39  0.2328761  0.05423129 0.1772845     0.03652061
+2      Early+Main     39  0.2328761  0.05423129 0.1772845     0.03652061
+3 Early+Main+Late     43  0.2215094  0.04906640        NA             NA
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1              0.3012506               0.5821903             0.7531264
+2              0.3012506               0.5821903             0.7531264
+3                     NA               0.5537734                    NA
+  alternative_sigma_R
+1   0.301250563476668
+2   0.301250563476668
+3                <NA>
+
+$rmse_table
+    ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 39 0.229871         0.330254     0.833333
+2 early  0 0.000000         0.000000     0.000000
+
+$RecDev_method
+[1] 1
+
+112

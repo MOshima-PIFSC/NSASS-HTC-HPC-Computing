@@ -1,0 +1,220 @@
+/srv
+total 492452
+-rw-r--r-- 1 slot1_19 slot1_19         0 Nov  4 18:38 _condor_stderr
+-rw-r--r-- 1 slot1_19 slot1_19         5 Nov  4 18:38 _condor_stdout
+-rw-r--r-- 1 slot1_19 slot1_19 503570432 Nov  4 18:38 linux-r4ss-v4.sif
+-rw-r--r-- 1 slot1_19 slot1_19       819 Nov  4 18:38 osg-ss3-example-calcs.r
+-rwxr-xr-x 1 slot1_19 slot1_19      1059 Nov  4 18:38 osg-wrapper-r.sh
+drwxr-x--- 4 slot1_19 slot1_19      4096 Nov  4 18:38 scratch
+drwxrwxrwt 2 slot1_19 slot1_19      4096 Nov  4 18:38 tmp
+-rw-r--r-- 1 slot1_19 slot1_19    669783 Nov  4 18:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt 2 slot1_19 slot1_19      4096 Nov  4 18:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/26-Simple-1/
+[1] "/srv/working"
+[1] "output/26-Simple-1/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Mon Nov 4 18:38:27 2024"
+
+$RunTime
+[1] "0 hours, 0 minutes, 48 seconds."
+
+$Files_used
+[1] "Data_File: data.ss Control_File: control.ss"
+
+$log_det_hessian
+[1] 152.406
+
+$Final_phase
+[1] 5
+
+$N_iterations
+[1] 447
+
+$Nwarnings
+[1] 6
+
+$warnings
+[1] "Note 1 Information: Max data length bin: 90  < max pop len bins: 94; so will accumulate larger pop len bins"                                     
+[2] "Warning 1 Adjustment:  recdev_end: 2001 > retro_yr: 2000 reset "                                                                                 
+[3] "Warning 2 : 1st iteration warning: ssb(endyr)/ssb(styr)= 0.00316507; suggest start with larger R0 to get near 0.4; or use depletion fleet option"
+[4] "Warning 3 : 1st iteration warning: catch logL > 50% total logL; check configuration; suggest start with larger R0"                               
+[5] "Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended."                                             
+[6] " 3 warnings  and 2 notes "                                                                                                                       
+
+$likelihoods_used
+                                    values lambdas
+TOTAL                1248.1600000000000819      NA
+Catch                   0.0000000000504819      NA
+Equil_catch             0.0000000000000000      NA
+Survey                 -3.2678500000000001      NA
+Length_comp           621.6230000000000473      NA
+Age_comp              556.8990000000000009      NA
+Size_at_age            79.2934000000000054      NA
+Recruitment            -7.4466599999999996       1
+InitEQ_Regime           0.0000000000000000       1
+Forecast_Recruitment    0.0000000000000000       1
+Parm_priors             1.0552200000000000       1
+Parm_softbounds         0.0011836700000000      NA
+Parm_devs               0.0000000000000000       1
+Crash_Pen               0.0000000000000000       1
+
+$likelihoods_laplace
+                                       values lambdas
+NoBias_corr_Recruitment(info_only)   -6.93584       1
+Laplace_obj_fun(info_only)         1248.67000      NA
+
+$likelihoods_by_fleet
+               Label          ALL     FISHERY   SURVEY1  SURVEY2
+182     Catch_lambda           NA 1.00000e+00   1.00000  1.00000
+183       Catch_like  5.04819e-11 5.04819e-11   0.00000  0.00000
+184  Init_equ_lambda           NA 1.00000e+00   1.00000  1.00000
+185    Init_equ_like  0.00000e+00 0.00000e+00   0.00000  0.00000
+186      Surv_lambda           NA 0.00000e+00   1.00000  1.00000
+187        Surv_like -3.26785e+00 0.00000e+00  -5.50511  2.23726
+188       Surv_N_use           NA 0.00000e+00   8.00000 11.00000
+189      Surv_N_skip           NA 0.00000e+00   1.00000  1.00000
+190    Length_lambda           NA 1.00000e+00   1.00000  0.00000
+191      Length_like  6.21623e+02 4.97439e+02 124.18400  0.00000
+192     Length_N_use           NA 3.00000e+01   8.00000  0.00000
+193    Length_N_skip           NA 1.00000e+00   1.00000  0.00000
+194       Age_lambda           NA 1.00000e+00   1.00000  0.00000
+195         Age_like  5.56899e+02 4.40883e+02 116.01500  0.00000
+196        Age_N_use           NA 3.00000e+01   8.00000  0.00000
+197       Age_N_skip           NA 1.00000e+00   1.00000  0.00000
+198 Sizeatage_lambda           NA 1.00000e+00   1.00000  0.00000
+199   sizeatage_like  7.92934e+01 3.80650e+01  41.22840  0.00000
+200  sizeatage_N_use           NA 2.00000e+00   2.00000  0.00000
+201 sizeatage_N_skip           NA 0.00000e+00   0.00000  0.00000
+
+$N_estimated_parameters
+[1] 54
+
+$table_of_phases
+
+-99  -4  -3  -1   1   2   3   4   5 
+  8   3  15   1   3  33   2   5  11 
+
+$estimated_non_dev_parameters
+                               Value Phase    Min   Max      Init Status
+L_at_Amin_Fem_GP_1         21.663400     2 -10.00 45.00 21.659100     OK
+L_at_Amax_Fem_GP_1         71.650800     4  40.00 90.00 71.654000     OK
+VonBert_K_Fem_GP_1          0.147257     4   0.05  0.25  0.147240     OK
+L_at_Amax_Mal_GP_1         69.530200     4  40.00 90.00 69.539900     OK
+VonBert_K_Mal_GP_1          0.163891     4   0.05  0.25  0.163476     OK
+SR_LN(R0)                   8.812600     1   3.00 31.00  8.812060     OK
+SR_BH_steep                 0.548744     4   0.20  1.00  0.573835     OK
+LnQ_base_SURVEY1(2)         0.544784     1  -7.00  5.00  0.516916     OK
+LnQ_base_SURVEY2(3)        -6.458330     1  -7.00  5.00 -6.625470     OK
+Size_inflection_FISHERY(1) 53.516300     2  19.00 80.00 53.662900     OK
+Size_95%width_FISHERY(1)   18.963000     3   0.01 60.00 18.933200     OK
+Size_inflection_SURVEY1(2) 36.683000     2  19.00 70.00 36.658500     OK
+Size_95%width_SURVEY1(2)    6.727670     3   0.01 60.00  6.599660     OK
+                           Parm_StDev          Gradient  Pr_type Prior Pr_SD
+L_at_Amin_Fem_GP_1         0.48220000 -0.00000042589600   Normal 36.00 10.00
+L_at_Amax_Fem_GP_1         0.31135100 -0.00000552378000   Normal 70.00 10.00
+VonBert_K_Fem_GP_1         0.00370799 -0.00000130762000   Normal  0.15  0.80
+L_at_Amax_Mal_GP_1         0.29353700  0.00000109716000   Normal 70.00 10.00
+VonBert_K_Mal_GP_1         0.00413116  0.00000033834800   Normal  0.15  0.80
+SR_LN(R0)                  0.02795800 -0.00005122890000 No_prior    NA    NA
+SR_BH_steep                0.09875880 -0.00000036621100 Sym_Beta  0.70  0.05
+LnQ_base_SURVEY1(2)        0.12169100 -0.00000050370800 No_prior    NA    NA
+LnQ_base_SURVEY2(3)        0.30963500 -0.00000011515000 No_prior    NA    NA
+Size_inflection_FISHERY(1) 0.75252400  0.00000040875400 Sym_Beta 50.00  0.01
+Size_95%width_FISHERY(1)   0.79217100 -0.00000124798000 Sym_Beta 15.00  0.01
+Size_inflection_SURVEY1(2) 0.51907000 -0.00000000795468 Sym_Beta 30.00  0.01
+Size_95%width_SURVEY1(2)   0.78508400 -0.00000040746300 Sym_Beta 10.00  0.01
+                                 Pr_Like Afterbound
+L_at_Amin_Fem_GP_1         1.02769000000         OK
+L_at_Amax_Fem_GP_1         0.01362640000         OK
+VonBert_K_Fem_GP_1         0.00000587898         OK
+L_at_Amax_Mal_GP_1         0.00110361000         OK
+VonBert_K_Mal_GP_1         0.00015075100         OK
+SR_LN(R0)                             NA         OK
+SR_BH_steep                0.00080240100         OK
+LnQ_base_SURVEY1(2)                   NA         OK
+LnQ_base_SURVEY2(3)                   NA         OK
+Size_inflection_FISHERY(1) 0.00017485100         OK
+Size_95%width_FISHERY(1)   0.00145618000         OK
+Size_inflection_SURVEY1(2) 0.00098676700         OK
+Size_95%width_SURVEY1(2)   0.00921887000         OK
+
+$maximum_gradient_component
+[1] 5.12289e-05
+
+$parameters_with_highest_gradients
+                        Value     Gradient
+SR_LN(R0)           8.8126000 -5.12289e-05
+L_at_Amax_Fem_GP_1 71.6508000 -5.52378e-06
+Main_RecrDev_1972  -0.0520192 -1.89997e-06
+Main_RecrDev_1976   0.7006730 -1.82910e-06
+Main_RecrDev_1973   0.0907549 -1.73107e-06
+
+$Length_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp
+1410         4     1           1.04324 # 31   30       125       125
+1411         4     2           1.19457 #  9    8       125       125
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+1410           125            125            NA          0        NA
+1411           125            125            NA          0        NA
+            par1 val1 par2 val2 mean_effN HarMean Curr_Var_Adj Fleet_name
+1410 multinomial   NA   NA   NA   135.264 130.406            1    FISHERY
+1411 multinomial   NA   NA   NA   155.478 149.321            1    SURVEY1
+
+$Age_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+1458         5     1           1.01647 #        31   30        75        75
+1459         5     2           1.04779 #         9    8        75        75
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+1458            75             75            NA          0        NA
+1459            75             75            NA          0        NA
+            par1 val1 par2 val2 mean_effN HarMean Curr_Var_Adj Fleet_name
+1458 multinomial   NA   NA   NA   82.4011 76.2349            1    FISHERY
+1459 multinomial   NA   NA   NA   88.3009 78.5840            1    SURVEY1
+
+$SBzero
+[1] 49789.3
+
+$current_depletion
+[1] 0.08827379
+
+$SPRratioLabel
+[1] "1-SPR"
+
+$sigma_R_in
+[1] 0.6
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+1            Main     30  0.4544834   0.2065552 0.3425046      0.1213791
+2      Early+Main     30  0.4544834   0.2065552 0.3425046      0.1213791
+3 Early+Main+Late     31  0.4469046   0.1997237 0.3508109      0.1290766
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1              0.5726555               0.7574723             0.9544258
+2              0.5726555               0.7574723             0.9544258
+3              0.5734111               0.7448409             0.9556851
+  alternative_sigma_R
+1   0.572655495373222
+2   0.572655495373222
+3   0.573411089313389
+
+$rmse_table
+    ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 30 0.448703         0.559262            1
+2 early  0 0.000000         0.000000            0
+
+$RecDev_method
+[1] 2
+
+52

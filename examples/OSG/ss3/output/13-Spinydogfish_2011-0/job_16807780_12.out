@@ -1,0 +1,318 @@
+/srv
+total 492436
+-rw-r--r-- 1 nobody nogroup         0 Nov  5 00:38 _condor_stderr
+-rw-r--r-- 1 nobody nogroup         5 Nov  5 00:38 _condor_stdout
+-rw-r--r-- 1 nobody nogroup 503570432 Nov  5 00:38 linux-r4ss-v4.sif
+-rw-r--r-- 1 nobody nogroup       819 Nov  5 00:38 osg-ss3-example-calcs.r
+-rwxr-xr-x 1 nobody nogroup      1059 Nov  5 00:38 osg-wrapper-r.sh
+drwxr-x--- 4 nobody nogroup        40 Nov  5 00:38 scratch
+drwxrwxrwt 2 nobody nogroup        10 Nov  5 00:38 tmp
+-rw-r--r-- 1 nobody nogroup    669783 Nov  5 00:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt 2 nobody nogroup        10 Nov  5 00:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/13-Spinydogfish_2011-0/
+[1] "/srv/working"
+[1] "output/13-Spinydogfish_2011-0/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Tue Nov 5 00:38:35 2024"
+
+$RunTime
+[1] "0 hours, 3 minutes, 21 seconds."
+
+$Files_used
+[1] "Data_File: Spiny_Dogfish.DAT Control_File: Spiny_Dogfish.CTL"
+
+$log_det_hessian
+[1] 54.9914
+
+$Final_phase
+[1] 3
+
+$N_iterations
+[1] 178
+
+$Nwarnings
+[1] 4
+
+$warnings
+[1] "Note 1 Information: Max data length bin: 132  < max pop len bins: 136; so will accumulate larger pop len bins"
+[2] "Warning 1 : Fmsy/mey is <1/3 of Fspr are you sure?  check for convergence "                                   
+[3] "Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended."          
+[4] " 1 warning  and 2 notes "                                                                                     
+
+$likelihoods_used
+                                      values lambdas
+TOTAL                1206.660000000000081855      NA
+Catch                   0.000000000000189016      NA
+Equil_catch             0.000000000000000000      NA
+Survey                 -1.115469999999999962      NA
+Mean_body_wt           -2.105869999999999909      NA
+Length_comp          1057.069999999999936335      NA
+Recruitment             0.000000000000000000       1
+InitEQ_Regime           0.000000000000000000       1
+Forecast_Recruitment    0.000000000000000000       1
+Parm_priors           152.802999999999997272       1
+Parm_softbounds         0.007503460000000000      NA
+Parm_devs               0.000000000000000000       1
+Crash_Pen               0.000000000000000000       1
+
+$likelihoods_laplace
+                                      values lambdas
+NoBias_corr_Recruitment(info_only)  -49.8926       1
+Laplace_obj_fun(info_only)         1156.7600      NA
+
+$likelihoods_by_fleet
+              Label          ALL   TRAWL Trawl_Discard MIDWATER  A-SHOP     HKL
+190    Catch_lambda           NA  1.0000   1.00000e+00    1.000  1.0000  1.0000
+191      Catch_like  1.89016e-13  0.0000   1.66746e-14    0.000  0.0000  0.0000
+192 Init_equ_lambda           NA  1.0000   1.00000e+00    1.000  1.0000  1.0000
+193   Init_equ_like  0.00000e+00  0.0000   0.00000e+00    0.000  0.0000  0.0000
+194     Surv_lambda           NA  0.0000   0.00000e+00    0.000  0.0000  0.0000
+195       Surv_like -1.11547e+00  0.0000   0.00000e+00    0.000  0.0000  0.0000
+196      Surv_N_use           NA  0.0000   0.00000e+00    0.000  0.0000  0.0000
+197     Surv_N_skip           NA  0.0000   0.00000e+00    0.000  0.0000  0.0000
+198     mnwt_lambda           NA  1.0000   1.00000e+00    1.000  1.0000  1.0000
+199       mnwt_like -2.10587e+00  0.0000  -1.51712e+00    0.000  0.0000  0.0000
+200      mnwt_N_use           NA  0.0000   4.00000e+00    0.000  0.0000  0.0000
+201     mnwt_N_skip           NA  0.0000   0.00000e+00    0.000  0.0000  0.0000
+202   Length_lambda           NA  1.0000   1.00000e+00    1.000  1.0000  1.0000
+203     Length_like  1.05707e+03 52.4554   1.31383e+02  125.994 88.2702 89.4977
+204    Length_N_use           NA  4.0000   5.00000e+00    6.000  4.0000  6.0000
+205   Length_N_skip           NA  0.0000   0.00000e+00    0.000  0.0000  0.0000
+    Hkl_Discard OTHERS RECREATIONAL AFSC_triennial AFSC_slope NWFSC_shelf_slope
+190    1.000000      1  1.00000e+00         1.0000   1.000000           1.00000
+191    0.000000      0  1.72342e-13         0.0000   0.000000           0.00000
+192    1.000000      1  1.00000e+00         1.0000   1.000000           1.00000
+193    0.000000      0  0.00000e+00         0.0000   0.000000           0.00000
+194    0.000000      0  0.00000e+00         1.0000   1.000000           1.00000
+195    0.000000      0  0.00000e+00        -3.1955   0.736192           3.36219
+196    0.000000      0  0.00000e+00         9.0000   4.000000           8.00000
+197    0.000000      0  0.00000e+00         0.0000   0.000000           0.00000
+198    1.000000      1  1.00000e+00         1.0000   1.000000           1.00000
+199   -0.588749      0  0.00000e+00         0.0000   0.000000           0.00000
+200    4.000000      0  0.00000e+00         0.0000   0.000000           0.00000
+201    0.000000      0  0.00000e+00         0.0000   0.000000           0.00000
+202    1.000000      0  1.00000e+00         1.0000   1.000000           1.00000
+203  106.599000      0  1.91663e+02        48.7485  53.565900         168.88900
+204    6.000000      0  1.70000e+01         3.0000   4.000000           8.00000
+205    0.000000      0  0.00000e+00         0.0000   0.000000           0.00000
+    NWFSC_slope    IPHC
+190     1.00000  1.0000
+191     0.00000  0.0000
+192     1.00000  1.0000
+193     0.00000  0.0000
+194     1.00000  1.0000
+195     3.03925 -5.0576
+196     5.00000 11.0000
+197     0.00000  0.0000
+198     1.00000  1.0000
+199     0.00000  0.0000
+200     0.00000  0.0000
+201     0.00000  0.0000
+202     0.00000  0.0000
+203     0.00000  0.0000
+204     0.00000  0.0000
+205     0.00000  0.0000
+
+$Parm_devs_detail
+    Index Phase MinYr MaxYr  N stddev Rho Like_devs Like_se mean        rmse
+209     1    -5  1980  2004 25      2   0         0       0    0 3.16228e-05
+    var   sqrt(var) est_rho D-W
+209   0 3.16228e-05       0   0
+
+$N_estimated_parameters
+[1] 32
+
+$table_of_phases
+
+-99  -6  -5  -3  -2  -1   1   3 
+ 35   2  13  36   5   5  11  21 
+
+$estimated_non_dev_parameters
+                                               Value Phase Min Max       Init
+SR_LN(R0)                                   9.052750     1   8  18   9.052750
+LnQ_base_AFSC_triennial(9)                 -0.825117     1 -10   2  -0.825117
+Q_extraSD_AFSC_triennial(9)                 0.312772     3   0   1   0.312772
+Q_extraSD_AFSC_slope(10)                    0.470453     3   0   1   0.470453
+Q_extraSD_NWFSC_shelf_slope(11)             0.807998     3   0   1   0.807998
+Q_extraSD_NWFSC_slope(12)                   0.812206     3   0   1   0.812199
+Size_DblN_peak_TRAWL(1)                    99.872300     1  20 120  99.872300
+Size_DblN_ascend_se_TRAWL(1)                5.882580     3  -1   9   5.882580
+Size_DblN_peak_Trawl_Discard(2)            73.379700     1  20 120  73.379700
+Size_DblN_ascend_se_Trawl_Discard(2)        6.093260     3  -1   9   6.093260
+Size_DblN_start_logit_Trawl_Discard(2)     -3.167350     3  -5   9  -3.167350
+Size_DblN_peak_MIDWATER(3)                 57.288600     1  20 120  57.288600
+Size_DblN_top_logit_MIDWATER(3)             0.556101     3  -6   4   0.556100
+Size_DblN_ascend_se_MIDWATER(3)             4.951900     3  -1   9   4.951900
+Size_DblN_descend_se_MIDWATER(3)            4.492350     3  -1   9   4.492350
+Size_DblN_start_logit_MIDWATER(3)          -5.498300     3  -9   9  -5.498300
+Size_DblN_peak_HKL(5)                     105.009000     1  20 120 105.009000
+Size_DblN_ascend_se_HKL(5)                  5.958320     3  -1   9   5.958320
+Size_DblN_peak_Hkl_Discard(6)              67.082900     1  20 120  67.082900
+Size_DblN_ascend_se_Hkl_Discard(6)          5.110470     3  -1   9   5.110470
+Size_DblN_peak_RECREATIONAL(8)            109.785000     1  20 120 109.785000
+Size_DblN_ascend_se_RECREATIONAL(8)         6.086900     3  -1   9   6.086900
+Size_DblN_peak_AFSC_triennial(9)           57.778800     1  25 100  57.778800
+Size_DblN_top_logit_AFSC_triennial(9)      -8.724720     3  -9   3  -8.724720
+Size_DblN_ascend_se_AFSC_triennial(9)       6.593140     3  -4  12   6.593140
+Size_DblN_descend_se_AFSC_triennial(9)      6.461950     3  -2  15   6.461950
+Size_DblN_peak_AFSC_slope(10)              59.078600     1  25 100  59.078600
+Size_DblN_top_logit_AFSC_slope(10)         -1.026320     3  -9   3  -1.026320
+Size_DblN_ascend_se_AFSC_slope(10)          5.638340     3  -4  12   5.638340
+Size_DblN_descend_se_AFSC_slope(10)         4.981780     3  -2  15   4.981780
+Size_DblN_peak_NWFSC_shelf_slope(11)       57.198100     1  20 120  57.198100
+Size_DblN_ascend_se_NWFSC_shelf_slope(11)   6.716190     3  -1   9   6.716190
+                                          Status Parm_StDev        Gradient
+SR_LN(R0)                                     OK  0.3545350 -0.000002117030
+LnQ_base_AFSC_triennial(9)                    OK  0.4006530 -0.000001411470
+Q_extraSD_AFSC_triennial(9)                   OK  0.0998885  0.000003556710
+Q_extraSD_AFSC_slope(10)                      OK  0.2583960 -0.000000676404
+Q_extraSD_NWFSC_shelf_slope(11)               OK  0.2320540  0.000001377460
+Q_extraSD_NWFSC_slope(12)                     OK  0.3540000  0.000001541620
+Size_DblN_peak_TRAWL(1)                       OK  5.4039400  0.000002326590
+Size_DblN_ascend_se_TRAWL(1)                  OK  0.3317950 -0.000007545150
+Size_DblN_peak_Trawl_Discard(2)               OK  2.9277900 -0.000029924500
+Size_DblN_ascend_se_Trawl_Discard(2)          OK  0.2186480  0.000041543200
+Size_DblN_start_logit_Trawl_Discard(2)        OK  0.2785150  0.000009632560
+Size_DblN_peak_MIDWATER(3)                    OK  1.4042000 -0.000002697610
+Size_DblN_top_logit_MIDWATER(3)               OK  0.3633690  0.000000935812
+Size_DblN_ascend_se_MIDWATER(3)               OK  0.1940770  0.000006401380
+Size_DblN_descend_se_MIDWATER(3)              OK  1.5357900  0.000001057280
+Size_DblN_start_logit_MIDWATER(3)             OK  1.2420000  0.000002485040
+Size_DblN_peak_HKL(5)                         OK  2.3192700 -0.000002227110
+Size_DblN_ascend_se_HKL(5)                    OK  0.1437440  0.000004019010
+Size_DblN_peak_Hkl_Discard(6)                 OK  1.3975900  0.000049710500
+Size_DblN_ascend_se_Hkl_Discard(6)            OK  0.1596870 -0.000045591600
+Size_DblN_peak_RECREATIONAL(8)                OK  2.2020100  0.000001153860
+Size_DblN_ascend_se_RECREATIONAL(8)           OK  0.1436310 -0.000000244574
+Size_DblN_peak_AFSC_triennial(9)              OK  2.6141700  0.000000986443
+Size_DblN_top_logit_AFSC_triennial(9)         OK  7.6879300 -0.000000240514
+Size_DblN_ascend_se_AFSC_triennial(9)         OK  0.3002550  0.000004983860
+Size_DblN_descend_se_AFSC_triennial(9)        OK  0.3285800  0.000002263570
+Size_DblN_peak_AFSC_slope(10)                 OK  1.8767700  0.000001395800
+Size_DblN_top_logit_AFSC_slope(10)            OK  0.3110980  0.000007959370
+Size_DblN_ascend_se_AFSC_slope(10)            OK  0.1953450 -0.000000735201
+Size_DblN_descend_se_AFSC_slope(10)           OK  0.8767910  0.000001921980
+Size_DblN_peak_NWFSC_shelf_slope(11)          OK  2.3333000  0.000001504290
+Size_DblN_ascend_se_NWFSC_shelf_slope(11)     OK  0.2588320 -0.000001087570
+                                           Pr_type Prior Pr_SD         Pr_Like
+SR_LN(R0)                                 No_prior    NA    NA              NA
+LnQ_base_AFSC_triennial(9)                No_prior    NA    NA              NA
+Q_extraSD_AFSC_triennial(9)               No_prior    NA    NA              NA
+Q_extraSD_AFSC_slope(10)                  No_prior    NA    NA              NA
+Q_extraSD_NWFSC_shelf_slope(11)           No_prior    NA    NA              NA
+Q_extraSD_NWFSC_slope(12)                 No_prior    NA    NA              NA
+Size_DblN_peak_TRAWL(1)                     Normal   100    99 0.0000008323720
+Size_DblN_ascend_se_TRAWL(1)                Normal     6    99 0.0000007033400
+Size_DblN_peak_Trawl_Discard(2)             Normal    75    99 0.0001339400000
+Size_DblN_ascend_se_Trawl_Discard(2)        Normal     6    99 0.0000004436770
+Size_DblN_start_logit_Trawl_Discard(2)      Normal    -5    99 0.0001713390000
+Size_DblN_peak_MIDWATER(3)                  Normal    55    99 0.0002671910000
+Size_DblN_top_logit_MIDWATER(3)             Normal     0    99 0.0000157763000
+Size_DblN_ascend_se_MIDWATER(3)             Normal     5    99 0.0000001180510
+Size_DblN_descend_se_MIDWATER(3)            Normal     5    99 0.0000131471000
+Size_DblN_start_logit_MIDWATER(3)           Normal    -7    99 0.0001150440000
+Size_DblN_peak_HKL(5)                       Normal   110    99 0.0012705600000
+Size_DblN_ascend_se_HKL(5)                  Normal     6    99 0.0000000886438
+Size_DblN_peak_Hkl_Discard(6)               Normal    70    99 0.0004341110000
+Size_DblN_ascend_se_Hkl_Discard(6)          Normal     5    99 0.0000006225810
+Size_DblN_peak_RECREATIONAL(8)              Normal   110    99 0.0000023503500
+Size_DblN_ascend_se_RECREATIONAL(8)         Normal     6    99 0.0000003852430
+Size_DblN_peak_AFSC_triennial(9)            Normal    60    99 0.0002516950000
+Size_DblN_top_logit_AFSC_triennial(9)       Normal    -8    99 0.0000267940000
+Size_DblN_ascend_se_AFSC_triennial(9)       Normal     6    99 0.0000179477000
+Size_DblN_descend_se_AFSC_triennial(9)      Normal     6    99 0.0000108863000
+Size_DblN_peak_AFSC_slope(10)               Normal    60    99 0.0000433121000
+Size_DblN_top_logit_AFSC_slope(10)          Normal    -1    99 0.0000000353484
+Size_DblN_ascend_se_AFSC_slope(10)          Normal     5    99 0.0000207878000
+Size_DblN_descend_se_AFSC_slope(10)         Normal     5    99 0.0000000169374
+Size_DblN_peak_NWFSC_shelf_slope(11)        Normal    60    99 0.0004005040000
+Size_DblN_ascend_se_NWFSC_shelf_slope(11)   Normal     6    99 0.0000261673000
+                                          Afterbound
+SR_LN(R0)                                         OK
+LnQ_base_AFSC_triennial(9)                        OK
+Q_extraSD_AFSC_triennial(9)                       OK
+Q_extraSD_AFSC_slope(10)                          OK
+Q_extraSD_NWFSC_shelf_slope(11)                   OK
+Q_extraSD_NWFSC_slope(12)                         OK
+Size_DblN_peak_TRAWL(1)                           OK
+Size_DblN_ascend_se_TRAWL(1)                      OK
+Size_DblN_peak_Trawl_Discard(2)                   OK
+Size_DblN_ascend_se_Trawl_Discard(2)              OK
+Size_DblN_start_logit_Trawl_Discard(2)            OK
+Size_DblN_peak_MIDWATER(3)                        OK
+Size_DblN_top_logit_MIDWATER(3)                   OK
+Size_DblN_ascend_se_MIDWATER(3)                   OK
+Size_DblN_descend_se_MIDWATER(3)                  OK
+Size_DblN_start_logit_MIDWATER(3)                 OK
+Size_DblN_peak_HKL(5)                             OK
+Size_DblN_ascend_se_HKL(5)                        OK
+Size_DblN_peak_Hkl_Discard(6)                     OK
+Size_DblN_ascend_se_Hkl_Discard(6)                OK
+Size_DblN_peak_RECREATIONAL(8)                    OK
+Size_DblN_ascend_se_RECREATIONAL(8)               OK
+Size_DblN_peak_AFSC_triennial(9)                  OK
+Size_DblN_top_logit_AFSC_triennial(9)             OK
+Size_DblN_ascend_se_AFSC_triennial(9)             OK
+Size_DblN_descend_se_AFSC_triennial(9)            OK
+Size_DblN_peak_AFSC_slope(10)                     OK
+Size_DblN_top_logit_AFSC_slope(10)                OK
+Size_DblN_ascend_se_AFSC_slope(10)                OK
+Size_DblN_descend_se_AFSC_slope(10)               OK
+Size_DblN_peak_NWFSC_shelf_slope(11)              OK
+Size_DblN_ascend_se_NWFSC_shelf_slope(11)         OK
+
+$maximum_gradient_component
+[1] 4.97105e-05
+
+$parameters_with_highest_gradients
+                                          Value     Gradient
+Size_DblN_peak_Hkl_Discard(6)          67.08290  4.97105e-05
+Size_DblN_ascend_se_Hkl_Discard(6)      5.11047 -4.55916e-05
+Size_DblN_ascend_se_Trawl_Discard(2)    6.09326  4.15432e-05
+Size_DblN_peak_Trawl_Discard(2)        73.37970 -2.99245e-05
+Size_DblN_start_logit_Trawl_Discard(2) -3.16735  9.63256e-06
+
+$SBzero
+[1] 25561.8
+
+$current_depletion
+[1] 0.7613744
+
+$sigma_R_in
+[1] 0.2
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs mean_SE mean_SEsquared
+1            Main     31          0           0      NA             NA
+2      Early+Main     31          0           0      NA             NA
+3 Early+Main+Late     31          0           0      NA             NA
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1                     NA                       0                    NA
+2                     NA                       0                    NA
+3                     NA                       0                    NA
+  alternative_sigma_R
+1                <NA>
+2                <NA>
+3                <NA>
+
+$rmse_table
+    ERA  N RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 31    0                0            0
+2 early  0    0                0            0
+
+$RecDev_method
+[1] 1
+
+205

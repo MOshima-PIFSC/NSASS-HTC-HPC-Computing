@@ -1,0 +1,494 @@
+/srv
+total 492452
+-rw-r--r--. 1 osg osg         0 Nov  4 19:38 _condor_stderr
+-rw-r--r--. 1 osg osg         5 Nov  4 19:38 _condor_stdout
+-rw-r--r--. 1 osg osg 503570432 Nov  4 19:38 linux-r4ss-v4.sif
+-rw-r--r--. 1 osg osg       819 Nov  4 19:38 osg-ss3-example-calcs.r
+-rwxr-xr-x. 1 osg osg      1059 Nov  4 19:38 osg-wrapper-r.sh
+drwxr-x---. 4 osg osg      4096 Nov  4 19:38 scratch
+drwxrwxrwt. 2 osg osg      4096 Nov  4 19:38 tmp
+-rw-r--r--. 1 osg osg    669783 Nov  4 19:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt. 2 osg osg      4096 Nov  4 19:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/25-Sablefish2015-1/
+[1] "/srv/working"
+[1] "output/25-Sablefish2015-1/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Mon Nov 4 19:38:40 2024"
+
+$RunTime
+[1] "0 hours, 9 minutes, 43 seconds."
+
+$Files_used
+[1] "Data_File: 2015_data.ss Control_File: 2015_control.ss"
+
+$log_det_hessian
+[1] 578.452
+
+$Final_phase
+[1] 7
+
+$N_iterations
+[1] 1042
+
+$Nwarnings
+[1] 6
+
+$warnings
+[1] "Warning 1 Adjustment:  recdev_end: 2014 > retro_yr: 2013 reset "                                                       
+[2] "Note 1 Information: Max harvest rate typically is >1.0 for F_method 2, 3 or 4 0.9"                                     
+[3] "Warning 2 : Final gradient: 0.00298023 is larger than final_conv: 1e-05"                                               
+[4] "Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended."                   
+[5] "Note 3 Information:  N parameters that are on or within 1% of min-max bound: 6; check results, variance may be suspect"
+[6] " 2 warnings  and 3 notes "                                                                                             
+
+$likelihoods_used
+                          values lambdas
+TOTAL                26185.50000      NA
+Equil_catch              0.00000      NA
+Survey                 -29.56310      NA
+Discard                 31.88820      NA
+Mean_body_wt         18624.80000      NA
+Length_comp           3808.33000      NA
+Age_comp              3734.67000      NA
+Recruitment             13.73640       1
+InitEQ_Regime            0.00000       1
+Forecast_Recruitment     0.00000       1
+Parm_priors              1.58335       1
+Parm_devs                0.00000       1
+Crash_Pen                0.00000       1
+
+$likelihoods_laplace
+                                       values lambdas
+NoBias_corr_Recruitment(info_only)    13.3047       1
+Laplace_obj_fun(info_only)         26185.0000      NA
+
+$likelihoods_by_fleet
+              Label        ALL       HKL       POT       TWL     ENV    AKSHLF
+203 Init_equ_lambda         NA    1.0000    1.0000    1.0000   1.000   1.00000
+204   Init_equ_like     0.0000    0.0000    0.0000    0.0000   0.000   0.00000
+205     Surv_lambda         NA    0.0000    0.0000    0.0000   0.000   1.00000
+206       Surv_like   -29.5631    0.0000    0.0000    0.0000 225.232  -1.97417
+207      Surv_N_use         NA    0.0000    0.0000    0.0000  41.000   9.00000
+208     Surv_N_skip         NA    0.0000    0.0000    0.0000   0.000   0.00000
+209     Disc_lambda         NA    1.0000    1.0000    1.0000   0.000   0.00000
+210       Disc_like    31.8882   38.7069  -19.9215   13.1028   0.000   0.00000
+211      Disc_N_use         NA   12.0000   12.0000   15.0000   0.000   0.00000
+212     Disc_N_skip         NA    0.0000    0.0000    0.0000   0.000   0.00000
+213     mnwt_lambda         NA    1.0000    1.0000    1.0000   1.000   1.00000
+214       mnwt_like 18624.8000 3435.6400 5962.5800 9226.5800   0.000   0.00000
+215      mnwt_N_use         NA   12.0000   12.0000   12.0000   0.000   0.00000
+216     mnwt_N_skip         NA    0.0000    0.0000    0.0000   0.000   0.00000
+217   Length_lambda         NA    1.0000    1.0000    1.0000   0.000   1.00000
+218     Length_like  3808.3300  712.3820 1281.8100  938.4230   0.000 135.15700
+219    Length_N_use         NA   38.0000   40.0000   45.0000   0.000   9.00000
+220   Length_N_skip         NA    1.0000    1.0000    1.0000   0.000   0.00000
+221      Age_lambda         NA    1.0000    1.0000    1.0000   0.000   1.00000
+222        Age_like  3734.6700  231.3010  374.6360  421.3860   0.000 497.51200
+223       Age_N_use         NA   25.0000   25.0000   27.0000   0.000 303.00000
+224      Age_N_skip         NA    0.0000    0.0000    0.0000   0.000   0.00000
+        AKSLP     NWSLP     NWCBO
+203   1.00000   1.00000    1.0000
+204   0.00000   0.00000    0.0000
+205   1.00000   1.00000    1.0000
+206  -5.89494  -6.53336  -15.1606
+207   4.00000   5.00000   11.0000
+208   0.00000   0.00000    1.0000
+209   0.00000   0.00000    0.0000
+210   0.00000   0.00000    0.0000
+211   0.00000   0.00000    0.0000
+212   0.00000   0.00000    0.0000
+213   1.00000   1.00000    1.0000
+214   0.00000   0.00000    0.0000
+215   0.00000   0.00000    0.0000
+216   0.00000   0.00000    0.0000
+217   1.00000   1.00000    1.0000
+218 199.28000 116.71600  424.5580
+219   4.00000   5.00000   11.0000
+220   0.00000   0.00000    1.0000
+221   1.00000   1.00000    1.0000
+222 209.74400 530.08000 1470.0100
+223 182.00000 208.00000  605.0000
+224   0.00000   5.00000   67.0000
+
+$Parm_devs_detail
+    Index Phase MinYr MaxYr  N stddev Rho Like_devs Like_se mean        rmse
+228     1    -5  1980  2004 25      2   0         0       0    0 3.16228e-05
+    var   sqrt(var) est_rho D-W
+228   0 3.16228e-05       0   0
+
+$N_estimated_parameters
+[1] 120
+
+$table_of_phases
+
+-99 -50  -9  -6  -5  -4  -3  -1   1   2   3   4   5   6   7 
+ 34  28   1   3   1  11   1   5   1   8   5  13  28  64   1 
+
+$estimated_non_dev_parameters
+                                                    Value Phase     Min   Max
+NatM_uniform_Fem_GP_1                          0.09620300     3   0.010  0.11
+L_at_Amin_Fem_GP_1                            22.00000000     2  22.000 30.00
+L_at_Amax_Fem_GP_1                            64.45910000     2  60.000 70.00
+VonBert_K_Fem_GP_1                             0.35000000     2   0.150  0.35
+CV_young_Fem_GP_1                              0.14493200     2   0.030  0.15
+CV_old_Fem_GP_1                                0.11067400     2   0.030  0.15
+NatM_uniform_Mal_GP_1                          0.07173300     3   0.010  0.11
+L_at_Amax_Mal_GP_1                            56.01980000     2  50.000 60.00
+VonBert_K_Mal_GP_1                             0.47544100     2   0.200  0.50
+CV_old_Mal_GP_1                                0.07382800     2   0.030  0.15
+SR_LN(R0)                                     12.00000000     7   8.000 12.00
+LnQ_base_AKSHLF(5)                            -2.88990000     1  -3.000  0.50
+Q_extraSD_AKSHLF(5)                            0.40941100     3   0.100  1.30
+Q_extraSD_AKSLP(6)                             0.05746480     3   0.001  0.70
+Q_extraSD_NWSLP(7)                             0.09394450     3   0.001  0.80
+Retain_L_infl_HKL(1)                          25.00000000     6  25.000 45.00
+Retain_L_asymptote_logit_HKL(1)                8.29825000     6 -10.000 10.00
+Retain_L_infl_POT(2)                          47.18600000     6  25.000 60.00
+Retain_L_width_POT(2)                          3.72500000     6   1.000 20.00
+Retain_L_infl_TWL(3)                          44.90240000     6  25.000 60.00
+Retain_L_width_TWL(3)                          2.03898000     6   1.000  5.00
+AgeSpline_GradLo_HKL_1                         0.46837700     5  -5.000  5.00
+AgeSpline_GradHi_HKL_1                        -0.73924000     5  -5.000  2.00
+AgeSpline_Val_1_HKL_1                         -1.13158000     5  -5.000  3.00
+AgeSpline_Val_3_HKL_1                         -0.41369800     5  -5.000  3.00
+AgeSpline_Val_4_HKL_1                         -0.91041500     5  -5.000  3.00
+AgeSel_1MaleatDogleg_HKL                      -1.26765000     5  -3.000  1.00
+AgeSel_1MaleatMaxage_HKL                      -1.11448000     5  -4.000  1.00
+AgeSpline_GradLo_POT_2                        -0.11425000     5  -2.000  5.00
+AgeSpline_GradHi_POT_2                        -0.37666900     5  -5.000  2.00
+AgeSpline_Val_1_POT_2                         -2.05573000     5  -5.000  3.00
+AgeSpline_Val_2_POT_2                         -0.60480400     5  -5.000  3.00
+AgeSpline_Val_4_POT_2                         -0.15972000     5  -5.000  3.00
+AgeSel_2MaleatDogleg_POT                      -1.19801000     5  -3.000  1.00
+AgeSel_2MaleatMaxage_POT                      -1.39336000     5  -4.000  1.00
+AgeSpline_GradLo_TWL_3                        -1.00000000     5  -1.000  5.00
+AgeSpline_GradHi_TWL_3                        -0.18855400     5  -5.000  2.00
+AgeSpline_Val_1_TWL_3                          0.89879100     5  -5.000  3.00
+AgeSpline_Val_2_TWL_3                          0.79768600     5  -5.000  3.00
+AgeSpline_Val_4_TWL_3                          0.28989200     5  -5.000  3.00
+AgeSpline_Val_5_TWL_3                         -0.94913700     5  -5.000  3.00
+AgeSel_3MaleatDogleg_TWL                       0.00959747     5  -3.000  1.00
+AgeSel_3MaleatMaxage_TWL                      -0.15411400     5  -1.000  1.00
+Age_DblN_descend_se_AKSHLF(5)                  1.79252000     4   0.001 10.00
+Age_DblN_start_logit_AKSHLF(5)                -2.78492000     4  -5.000  5.00
+Age_DblN_peak_AKSLP(6)                         2.48583000     4   1.000 12.00
+Age_DblN_descend_se_AKSLP(6)                   0.92761500     4   0.001 10.00
+Age_DblN_start_logit_AKSLP(6)                 -1.59504000     4  -5.000  5.00
+Age_DblN_end_logit_AKSLP(6)                   -0.94798000     4  -5.000  5.00
+Age_DblN_ascend_se_NWSLP(7)                    1.18992000     4   0.001 10.00
+Age_DblN_descend_se_NWSLP(7)                   0.87514600     4   0.001 10.00
+Age_DblN_start_logit_NWSLP(7)                 -3.70113000     4  -5.000  5.00
+Age_DblN_end_logit_NWSLP(7)                   -0.11945100     4  -5.000  5.00
+Age_DblN_descend_se_NWCBO(8)                   3.08605000     4   0.001 10.00
+Age_DblN_start_logit_NWCBO(8)                 -0.26906800     4  -5.000  5.00
+Age_DblN_end_logit_NWCBO(8)                   -0.85273200     4  -5.000  5.00
+Retain_L_asymptote_logit_TWL(3)_BLK2repl_1982  1.00000000     6   0.700  1.00
+AgeSpline_Val_3_HKL_1_BLK4repl_1970           -0.76789500     5  -5.000  3.00
+AgeSpline_Val_4_HKL_1_BLK4repl_1970           -0.94129100     5  -5.000  3.00
+AgeSpline_Val_2_POT_2_BLK4repl_1970           -0.54941400     5  -5.000  3.00
+AgeSpline_Val_4_POT_2_BLK4repl_1970           -0.38244900     5  -5.000  3.00
+AgeSpline_Val_2_TWL_3_BLK4repl_1970            0.67788800     5  -5.000  3.00
+AgeSpline_Val_4_TWL_3_BLK4repl_1970           -0.25206200     5  -5.000  3.00
+                                                     Init Status    Parm_StDev
+NatM_uniform_Fem_GP_1                          0.10193400     OK 0.00278616000
+L_at_Amin_Fem_GP_1                            22.00000000     LO 0.00000157613
+L_at_Amax_Fem_GP_1                            64.48090000     OK 0.17048300000
+VonBert_K_Fem_GP_1                             0.35000000     HI 0.00000282147
+CV_young_Fem_GP_1                              0.14154600     OK 0.00436598000
+CV_old_Fem_GP_1                                0.11084300     OK 0.00220897000
+NatM_uniform_Mal_GP_1                          0.07856390     OK 0.00263691000
+L_at_Amax_Mal_GP_1                            55.93300000     OK 0.11607400000
+VonBert_K_Mal_GP_1                             0.48349400     OK 0.00706774000
+CV_old_Mal_GP_1                                0.07501060     OK 0.00136481000
+SR_LN(R0)                                     11.64090000     HI 0.00022966100
+LnQ_base_AKSHLF(5)                            -2.25921000     OK 0.18196000000
+Q_extraSD_AKSHLF(5)                            0.45161000     OK 0.11663700000
+Q_extraSD_AKSLP(6)                             0.05732070     OK 0.05091510000
+Q_extraSD_NWSLP(7)                             0.09903370     OK 0.05229660000
+Retain_L_infl_HKL(1)                          25.00000000     LO 0.00000393999
+Retain_L_asymptote_logit_HKL(1)                8.29555000     OK 0.24512400000
+Retain_L_infl_POT(2)                          46.56620000     OK 0.63505900000
+Retain_L_width_POT(2)                          3.66821000     OK 0.13983100000
+Retain_L_infl_TWL(3)                          45.09100000     OK 0.35509500000
+Retain_L_width_TWL(3)                          2.08034000     OK 0.11854300000
+AgeSpline_GradLo_HKL_1                         0.53600200     OK 0.05333890000
+AgeSpline_GradHi_HKL_1                        -0.75049300     OK 0.11304200000
+AgeSpline_Val_1_HKL_1                         -1.11640000     OK 0.14646900000
+AgeSpline_Val_3_HKL_1                         -0.27243100     OK 0.20465100000
+AgeSpline_Val_4_HKL_1                         -0.75364800     OK 0.19519500000
+AgeSel_1MaleatDogleg_HKL                      -1.26664000     OK 0.11881200000
+AgeSel_1MaleatMaxage_HKL                      -1.10104000     OK 0.41235700000
+AgeSpline_GradLo_POT_2                         0.00398468     OK 0.07739350000
+AgeSpline_GradHi_POT_2                        -0.39962200     OK 0.09108980000
+AgeSpline_Val_1_POT_2                         -2.22168000     OK 0.22084300000
+AgeSpline_Val_2_POT_2                         -0.63305300     OK 0.20097900000
+AgeSpline_Val_4_POT_2                          0.07864580     OK 0.27607900000
+AgeSel_2MaleatDogleg_POT                      -1.24135000     OK 0.10885700000
+AgeSel_2MaleatMaxage_POT                      -1.42893000     OK 0.29812200000
+AgeSpline_GradLo_TWL_3                        -1.00000000     LO 0.00000450235
+AgeSpline_GradHi_TWL_3                        -0.23375300     OK 0.07174330000
+AgeSpline_Val_1_TWL_3                          0.97094700     OK 0.13193100000
+AgeSpline_Val_2_TWL_3                          0.76177500     OK 0.10134700000
+AgeSpline_Val_4_TWL_3                          0.35636600     OK 0.15088800000
+AgeSpline_Val_5_TWL_3                         -0.84856100     OK 0.10177700000
+AgeSel_3MaleatDogleg_TWL                       0.00753695     OK 0.05779350000
+AgeSel_3MaleatMaxage_TWL                      -0.10756100     OK 0.17013600000
+Age_DblN_descend_se_AKSHLF(5)                  1.83072000     OK 0.14877400000
+Age_DblN_start_logit_AKSHLF(5)                -2.89910000     OK 0.44025800000
+Age_DblN_peak_AKSLP(6)                         2.47666000     OK 0.16650500000
+Age_DblN_descend_se_AKSLP(6)                   0.95926300     OK 0.90199600000
+Age_DblN_start_logit_AKSLP(6)                 -1.69023000     OK 0.21300600000
+Age_DblN_end_logit_AKSLP(6)                   -0.90196000     OK 0.21459900000
+Age_DblN_ascend_se_NWSLP(7)                    1.15962000     OK 0.22071100000
+Age_DblN_descend_se_NWSLP(7)                   0.93313600     OK 0.61309800000
+Age_DblN_start_logit_NWSLP(7)                 -3.83639000     OK 0.48838400000
+Age_DblN_end_logit_NWSLP(7)                   -0.06806590     OK 0.20402200000
+Age_DblN_descend_se_NWCBO(8)                   3.05793000     OK 0.15402000000
+Age_DblN_start_logit_NWCBO(8)                 -0.84144200     OK 0.17437700000
+Age_DblN_end_logit_NWCBO(8)                   -0.73329900     OK 0.13519500000
+Retain_L_asymptote_logit_TWL(3)_BLK2repl_1982  1.00000000     HI 0.00001886790
+AgeSpline_Val_3_HKL_1_BLK4repl_1970           -0.73882500     OK 0.23115400000
+AgeSpline_Val_4_HKL_1_BLK4repl_1970           -0.90923000     OK 0.19519300000
+AgeSpline_Val_2_POT_2_BLK4repl_1970           -0.50893100     OK 0.19512000000
+AgeSpline_Val_4_POT_2_BLK4repl_1970           -0.27450900     OK 0.21974600000
+AgeSpline_Val_2_TWL_3_BLK4repl_1970            0.66127000     OK 0.09745940000
+AgeSpline_Val_4_TWL_3_BLK4repl_1970           -0.27989000     OK 0.13970600000
+                                                     Gradient  Pr_type   Prior
+NatM_uniform_Fem_GP_1                         -0.000010000300 Log_Norm -2.1791
+L_at_Amin_Fem_GP_1                            -0.002889890000 No_prior      NA
+L_at_Amax_Fem_GP_1                            -0.000044523500 No_prior      NA
+VonBert_K_Fem_GP_1                             0.000056880800 No_prior      NA
+CV_young_Fem_GP_1                              0.000016743200 No_prior      NA
+CV_old_Fem_GP_1                               -0.000015333400 No_prior      NA
+NatM_uniform_Mal_GP_1                          0.000216227000 Log_Norm -2.0565
+L_at_Amax_Mal_GP_1                            -0.000011985900 No_prior      NA
+VonBert_K_Mal_GP_1                            -0.000054407400 No_prior      NA
+CV_old_Mal_GP_1                                0.000024701200 No_prior      NA
+SR_LN(R0)                                     -0.000012209800 No_prior      NA
+LnQ_base_AKSHLF(5)                            -0.000010449400 No_prior      NA
+Q_extraSD_AKSHLF(5)                            0.000033436500 No_prior      NA
+Q_extraSD_AKSLP(6)                             0.000034616900 No_prior      NA
+Q_extraSD_NWSLP(7)                            -0.000008877460 No_prior      NA
+Retain_L_infl_HKL(1)                           0.000020558700 No_prior      NA
+Retain_L_asymptote_logit_HKL(1)                0.000075163200 No_prior      NA
+Retain_L_infl_POT(2)                          -0.000137156000 No_prior      NA
+Retain_L_width_POT(2)                          0.000070384300 No_prior      NA
+Retain_L_infl_TWL(3)                           0.000059364400 No_prior      NA
+Retain_L_width_TWL(3)                          0.000001383980 No_prior      NA
+AgeSpline_GradLo_HKL_1                        -0.000287509000 No_prior      NA
+AgeSpline_GradHi_HKL_1                         0.000038470500 No_prior      NA
+AgeSpline_Val_1_HKL_1                          0.000033100300 No_prior      NA
+AgeSpline_Val_3_HKL_1                         -0.000096789000 No_prior      NA
+AgeSpline_Val_4_HKL_1                         -0.000076534700 No_prior      NA
+AgeSel_1MaleatDogleg_HKL                      -0.000041597900 No_prior      NA
+AgeSel_1MaleatMaxage_HKL                       0.000018168100 No_prior      NA
+AgeSpline_GradLo_POT_2                        -0.002036690000 No_prior      NA
+AgeSpline_GradHi_POT_2                        -0.000105378000 No_prior      NA
+AgeSpline_Val_1_POT_2                         -0.000698722000 No_prior      NA
+AgeSpline_Val_2_POT_2                          0.000179281000 No_prior      NA
+AgeSpline_Val_4_POT_2                         -0.000051605100 No_prior      NA
+AgeSel_2MaleatDogleg_POT                      -0.000017191100 No_prior      NA
+AgeSel_2MaleatMaxage_POT                       0.000002832410 No_prior      NA
+AgeSpline_GradLo_TWL_3                         0.001848590000 No_prior      NA
+AgeSpline_GradHi_TWL_3                         0.000087504200 No_prior      NA
+AgeSpline_Val_1_TWL_3                         -0.000689985000 No_prior      NA
+AgeSpline_Val_2_TWL_3                         -0.000619804000 No_prior      NA
+AgeSpline_Val_4_TWL_3                          0.000103049000 No_prior      NA
+AgeSpline_Val_5_TWL_3                          0.000003862770 No_prior      NA
+AgeSel_3MaleatDogleg_TWL                      -0.000105165000 No_prior      NA
+AgeSel_3MaleatMaxage_TWL                      -0.000058090500 No_prior      NA
+Age_DblN_descend_se_AKSHLF(5)                  0.000021457200 No_prior      NA
+Age_DblN_start_logit_AKSHLF(5)                 0.000047067100 No_prior      NA
+Age_DblN_peak_AKSLP(6)                        -0.000056541700 No_prior      NA
+Age_DblN_descend_se_AKSLP(6)                   0.000146693000 No_prior      NA
+Age_DblN_start_logit_AKSLP(6)                  0.000065832700 No_prior      NA
+Age_DblN_end_logit_AKSLP(6)                   -0.000214300000 No_prior      NA
+Age_DblN_ascend_se_NWSLP(7)                    0.000044763200 No_prior      NA
+Age_DblN_descend_se_NWSLP(7)                   0.000006547800 No_prior      NA
+Age_DblN_start_logit_NWSLP(7)                  0.000047348300 No_prior      NA
+Age_DblN_end_logit_NWSLP(7)                   -0.000000581937 No_prior      NA
+Age_DblN_descend_se_NWCBO(8)                  -0.000138716000 No_prior      NA
+Age_DblN_start_logit_NWCBO(8)                  0.000153299000 No_prior      NA
+Age_DblN_end_logit_NWCBO(8)                   -0.000693108000 No_prior      NA
+Retain_L_asymptote_logit_TWL(3)_BLK2repl_1982 -0.000106141000 No_prior      NA
+AgeSpline_Val_3_HKL_1_BLK4repl_1970            0.000058059200 No_prior      NA
+AgeSpline_Val_4_HKL_1_BLK4repl_1970            0.000025407500 No_prior      NA
+AgeSpline_Val_2_POT_2_BLK4repl_1970            0.001012220000 No_prior      NA
+AgeSpline_Val_4_POT_2_BLK4repl_1970           -0.000004750050 No_prior      NA
+AgeSpline_Val_2_TWL_3_BLK4repl_1970            0.001669200000 No_prior      NA
+AgeSpline_Val_4_TWL_3_BLK4repl_1970           -0.000134934000 No_prior      NA
+                                               Pr_SD  Pr_Like Afterbound
+NatM_uniform_Fem_GP_1                         0.3384 0.114864         OK
+L_at_Amin_Fem_GP_1                                NA       NA      CHECK
+L_at_Amax_Fem_GP_1                                NA       NA         OK
+VonBert_K_Fem_GP_1                                NA       NA      CHECK
+CV_young_Fem_GP_1                                 NA       NA         OK
+CV_old_Fem_GP_1                                   NA       NA         OK
+NatM_uniform_Mal_GP_1                         0.3375 1.468030         OK
+L_at_Amax_Mal_GP_1                                NA       NA         OK
+VonBert_K_Mal_GP_1                                NA       NA         OK
+CV_old_Mal_GP_1                                   NA       NA         OK
+SR_LN(R0)                                         NA       NA      CHECK
+LnQ_base_AKSHLF(5)                                NA       NA         OK
+Q_extraSD_AKSHLF(5)                               NA       NA         OK
+Q_extraSD_AKSLP(6)                                NA       NA         OK
+Q_extraSD_NWSLP(7)                                NA       NA         OK
+Retain_L_infl_HKL(1)                              NA       NA      CHECK
+Retain_L_asymptote_logit_HKL(1)                   NA       NA         OK
+Retain_L_infl_POT(2)                              NA       NA         OK
+Retain_L_width_POT(2)                             NA       NA         OK
+Retain_L_infl_TWL(3)                              NA       NA         OK
+Retain_L_width_TWL(3)                             NA       NA         OK
+AgeSpline_GradLo_HKL_1                            NA       NA         OK
+AgeSpline_GradHi_HKL_1                            NA       NA         OK
+AgeSpline_Val_1_HKL_1                             NA       NA         OK
+AgeSpline_Val_3_HKL_1                             NA       NA         OK
+AgeSpline_Val_4_HKL_1                             NA       NA         OK
+AgeSel_1MaleatDogleg_HKL                          NA       NA         OK
+AgeSel_1MaleatMaxage_HKL                          NA       NA         OK
+AgeSpline_GradLo_POT_2                            NA       NA         OK
+AgeSpline_GradHi_POT_2                            NA       NA         OK
+AgeSpline_Val_1_POT_2                             NA       NA         OK
+AgeSpline_Val_2_POT_2                             NA       NA         OK
+AgeSpline_Val_4_POT_2                             NA       NA         OK
+AgeSel_2MaleatDogleg_POT                          NA       NA         OK
+AgeSel_2MaleatMaxage_POT                          NA       NA         OK
+AgeSpline_GradLo_TWL_3                            NA       NA      CHECK
+AgeSpline_GradHi_TWL_3                            NA       NA         OK
+AgeSpline_Val_1_TWL_3                             NA       NA         OK
+AgeSpline_Val_2_TWL_3                             NA       NA         OK
+AgeSpline_Val_4_TWL_3                             NA       NA         OK
+AgeSpline_Val_5_TWL_3                             NA       NA         OK
+AgeSel_3MaleatDogleg_TWL                          NA       NA         OK
+AgeSel_3MaleatMaxage_TWL                          NA       NA         OK
+Age_DblN_descend_se_AKSHLF(5)                     NA       NA         OK
+Age_DblN_start_logit_AKSHLF(5)                    NA       NA         OK
+Age_DblN_peak_AKSLP(6)                            NA       NA         OK
+Age_DblN_descend_se_AKSLP(6)                      NA       NA         OK
+Age_DblN_start_logit_AKSLP(6)                     NA       NA         OK
+Age_DblN_end_logit_AKSLP(6)                       NA       NA         OK
+Age_DblN_ascend_se_NWSLP(7)                       NA       NA         OK
+Age_DblN_descend_se_NWSLP(7)                      NA       NA         OK
+Age_DblN_start_logit_NWSLP(7)                     NA       NA         OK
+Age_DblN_end_logit_NWSLP(7)                       NA       NA         OK
+Age_DblN_descend_se_NWCBO(8)                      NA       NA         OK
+Age_DblN_start_logit_NWCBO(8)                     NA       NA         OK
+Age_DblN_end_logit_NWCBO(8)                       NA       NA         OK
+Retain_L_asymptote_logit_TWL(3)_BLK2repl_1982     NA       NA      CHECK
+AgeSpline_Val_3_HKL_1_BLK4repl_1970               NA       NA         OK
+AgeSpline_Val_4_HKL_1_BLK4repl_1970               NA       NA         OK
+AgeSpline_Val_2_POT_2_BLK4repl_1970               NA       NA         OK
+AgeSpline_Val_4_POT_2_BLK4repl_1970               NA       NA         OK
+AgeSpline_Val_2_TWL_3_BLK4repl_1970               NA       NA         OK
+AgeSpline_Val_4_TWL_3_BLK4repl_1970               NA       NA         OK
+
+$maximum_gradient_component
+[1] 0.00298023
+
+$parameters_with_highest_gradients
+                                        Value    Gradient
+L_at_Amin_Fem_GP_1                  22.000000 -0.00288989
+AgeSpline_GradLo_POT_2              -0.114250 -0.00203669
+AgeSpline_GradLo_TWL_3              -1.000000  0.00184859
+AgeSpline_Val_2_TWL_3_BLK4repl_1970  0.677888  0.00166920
+AgeSpline_Val_2_POT_2_BLK4repl_1970 -0.549414  0.00101222
+
+$Length_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp
+2557         4     1         0.0269303 # 39   38    1.0000   54.2748
+2558         4     2         0.2345510 # 41   40    4.1692  113.6110
+2559         4     3         0.0560122 # 46   45    1.0000   76.0449
+2560         4     5         0.1563550 #  9    9    2.9488   68.0067
+2561         4     6         0.9065210 #  4    4  218.5860  260.2810
+2562         4     7         0.5568290 #  5    5  109.1720  213.3310
+2563         4     8         0.4916520 # 12   11  227.7940  339.0940
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+2557       141.026        20.6130            NA          0        NA
+2558        37.525        39.1123            NA          0        NA
+2559       125.200        30.8288            NA          0        NA
+2560       233.667        43.0648            NA          0        NA
+2561       194.500       245.7510            NA          0        NA
+2562       293.800       163.6470            NA          0        NA
+2563       409.000       303.4780            NA          0        NA
+            par1 val1 par2 val2 mean_effN   HarMean Curr_Var_Adj Fleet_name
+2557 multinomial   NA   NA   NA   64.1123   3.80477       0.1459        HKL
+2558 multinomial   NA   NA   NA   76.7315   8.80152       1.0423        POT
+2559 multinomial   NA   NA   NA  116.1410   7.01662       0.2461        TWL
+2560 multinomial   NA   NA   NA   72.8550  36.53490       0.1843     AKSHLF
+2561 multinomial   NA   NA   NA  181.4920 176.31800       1.2635      AKSLP
+2562 multinomial   NA   NA   NA  254.9460 163.59600       0.5570      NWSLP
+2563 multinomial   NA   NA   NA  276.1820 201.08600       0.7420      NWCBO
+
+$Age_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+4017         5     1        1.08532000 #        25   25    5.9108   69.2408
+4018         5     2        2.17119000 #        25   25    6.3480   69.8280
+4019         5     3        1.51056000 #        27   27    6.7000  242.8750
+4020         5     5        0.23496700 #       303  303    1.0000   11.7605
+4021         5     6        0.00310189 #       182  182    1.0000    1.0000
+4022         5     7        0.14855400 #       213  208    1.0000   24.7353
+4023         5     8        0.15220600 #       672  605    1.0000   29.3384
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+4017      31.44000       26.54790            NA          0        NA
+4018      12.84000       27.16940            NA          0        NA
+4019      50.29630       84.24630            NA          0        NA
+4020       7.28053        2.18942            NA          0        NA
+4021      17.28020        1.00000            NA          0        NA
+4022      19.57210        4.11745            NA          0        NA
+4023      21.76200        5.28611            NA          0        NA
+            par1 val1 par2 val2 mean_effN   HarMean Curr_Var_Adj Fleet_name
+4017 multinomial   NA   NA   NA   47.7492 34.122600       0.8444        HKL
+4018 multinomial   NA   NA   NA   44.3019 27.878100       2.1160        POT
+4019 multinomial   NA   NA   NA  123.9720 75.975600       1.6750        TWL
+4020 multinomial   NA   NA   NA   12.1093  1.880950       0.2735     AKSHLF
+4021 multinomial   NA   NA   NA   11.1900  0.756558       0.0041      AKSLP
+4022 multinomial   NA   NA   NA   14.4286  3.041590       0.2011      NWSLP
+4023 multinomial   NA   NA   NA   50.9915  3.400570       0.2366      NWCBO
+
+$SBzero
+[1] 1023860
+
+$current_depletion
+[1] 0.5505968
+
+$SPRratioLabel
+[1] "(1-SPR)/(1-SPR_45%)"
+
+$sigma_R_in
+[1] 0.95
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+1            Main     44  0.8082230   0.6532244 0.2783032      0.1401257
+2      Early+Main     44  0.8082230   0.6532244 0.2783032      0.1401257
+3 Early+Main+Late     45  0.7989858   0.6383784 0.2932298      0.1570674
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1              0.8907020               0.8507610             0.9375811
+2              0.8907020               0.8507610             0.9375811
+3              0.8918776               0.8410377             0.9388186
+  alternative_sigma_R
+1   0.890702020657847
+2   0.890702020657847
+3   0.891877644003285
+
+$rmse_table
+    ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 44 0.798986         0.707344     0.787697
+2 early  0 0.000000         0.000000     0.000000
+
+$RecDev_method
+[1] 1
+
+594

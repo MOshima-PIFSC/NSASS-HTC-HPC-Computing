@@ -1,0 +1,41 @@
+
+universe = vanilla
+
+# Define initial directory
+initial_dir = $(target_dir)
+# Define executable and input
+# Path relative to the working directory where condor_submit is executed from
+executable = ./scripts/osg-wrapper-r.sh
+
+# Error logging
+log = job_$(Cluster)_$(Process).log
+error = job_$(Cluster)_$(Process).err
+output = job_$(Cluster)_$(Process).out
+
+# Define singularity
++SingularityImage = "osdf:///ospool/apXX/data/User.Name/singularity/linux-r4ss-v4.sif"
+
+# Define resources
+request_cpus = 1
+request_memory = 2GB
+request_disk = 2GB
++JobDurationCategory = "Medium"
+
+# Define arguments
+arguments = $(target_dir)
+
+# Define project
++ProjectName = "osg.project_name"
+
+# Define input files
+# Path relative to 'target_dir'
+should_transfer_files = YES
+transfer_input_files = ../../scripts/osg-ss3-example-calcs.r,../../inputs/upload.example-ss3-models.tar.gz
+
+# Define output files
+when_to_transfer_output = ON_EXIT_OR_EVICT
+transfer_output_files = End.tar.gz
+
+# Define queue
+# Path relative to the working directory where condor_submit is executed from
+queue target_dir from ./scripts/osg_job_directories.txt
