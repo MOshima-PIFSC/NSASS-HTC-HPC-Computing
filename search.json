@@ -241,261 +241,268 @@
     ]
   },
   {
+    "objectID": "assets/presentation.html#section",
+    "href": "assets/presentation.html#section",
+    "title": "HTC/HPC for Stock Assessments",
+    "section": "",
+    "text": "Operationalizing available research computing resources for stock assessment\nNicholas Ducharme-Barth & Megumi Oshima\n2024-11-05"
+  },
+  {
     "objectID": "assets/presentation.html#what",
     "href": "assets/presentation.html#what",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "What?",
     "text": "What?\n\n\n\nResearch computing is the collection of computing, software, storage resources and services that allows for data analysis at scale.\n\n\n\n\n\nIn our particular case we are interested in leverging research computing to augment stock assessment worflows.\n\n\n\nRun more/bigger models in less time"
   },
   {
     "objectID": "assets/presentation.html#why",
     "href": "assets/presentation.html#why",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Why?",
     "text": "Why?\n\n\n\nImprove efficiency by running 10s - 1000s of models ‘simultaneously’.\n\n\n\n\n  \n\n2021 Southwest Pacific Ocean swordfish stock assessment\n\n\n\n\n9,300 model runs totalling ~46 months of computation time."
   },
   {
     "objectID": "assets/presentation.html#why-1",
     "href": "assets/presentation.html#why-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Why?",
     "text": "Why?\n\n\n\n\nEfficiency\n\n\n\n\n\n\nKnowledge acquisition\n\n\n\n\n\n\nAutomation, transparency, reproducibility & portability\n\n\n\n\n\n\nMulti-model inference\n\n\n\n\n\n\nSoftware containers\n\n\n\n\n\n\n\n\nBetter science"
   },
   {
     "objectID": "assets/presentation.html#how",
     "href": "assets/presentation.html#how",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "How?",
     "text": "How?\n\n\n\nHigh-throughput computing (HTC)\n\n\n\nSet-up to handle running many jobs simultaneously\n\n\n\n\nIdeal for running short, small, independent (embarrassingly parallel) jobs.\n\n\n\n\n\n\nHigh-performance computing (HPC)\n\n\n\nCan handle HTC workflows (in theory)\n\n\n\n\nCan also handle long running, large, multi-processor jobs (true parallel processing)\n\n\n\n\n\n\n\n\n2024 North Pacific shortfin mako shark assessment: Used HTC resources to complete ~4 months months of Bayesian simulation-estimation evaluations (18,000 model runs using RStan) in ~3 hours (1027 \\(\\times\\) faster) during a working group meeting.\n\n\n\n\n\n\nExample: Fitting large spatiotemporal model in R using TMB required 128 CPUs & 1TB RAM."
   },
   {
     "objectID": "assets/presentation.html#how-1",
     "href": "assets/presentation.html#how-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "How?",
     "text": "How?\n\n\n\nAvailable resources\n\n\n\n\n\n\nHigh-throughput computing (HTC)\n\n\n\nHigh-performance computing (HPC)\n\n\n\n\n\n\n\n\nPhoto credit: NOAA\n\n\n\n\nOpenScienceGrid (OSG): OSPool\n\n\n\n\nNOAA Hera"
   },
   {
     "objectID": "assets/presentation.html#how-2",
     "href": "assets/presentation.html#how-2",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "How?",
     "text": "How?\n\n\nOpenScienceGrid (OSG)\n\n\n\nUses HTCondor distributed computing network (no shared file system between compute nodes) to implement HTC workflows\n\n\n\n\nFree to use for US based researchers affiliated with academic/government organization and using OSG for research/education efforts\n\n\n\n\nShould not be used to analyze protected data\n\n\n\n\nNOAA Hera\n\n\n\nUses Slurm to schedule HPC (or HTC) workflows\n\n\n\n\nShared file system between compute nodes\n\n\n\n\nAllocation determines access\n\n\n\n\nNOAA resource so no restrictions on acceptable use/analyzing protected data if working on mission related tasks\n\n\n\n\n\n\nBoth use software containers"
   },
   {
     "objectID": "assets/presentation.html#software-containers",
     "href": "assets/presentation.html#software-containers",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Software containers",
     "text": "Software containers\n\n\nMany may already be using containers such as GitHub Codespaces or Posit Workbench in existing cloud-based workflows\n\n\n\n\n\n\n\n\n\n\n\n\n\nApplication: set up identical, custom software environments on OSG and Hera\n\n\n\n\nApplication: use to “version” analyses by “freezing” packages/libraries"
   },
   {
     "objectID": "assets/presentation.html#software-containers-1",
     "href": "assets/presentation.html#software-containers-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Software containers",
     "text": "Software containers\n\n\nApptainer\n\n\nSecure, portable and reproducible software container for Linux operating systems\n\n\n\n\nEasy to use\n\n\n\n\nDoesn’t require root privileges to build making it ideal for HTC/HPC environments\n\n\n\n\nPlays nice with existing containers (e.g., Docker)"
   },
   {
     "objectID": "assets/presentation.html#apptainer-1",
     "href": "assets/presentation.html#apptainer-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Apptainer",
     "text": "Apptainer\nLet’s look at an example (linux-r4ss-v4.def):\n\n\nBootstrap: docker\nFrom: ubuntu:20.04\n\n%post\n    TZ=Etc/UTC && \\\n    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \\\n    echo $TZ &gt; /etc/timezone\n    apt update -y\n    apt install -y \\\n        tzdata \\\n        curl \\\n        dos2unix\n\n    apt-get update -y\n    apt-get install -y \\\n            build-essential \\\n            cmake \\\n            g++ \\\n            libssl-dev \\\n            libssh2-1-dev \\\n            libcurl4-openssl-dev \\\n            libfontconfig1-dev \\\n            libxml2-dev \\\n            libgit2-dev \\\n            wget \\\n            tar \\\n            coreutils \\\n            gzip \\\n            findutils \\\n            sed \\\n            gdebi-core \\\n            locales \\\n            nano\n    \n    locale-gen en_US.UTF-8\n\n    export R_VERSION=4.4.0\n    curl -O https://cdn.rstudio.com/r/ubuntu-2004/pkgs/r-${R_VERSION}_1_amd64.deb\n    gdebi -n r-${R_VERSION}_1_amd64.deb\n\n    ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R\n    ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript\n\n    R -e \"install.packages('remotes', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"install.packages('data.table', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"install.packages('magrittr', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"install.packages('mvtnorm', dependencies=TRUE, repos='http://cran.rstudio.com/')\"\n    R -e \"remotes::install_github('r4ss/r4ss')\"\n    R -e \"remotes::install_github('PIFSCstockassessments/ss3diags')\"\n\n    NOW=`date`\n    echo 'export build_date=$NOW' &gt;&gt; $SINGULARITY_ENVIRONMENT\n\n    mkdir -p /ss_exe\n    curl -L -o /ss_exe/ss3_linux https://github.com/nmfs-ost/ss3-source-code/releases/download/v3.30.22.1/ss3_linux\n    chmod 755 /ss_exe/ss3_linux\n\n%environment\n    export PATH=/ss_exe:$PATH\n    \n%labels\n    Author nicholas.ducharme-barth@noaa.gov\n    Version v0.0.4\n\n%help\n    This is a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm."
   },
   {
     "objectID": "assets/presentation.html#apptainer-2",
     "href": "assets/presentation.html#apptainer-2",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Apptainer",
     "text": "Apptainer\nLet’s look at an example (linux-r4ss-v4.def):\nBuild on Linux system with Apptainer installed.\n\napptainer build linux-r4ss-v4.sif linux-r4ss-v4.def"
   },
   {
     "objectID": "assets/presentation.html#lets-walk-through-an-example",
     "href": "assets/presentation.html#lets-walk-through-an-example",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Let’s walk through an example",
     "text": "Let’s walk through an example\n\nIn this case we will use NOAA Hera to conduct a quick retrospective analysis on all models in the Stock Synthesis (SS3) testing suite.\n\n\n\n\n\n\nMore complete documentation of this example can be found on our GitHub website."
   },
   {
     "objectID": "assets/presentation.html#workflow",
     "href": "assets/presentation.html#workflow",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow",
     "text": "Workflow\n\nCreate container\n\n\n\nCreate files/scripts\n\n\n\n\nUpload files\n\n\n\n\nSubmit jobs\n\n\n\n\nDownload files back to local machine"
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts",
     "href": "assets/presentation.html#workflow---create-filesscripts",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
     "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE: Develop and make job files/scripts\n\n\n\n\n\n\n\n\n\nImportant\n\n\nNote that you will need to replace User.Name with your actual user name and project_name with your specific project name in the following code."
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts-1",
     "href": "assets/presentation.html#workflow---create-filesscripts-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
     "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0. Text file specifying directories to run jobs in.\n\n\nhera_job_directories.txt\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/01-BigSkate_2019-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/02-Empirical_Wtatage_Age_Selex-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/03-growth_timevary-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/04-Hake_2018-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/05-Hake_2019_semi_parametric_selex-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/06-platoons-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/07-Sablefish2015-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/08-Simple-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/09-Simple_Lorenzen_tv_trend-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/10-Simple_NoCPUE-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/11-Simple_with_Discard-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/12-Simple_with_DM_sizefreq-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/13-Spinydogfish_2011-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/14-tagging_mirrored_sel-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/15-three_area_nomove-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/16-two_morph_seas_areas-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/17-vermillion_snapper-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/18-vermillion_snapper_F4-0/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/19-BigSkate_2019-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/20-Empirical_Wtatage_Age_Selex-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/21-growth_timevary-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/22-Hake_2018-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/23-Hake_2019_semi_parametric_selex-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/24-platoons-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/25-Sablefish2015-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/26-Simple-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/27-Simple_Lorenzen_tv_trend-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/28-Simple_NoCPUE-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/29-Simple_with_Discard-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/30-Simple_with_DM_sizefreq-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/31-Spinydogfish_2011-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/32-tagging_mirrored_sel-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/33-three_area_nomove-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/34-two_morph_seas_areas-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/35-vermillion_snapper-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/36-vermillion_snapper_F4-1/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/37-BigSkate_2019-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/38-Empirical_Wtatage_Age_Selex-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/39-growth_timevary-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/40-Hake_2018-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/41-Hake_2019_semi_parametric_selex-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/42-platoons-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/43-Sablefish2015-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/44-Simple-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/45-Simple_Lorenzen_tv_trend-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/46-Simple_NoCPUE-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/47-Simple_with_Discard-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/48-Simple_with_DM_sizefreq-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/49-Spinydogfish_2011-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/50-tagging_mirrored_sel-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/51-three_area_nomove-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/52-two_morph_seas_areas-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/53-vermillion_snapper-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/54-vermillion_snapper_F4-2/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/55-BigSkate_2019-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/56-Empirical_Wtatage_Age_Selex-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/57-growth_timevary-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/58-Hake_2018-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/59-Hake_2019_semi_parametric_selex-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/60-platoons-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/61-Sablefish2015-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/62-Simple-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/63-Simple_Lorenzen_tv_trend-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/64-Simple_NoCPUE-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/65-Simple_with_Discard-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/66-Simple_with_DM_sizefreq-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/67-Spinydogfish_2011-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/68-tagging_mirrored_sel-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/69-three_area_nomove-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/70-two_morph_seas_areas-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/71-vermillion_snapper-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/72-vermillion_snapper_F4-3/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/73-BigSkate_2019-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/74-Empirical_Wtatage_Age_Selex-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/75-growth_timevary-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/76-Hake_2018-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/77-Hake_2019_semi_parametric_selex-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/78-platoons-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/79-Sablefish2015-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/80-Simple-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/81-Simple_Lorenzen_tv_trend-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/82-Simple_NoCPUE-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/83-Simple_with_Discard-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/84-Simple_with_DM_sizefreq-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/85-Spinydogfish_2011-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/86-tagging_mirrored_sel-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/87-three_area_nomove-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/88-two_morph_seas_areas-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/89-vermillion_snapper-4/\n/scratch1/NMFS/project_name/User.Name/examples/ss3/output/90-vermillion_snapper_F4-4/"
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts-2",
     "href": "assets/presentation.html#workflow---create-filesscripts-2",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
     "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1. Prepare files for Slurm job execution, specify job requirements and submit the parallel jobs.\n\n\nparallel-submit.sh\n#!/bin/bash\n\n# prep files for slurm job execution\nmkdir ./logs\ndos2unix ./inputs/hera_job_directories.txt\ndos2unix ./slurm_scripts/parallel-job-exec.sh\nchmod 777 ./slurm_scripts/parallel-job-exec.sh\n\n# make directory structure\n# recursively (mkdir -p) makes a new directory for each line in hera_job_directories.txt\nxargs -d '\\n' mkdir -p -- &lt; ./inputs/hera_job_directories.txt\n\n# Slurm job submission variables\n# -A project name\n# -t time requested (minutes)\n# -q queue type: batch (billed allocation) or windfall\n# -N nodes requested (leave at 1 since requesting additional nodes with each line)\n# -j number of jobs to run in parallel per node (restricted by number of total CPUs and available RAM)\n# seq job ids to run on each node (this can be greater than -j but only -j will be run at a time so the more job ids assigned to the node the longer they will wait to be executed)\nsbatch -A project_name -t 60 -q batch -N 1 --wrap 'set -x; parallel -j 30 -S `scontrol show hostnames \"$SLURM_JOB_NODELIST\"|paste -sd,` `pwd`/slurm_scripts/parallel-job-exec.sh `pwd` ::: `seq 0 29`; report-mem'\nsbatch -A project_name -t 60 -q batch -N 1 --wrap 'set -x; parallel -j 30 -S `scontrol show hostnames \"$SLURM_JOB_NODELIST\"|paste -sd,` `pwd`/slurm_scripts/parallel-job-exec.sh `pwd` ::: `seq 30 59`; report-mem'\nsbatch -A project_name -t 60 -q batch -N 1 --wrap 'set -x; parallel -j 30 -S `scontrol show hostnames \"$SLURM_JOB_NODELIST\"|paste -sd,` `pwd`/slurm_scripts/parallel-job-exec.sh `pwd` ::: `seq 60 89`; report-mem'"
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts-3",
     "href": "assets/presentation.html#workflow---create-filesscripts-3",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
     "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n2. Define variables to be passed to the software container and a bash wrapper script.\n\n\nparallel-job-exec.sh\n#!/bin/bash\n# read directories from a file list\n\npwd; hostname; date\n\ncd $1\nexport SLURM_ARRAY_TASK_ID=$2\n\necho $SLURM_ARRAY_TASK_ID\n\n# define current directory\ncwd=$(pwd)\n\n# define paths for singularity container\nsingularity_container=${cwd}/linux-r4ss-v4.sif\n\n# define variables and paths here to avoid hard coding insider the wrapper script\njob_wrapper_script=${cwd}/slurm_scripts/wrapper-r.sh\ndir_file=${cwd}/inputs/hera_job_directories.txt\nr_script=${cwd}/slurm_scripts/ss3-example-calcs.r\ninput_data_path=${cwd}/inputs/models/\nr_script_name=ss3-example-calcs.r\n\n# change permissions on scripts to allow it to run\nchmod 777 $job_wrapper_script\ndos2unix $job_wrapper_script\nchmod 777 $r_script\ndos2unix $r_script\n\n# run bash wrapper script within singularity environment\nsingularity exec $singularity_container $job_wrapper_script $SLURM_ARRAY_TASK_ID $dir_file $r_script $input_data_path $r_script_name &gt;& logs/out-parallel.$SLURM_ARRAY_TASK_ID"
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts-4",
     "href": "assets/presentation.html#workflow---create-filesscripts-4",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
     "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n3. Control file I/O to the R script, execute the R script, conduct job timing and package outputs.\n\n\nwrapper-r.sh\n#!/bin/bash\necho \"Running on host `hostname`\"\n\n# rename variables passed into the script\nslurm_array_task_id=$1\ndir_file=$2\n\n# create an array with all data directories\nline_index=$(($slurm_array_task_id+1))\necho ${line_index}\necho $dir_file\nrep_dir=$(sed -n ${line_index}p $dir_file) \necho $rep_dir\n\n# change to target directory\ncd ${rep_dir}\n\n# make working directory\nmkdir -p working/\ncd working/\n\n# copy files to working/\ncp $3 .\n\n# define variables for R script\ninput_data_path=$4\n\n# begin calcs\nstart=`date +%s`\nRscript $5 $rep_dir $input_data_path \n\n# end of calcs book-keeping\nend=`date +%s`\nruntime=$((end-start))\necho $runtime\necho Start $start &gt;  runtime.txt\necho End $end &gt;&gt; runtime.txt\necho Runtime $runtime &gt;&gt; runtime.txt\n\n# Create empty file so that it does not mess up when repacking tar\ntouch End.tar.gz\n# only pack up certain items\ntar -czf End.tar.gz ss_report.RData runtime.txt \n# move tar out of working/\ncd ..\nmv working/End.tar.gz .\n# delete working/\nrm -r working/"
   },
   {
     "objectID": "assets/presentation.html#workflow---create-filesscripts-5",
     "href": "assets/presentation.html#workflow---create-filesscripts-5",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Create files/scripts",
     "text": "Workflow - Create files/scripts\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n4. Calculation script modifies SS3 input files, executes SS3 model run and conducts post-processing of output within R.\n\n\nss3-example-calcs.r\n# where is the job executing\n    print(getwd())\n\n# load packages\n    library(r4ss)\n\n# get args from bash environment\n    args = commandArgs(trailingOnly = TRUE)\n    print(args)\n\n# get scenario\n    scenario = tail(strsplit(args[1],\"/\")[[1]],n=1)\n    model = strsplit(scenario,\"-\")[[1]][2]\n    peel = as.numeric(strsplit(scenario,\"-\")[[1]][3])\n\n# copy model files\n    model_files = list.files(paste0(args[2],model,\"/\"),full.names=TRUE)\n    file.copy(from=model_files,to=getwd())\n\n# modify starter\n    tmp_starter = SS_readstarter()\n    tmp_starter$retro_yr = -peel\n\n# write files\n    SS_writestarter(tmp_starter, overwrite = TRUE)\n\n# run stock synthesis\n    run(exe=\"ss3_linux\")\n\n# extract model output\n    ss_report = try(SS_output(dir=getwd()),silent=TRUE) \n\n# save output\n    save(ss_report,file=\"ss_report.RData\")"
   },
   {
     "objectID": "assets/presentation.html#workflow---upload-files",
     "href": "assets/presentation.html#workflow---upload-files",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Upload files",
     "text": "Workflow - Upload files\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/"
   },
   {
     "objectID": "assets/presentation.html#workflow---upload-files-1",
     "href": "assets/presentation.html#workflow---upload-files-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Upload files",
     "text": "Workflow - Upload files\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTerminal A\nssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22"
   },
   {
     "objectID": "assets/presentation.html#workflow---upload-files-2",
     "href": "assets/presentation.html#workflow---upload-files-2",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Upload files",
     "text": "Workflow - Upload files\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTerminal A\n# navigate to project directory\ncd /scratch1/NMFS/project_name/\n# create new directory\nmkdir User.Name/\n# navigate into new directory\ncd User.Name/\n# create directory for SLURM scripts and logs\nmkdir -p examples/ss3/"
   },
   {
     "objectID": "assets/presentation.html#workflow---upload-files-3",
     "href": "assets/presentation.html#workflow---upload-files-3",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Upload files",
     "text": "Workflow - Upload files\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTerminal B\nscp -o MACs=hmac-sha2-256-etm@openssh.com examples/hera/ss3/upload.example-ss3.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/\nscp -o MACs=hmac-sha2-256-etm@openssh.com apptainer/linux-r4ss-v4.sif User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/"
   },
   {
     "objectID": "assets/presentation.html#workflow---submit-jobs",
     "href": "assets/presentation.html#workflow---submit-jobs",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Submit jobs",
     "text": "Workflow - Submit jobs\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\nTerminal A\nchmod 777 slurm_scripts/parallel-submit.sh\ndos2unix slurm_scripts/parallel-submit.sh\n./slurm_scripts/parallel-submit.sh"
   },
   {
     "objectID": "assets/presentation.html#workflow---download-results",
     "href": "assets/presentation.html#workflow---download-results",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - Download results",
     "text": "Workflow - Download results\n\n\n\n\n\n\n\n\n\n\n\n\nHera\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nLogin node\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nscratch1/\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTerminal B\nscp -o MACs=hmac-sha2-256-etm@openssh.com -r User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/examples/ss3/output/ examples/hera/ss3/"
   },
   {
     "objectID": "assets/presentation.html#workflow---osg",
     "href": "assets/presentation.html#workflow---osg",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Workflow - OSG",
     "text": "Workflow - OSG\n\n\n\n\n\n\n\n\n\n\n\n\nOSPool n\n\n\n\n\n\n\n\nOSPool 2\n\n\n\n\n\n\n\nOSPool 1\n\n\n\n\n\n\n\nOSG\n\n\n\n\n\n\n\nLocal\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIDE\n\n\n\n\n\n\n\nTerminal A: ssh\n\n\n\n\n\n\n\nTerminal B: scp\n\n\n\n\n\n\n\nAccess point\n\n\n\n\n\n\n\nFile storage\n\n\n\n\n\n\n\nCompute node: 1\n\n\n\n\n\n\n\nCompute node: 2\n\n\n\n\n\n\n\nFile storage: 1\n\n\n\n\n\n\n\nFile storage: 2\n\n\n\n\n\n\n\nCompute node: 3\n\n\n\n\n\n\n\nCompute node: 4\n\n\n\n\n\n\n\nFile storage: 3\n\n\n\n\n\n\n\nFile storage: 4\n\n\n\n\n\n\n\nCompute node: n\n\n\n\n\n\n\n\nCompute node: 90\n\n\n\n\n\n\n\nFile storage: n\n\n\n\n\n\n\n\nFile storage: 90\n\n\n\n\n\n\n\n\n\n\n\n\nDocumentation of this example using OSG can be found on our GitHub website.\n\n\n\nBiggest difference: no shared file system between compute nodes"
   },
   {
     "objectID": "assets/presentation.html#example-results",
     "href": "assets/presentation.html#example-results",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Example results",
     "text": "Example results\n\n\nThe example ran 90 jobs (18 test models \\(\\times\\) 5 runs each; base + 4 peels), with only one job ‘timing out’ at 1-hour limit.\n\\(~\\) \\(~\\)\n\nExcluding the job that timed out the 89 jobs run on Hera completed 3.15 hours of calculations (2.12 minutes per job) in an elapsed time of 14.48 minutes or \\(\\sim\\) 13 \\(\\times\\) faster.\n\n\n\n\n\nDepletion estimates across retrospective peels from the SS3 testing model suite examples. Mohn’s \\(\\rho\\) values are printed in each panel.\n\n\n\n\n\nStart and stop time for jobs run on Hera, excluding the job that timed out.\n\n\n\n\nIs this ‘time-savings’ worth it?"
   },
   {
     "objectID": "assets/presentation.html#benchmark-testing",
     "href": "assets/presentation.html#benchmark-testing",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Benchmark testing",
     "text": "Benchmark testing\n\nRun the same large job array on both OSG and Hera\n\nBuild Apptainer container to replicate an identical software environment on both OSG and Hera\n\nMake sure we can run SS3 and R with non-default packages"
   },
   {
     "objectID": "assets/presentation.html#benchmark-testing-1",
     "href": "assets/presentation.html#benchmark-testing-1",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Benchmark testing",
     "text": "Benchmark testing\n\n\nUsing a baseline SS3 file, run 500 alternative models with different fixed parameter values of natural mortality and steepness (uses SS3 and R; r4ss)\n\n\n\n\nUse the delta-MVLN approach to generate uncertainty in predictions so that models can be combined in an ensemble (uses R; ss3diags)\n\n\n\n\n\nRun 5 retrospective peels (\\(t-1\\) to \\(t-5\\)) for each of the 500 models and calculate Mohn’s \\(\\rho\\)\n\nNote: Retrospective peels were treated as separate jobs for the purpose of the benchmark testing giving 3000 unique jobs.\n\n\n\n\n\n\nStock status plots from the model ensemble: A spawning biomass relative to the spawning biomass at MSY, and B fishing mortality relative to the fishing mortality at MSY. The median is showed in the solid line, darker band shows the 50th percentile and lighter band the 80th percentile.\n\n\n\n\n\n\nMohn’s \\(\\rho\\) for alternative parameter combinations of natural mortality (M) and steepness (h). The solid black lines denote the original M (vertical line) and steepness (horizontal line)."
   },
   {
     "objectID": "assets/presentation.html#benchmark-testing---osg",
     "href": "assets/presentation.html#benchmark-testing---osg",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Benchmark testing - OSG",
     "text": "Benchmark testing - OSG\n\n\nAll 3000 jobs hit the queue at the same time from a single array job submission and began executing almost immediately\n\n\nSmall fraction of jobs had bad file transfer and had to be relaunched\n\n\n\nTotal computation time was \\(\\sim\\) 25 days, but elapsed time was \\(\\sim\\) 3.5 hours (166 \\(\\times\\) faster)\n\n\n\n\nStart and stop time for jobs run on OpenScienceGrid (OSG)."
   },
   {
     "objectID": "assets/presentation.html#benchmark-testing---hera-as-htc",
     "href": "assets/presentation.html#benchmark-testing---hera-as-htc",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Benchmark testing - Hera (as HTC)",
     "text": "Benchmark testing - Hera (as HTC)\n\n\nQueue and job_array_id limits required multiple (staggered) job submissions\n\n\n\n\nLarge proportion of jobs suffered from resource competition during memory/disk intensive portion of SS3 calculations (SD calcs) and produced incomplete outputs.\n\n\n\nNote SS3 does not appear to crash/trigger an error when it runs out of memory/disk but instead writes out available output which could appear complete.\n\n\n\n\n\nStart and stop time for jobs run on NOAA Hera."
   },
   {
     "objectID": "assets/presentation.html#benchmark-testing---hera-parallel",
     "href": "assets/presentation.html#benchmark-testing---hera-parallel",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Benchmark testing - Hera (parallel)",
     "text": "Benchmark testing - Hera (parallel)\n\n\nThe Hera workflow was re-configured to run parallel jobs within 15 compute nodes using the gnu parallel utility1.\n\n\n\n\n\nAll jobs hit the queue at the same time and executed as resources became available within each node.\n\nEach node had 200 jobs allocated to it spread out over 40 CPUs resulting in the \\(\\sim\\) 5 distinct waves of job execution.\n\n\n\n\n\n\nTotal computation time for 3000 jobs was \\(\\sim\\) 25.5 days, but elapsed time was \\(\\sim\\) 1.75 hours\n\n\n\n\n\n2998 of 2999 (99.99 %) completed models produced identical output to OSG\n\n\n\n\nStart and stop time for jobs run on NOAA Hera using gnu parallel utility.\n\nNote this is how the earlier SS3 example was formulated."
   },
   {
     "objectID": "assets/presentation.html#benchmark-testing---summary",
     "href": "assets/presentation.html#benchmark-testing---summary",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Benchmark testing - Summary",
     "text": "Benchmark testing - Summary\n\n\nWe have working proof-of-concept and workflows for both OSG and Hera that can result in substantial time savings\n\n\n\nAnalyses are portable between computing solutions with minimal modifications to workflows\n\n\n\nOSG and Hera have different strengths, weaknesses, and constraints so analysts can choose which may be better suited for different tasks\n\n\n\nIs this ‘time-savings’ worth it?"
   },
   {
     "objectID": "assets/presentation.html#getting-started",
     "href": "assets/presentation.html#getting-started",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Getting started!",
     "text": "Getting started!\n\n\nOpenScienceGrid (OSG)\n\n\nReach out to OSPool staff and apply for access.\nRun some models!\n\n\nNOAA Hera\n\n\nApply for an RDHPCS account at the Account Information Management (AIM) website (CAC login required).\nRequest access to a RDHPCS project. First time users can request access to the htc4sa project to test out Hera before requesting their own project allocation.\nRun some models!"
   },
   {
     "objectID": "assets/presentation.html#closing-thoughts",
     "href": "assets/presentation.html#closing-thoughts",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Closing thoughts",
     "text": "Closing thoughts\n\n\n\nLimitations and bottle-necks\nWhat have we not discussed?\nWhat about the cloud?\nIntegrating with Open Science workflows"
   },
   {
     "objectID": "assets/presentation.html#acknowledgements",
     "href": "assets/presentation.html#acknowledgements",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Acknowledgements",
     "text": "Acknowledgements\n\nThank you to Howard Townsend for helping get the RDHPCS htc4sa project off the ground.\n\nThank you also to Help Desk staff at both OSG OSPool and NOAA RDHPCS for helping troubleshoot and refine job array workflows using HTCondor and Slurm, respectively.\n\nOSG workflow development and benchmark testing was conducted using services provided by the OSG Consortium (OSG 2006, 2015; Pordes et al. 2007; Sfiligoi et al. 2009), which is supported by the National Science Foundation awards #2030508 and #1836650."
   },
   {
     "objectID": "assets/presentation.html#contact-us",
     "href": "assets/presentation.html#contact-us",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "Contact us",
     "text": "Contact us\n\n\n\nNicholas Ducharme-Barth\nnicholas.ducharme-barth at noaa.gov\n\n\nMegumi Oshima\nmegumi.oshima at noaa.gov"
   },
   {
     "objectID": "assets/presentation.html#references",
     "href": "assets/presentation.html#references",
-    "title": "Operationalizing available research computing resources for stock assessment",
+    "title": "HTC/HPC for Stock Assessments",
     "section": "References",
     "text": "References\n\n\nOSG. 2006. “OSPool.” OSG. https://doi.org/10.21231/906P-4D78.\n\n\n———. 2015. “Open Science Data Federation.” OSG. https://doi.org/10.21231/0KVZ-VE57.\n\n\nPordes, Ruth, Don Petravick, Bill Kramer, Doug Olson, Miron Livny, Alain Roy, Paul Avery, et al. 2007. “The Open Science Grid.” In J. Phys. Conf. Ser., 78:012057. 78th Series. https://doi.org/10.1088/1742-6596/78/1/012057.\n\n\nSfiligoi, Igor, Daniel C Bradley, Burt Holzman, Parag Mhashilkar, Sanjay Padhi, and Frank Wurthwein. 2009. “The Pilot Way to Grid Resources Using glideinWMS.” In 2009 WRI World Congress on Computer Science and Information Engineering, 2:428–32. 2nd Series. https://doi.org/10.1109/CSIE.2009.950."
   },
