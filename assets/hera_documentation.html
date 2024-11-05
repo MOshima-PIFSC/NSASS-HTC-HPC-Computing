@@ -8,7 +8,7 @@
 
 <meta name="author" content="Nicholas Ducharme-Barth">
 <meta name="author" content="Megumi Oshima">
-<meta name="dcterms.date" content="2024-11-02">
+<meta name="dcterms.date" content="2024-11-05">
 
 <title>Working with NOAA HPC Hera – HTC/HPC for Stock Assessments</title>
 <style>
@@ -4926,7 +4926,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-11-02</p>
+      <p class="date">2024-11-05</p>
     </div>
   </div>
   
@@ -4940,7 +4940,7 @@ vertical-align: -.125em;
 
 <section id="hera" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="hera"><span class="header-section-number">1</span> Hera</h2>
-<p>Hera is one of NOAA’s high performance computing resources available to NMFS scientists where jobs are run and scheduled with <a href="https://docs.rdhpcs.noaa.gov/slurm/overview.html#">SLURM</a>. In order to access the system, you must first have a <a href="https://docs.rdhpcs.noaa.gov/accounts/index.html">RDHPCS user account</a> and request access to a project. For all of the examples in this documentation, we will be working in the <code>htc4sa</code> project. For complete documentation about Hera and other RDHPCS resources, see the NOAA RDHPCS <a href="https://docs.rdhpcs.noaa.gov/index.html">website</a>.</p>
+<p>Hera is one of NOAA’s high performance computing resources available to NMFS scientists where jobs are run and scheduled with <a href="https://docs.rdhpcs.noaa.gov/slurm/overview.html#" target="_blank">SLURM</a>. In order to access the system, you must first have a <a href="https://docs.rdhpcs.noaa.gov/accounts/index.html" target="_blank">RDHPCS user account</a> and request access to a project. For all of the examples in this documentation, we will be working in the <code>htc4sa</code> project. For complete documentation about Hera and other RDHPCS resources, see the NOAA RDHPCS <a href="https://docs.rdhpcs.noaa.gov/index.html" target="_blank">website</a>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4966,7 +4966,7 @@ Coding alert!
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-m</span> hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.bastion.rdhpcs.noaa.gov <span class="at">-p22</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that the flag <code>-p22</code> specifies opening port 22 and is optional. When prompted, put in your password followed by the <a href="https://docs.rdhpcs.noaa.gov/accounts/rsa_token.html">RSA authentication code</a>:</p>
+<p>Note that the flag <code>-p22</code> specifies opening port 22 and is optional. When prompted, put in your password followed by the <a href="https://docs.rdhpcs.noaa.gov/accounts/rsa_token.html" target="_blank">RSA authentication code</a>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">XXXXXXXXRSACODE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -4995,7 +4995,7 @@ Coding alert!
 <h2 data-number="3" class="anchored" data-anchor-id="transferring-files-tofrom-hera"><span class="header-section-number">3</span> Transferring files to/from Hera</h2>
 <section id="via-scp-using-data-transfer-node-dtn" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="via-scp-using-data-transfer-node-dtn"><span class="header-section-number">3.1</span> via scp using data transfer node (DTN)</h3>
-<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/index.html">this wiki</a> (CAC login required). File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the <em>scratch</em> directory. However, this is ok since it is recommended that input/output data files are stored in the <em>scratch</em> directory. Using a DTN is faster than using the <a href="#transferring-files-tofrom-hera-via-scp-using-an-ssh-tunnel">ssh tunnel</a>.</p>
+<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/index.html" target="_blank">this wiki</a>. File transfer using a DTN is only possible from machines within the noaa.gov domain (VPN ok), and can only transfer files to the <em>scratch</em> directory. However, this is ok since it is recommended that input/output data files are stored in the <em>scratch</em> directory. Using a DTN is faster than using the <a href="#via-scp-using-an-ssh-tunnel">ssh tunnel</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -5022,7 +5022,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> /path/to/local/file User.Name@udtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/data_untrusted/User.Name/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that <code>dtn-hera</code> was changed to <code>udtn-hera</code>. Since files cannot stay in the <code>data_untrusted</code> directory we will need to <a href="#connecting-to-hera-via-ssh">log in to Hera</a> and move it to the correct project directory on scratch. Once logged in, moving the files can be done with <a href="https://docs.rdhpcs.noaa.gov/data/local_migration.html"><em>rsync</em></a> (CAC login required), and then they can be deleted from <code>data_untrusted</code> by:</p>
+<p>Note that <code>dtn-hera</code> was changed to <code>udtn-hera</code>. Since files cannot stay in the <code>data_untrusted</code> directory we will need to <a href="#connecting-to-hera-via-ssh">log in to Hera</a> and move it to the correct project directory on scratch. Once logged in, moving the files can be done with <a href="https://docs.rdhpcs.noaa.gov/data/local_migration.html" target="_blank"><em>rsync</em></a>, and then they can be deleted from <code>data_untrusted</code> by:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-axv</span> /scratch1/data_untrusted/User.Name/file /scratch1/NMFS/project_name/User.Name/</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> /scratch1/data_untrusted/User.Name/file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -5034,7 +5034,7 @@ Note
 </section>
 <section id="via-scp-using-an-ssh-tunnel" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="via-scp-using-an-ssh-tunnel"><span class="header-section-number">3.2</span> via scp using an ssh tunnel</h3>
-<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/transferring_data.html">this wiki</a> (CAC login required). File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (we suggest using PowerShell):</p>
+<p>Information in this section is largely based on <a href="https://docs.rdhpcs.noaa.gov/data/transferring_data.html" target="_blank">this wiki</a>. File transfer using an ssh tunnel is possible from all locations. Using the ssh tunnel for file transfer requires a two-step process with two active terminal windows (we suggest using PowerShell):</p>
 <ol type="1">
 <li>In the first terminal window, open an ssh connection to Hera with port forwarding:</li>
 </ol>
