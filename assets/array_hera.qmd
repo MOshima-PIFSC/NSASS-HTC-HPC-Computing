@@ -76,12 +76,30 @@ if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "r
 5. Write a text file containing the full path names for where the directories will be on Hera.
 ```{r}
 if(!file.exists(file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "hera_job_directories.txt"))){
-    dir_lines = paste0("/scratch1/", hera_project, "array_hera/", dir_name, "/")
+    dir_lines = paste0("/scratch1/", hera_project, "array_lm/inputs/", dir_name, "/")
     writeLines(dir_lines, con = file.path(proj_dir, "examples", "hera", "array_lm", "inputs", "hera_job_directories.txt"))
 }
 ```
 
 6. Compress the entire `array_lm/` directory as a tar.gz file `upload.array_lm.tar.gz`. This simplifies the number of steps needed for file transfers.
+
+By compressing the entire array_lm folder, you will be able to transfer all of the input data (`inputs/*`) and the submission script (`slurm_scripts/submit_array_lm.sh`) at the same time.  
+
+::: {.callout-important}
+### Coding alert!
+In `submit_array_lm.sh` you will need to change the following before you upload and run the script:
+
+1. Line 5: change account `project_name` to the name of your project. If you are using the NOAA htc4sa project, it would be `htc4sa`.
+
+2. Line 9: `/scratch1/NMFS/project_name/User.Name/logs/` to the location you created for `logs/` above.
+
+3. Line 10: Change to **your** email address.
+
+4. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
+
+5. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
+:::
+
 ```{r}
 system(paste0("powershell cd ", file.path(proj_dir, "examples", "hera"), ";tar -czf upload.array_lm.tar.gz array_lm "))
 ```
@@ -124,36 +142,21 @@ scp examples/hera/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa
 If you are getting an error `Corrupted MAC on input` when uploading files, add `-o MACs=hmac-sha2-512` between `scp` and the name of the file to upload. 
 :::
 
-::: {.callout-important}
-
-### Coding alert!
-In `submit_array_lm.sh` you will need to change the following before you upload and run the script:
-
-1. Line 5: change account `project_name` to the name of your project. If you are using the NOAA htc4sa project, it would be `htc4sa`.
-
-2. Line 9: `/scratch1/NMFS/project_name/User.Name/logs/` to the location you created for `logs/` above.
-
-3. Line 10: Change to **your** email address.
-
-4. Line 24: Make sure that this line points to the location on Hera that you uploaded `hera_job_directories.txt` to. `hera_job_directories.txt` is located in the `array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`.
-
-5. Line 37: Make sure that this line points to the location on Hera that you uploaded `run_lm_hera_array.r` to. `run_lm_hera_array.r` is located in the `array_lm/inputs` directory that was uploaded as a part of `upload.array_lm.tar.gz`. 
-:::
-
-```{bash}
-scp examples/hera/array_lm/slurm_scripts/submit_array_lm.sh User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/submit_scripts/
-```
 4. Un-tar files  
 
-Back in *Terminal A* untar the uploaded directory.
+Back in *Terminal A* untar the uploaded directory and move the submission script to the `submit_scripts` directory you made in step 2.
 ```{bash}
+# untar files
 tar -xzf upload.array_lm.tar.gz
+# move submission scripts 
+mv array_lm/slurm_scripts/submit_array_lm.sh submit_scripts/submit_array_lm.sh
 ```
+
 5. Prep files to be read on Hera  
 
 Make sure files that will be read/executed have unix line endings:
 ```{bash}
-dos2unix inputs/run_lm_hera_array.r inputs/hera_job_directories.txt slurm_scripts/submit_array_lm.sh
+dos2unix array_lm/inputs/run_lm_hera_array.r array_lm/inputs/hera_job_directories.txt submit_scripts/submit_array_lm.sh
 ```
 6. Submit job  
 
