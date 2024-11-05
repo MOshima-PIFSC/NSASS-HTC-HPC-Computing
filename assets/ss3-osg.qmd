@@ -24,7 +24,7 @@ Similar to the [array_lm](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computin
 
 There are a few main differences that serve to illustrate useful modifications to the workflow:
 
-* in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis) (SS3) on all models in the SS3 testing suite to conduct a retrospective analysis;
+* in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis){target="_blank"} (SS3) on all models in the SS3 testing suite to conduct a retrospective analysis;
 * we will run our jobs within a software container;
 * lastly, we will define *variables* to be passed between job submission and job execution scripts to ensure that the correct output is produced.
 
@@ -37,14 +37,14 @@ Note: throughout this tutorial we are using **User.Name** as a stand-in for your
 
 ## Build software container
 
-Software containers allow for portable, reproducible research by allowing researchers to set-up a software environment to their exact spefications and being able to run it on any Linux system. The [Apptainer](https://apptainer.org/) container system is widely used across HPC/HTC systems, and make it easy to build a container from a definition file. Running a job within a container means that you are able to replicate an identical software environment in any location with Apptainer installed, no matter the native operating system, software and installed packages. The Apptainer container can be built from any Linux machine with Apptainer installed, including the [Open Science Grid](https://osg-htc.org/) (OSG) access points. Here we walk through the steps needed to build a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm from a definition file, [linux-r4ss-v4.def](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/apptainer/linux-r4ss-v4.def). In this case we will show the steps needed to build the container using the OSG access point as our Linux virtual machine (VM), though this may not be needed if working from an alternative Linux VM.
+Software containers allow for portable, reproducible research by allowing researchers to set-up a software environment to their exact spefications and being able to run it on any Linux system. The [Apptainer](https://apptainer.org/){target="_blank"} container system is widely used across HPC/HTC systems, and make it easy to build a container from a definition file. Running a job within a container means that you are able to replicate an identical software environment in any location with Apptainer installed, no matter the native operating system, software and installed packages. The Apptainer container can be built from any Linux machine with Apptainer installed, including the [Open Science Grid](https://osg-htc.org/){target="_blank"} (OSG) access points. Here we walk through the steps needed to build a Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm from a definition file, [linux-r4ss-v4.def](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/apptainer/linux-r4ss-v4.def). In this case we will show the steps needed to build the container using the OSG access point as our Linux virtual machine (VM), though this may not be needed if working from an alternative Linux VM.
 
 ::: {.callout-important}
 ### Coding alert!
 Note: you will have to change **apXX** to match your OSG access point (e.g., `ap20` or `ap21`).
 :::
 
-The first step is to [log onto your OSG access point](https://portal.osg-htc.org/documentation/overview/account_setup/connect-access/) via ssh using a Terminal/PowerShell window and make a directory to build your container in this case `singularity`[^1].
+The first step is to [log onto your OSG access point](https://portal.osg-htc.org/documentation/overview/account_setup/connect-access/){target="_blank"} via ssh using a Terminal/PowerShell window and make a directory to build your container in this case `singularity`[^1].
 
 [^1]: This directory can be named anything that you like, in this case `singularity` is a legacy name from an earlier version of the code written before Singularity changed its name to Apptainer.
 
@@ -76,7 +76,7 @@ Back in your first Terminal/PowerShell window manoeuvre into the directory, and 
 cd singularity/linux_r4ss
 apptainer build linux-r4ss-v4.sif linux-r4ss-v4.def
 ```
-Move the built *`.sif`* file to Open Science Data Federation ([OSDF](https://osg-htc.org/services/osdf.html)) so that it can be cached and made available to any availble HTCondor jobs. Note that if you update the build of the *`.sif`* file in any way you should also rename it (e.g., *-v5*) as caching may not update the file if it has the same name.
+Move the built *`.sif`* file to Open Science Data Federation ([OSDF](https://osg-htc.org/services/osdf.html){target="_blank"}) so that it can be cached and made available to any availble HTCondor jobs. Note that if you update the build of the *`.sif`* file in any way you should also rename it (e.g., *-v5*) as caching may not update the file if it has the same name.
 
 ```{bash}
 #| eval: false
@@ -88,7 +88,7 @@ cp linux-r4ss-v4.sif /ospool/apXX/data/User.Name/singularity
 
 ## Setup data inputs and directories
 
-Given that our example is to run a 4-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main) Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/OSG/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location.
+Given that our example is to run a 4-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main){target="_blank"} Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/OSG/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location.
 
 For the sake of example the job array will be set-up to run each retrospective peel (e.g., -0 years, -1 year, ... , -4 years of data) as individual jobs in the job array. We will store the results of each retrospective peel in its own directory. The directories on OSG will be listed in a text file, and we will use this text file to launch jobs on OSG (as a part of the job array) in each of the named directories.
 
@@ -145,7 +145,7 @@ writeLines(osg_dir_lines, con=paste0(proj_dir, "/examples/OSG/ss3/scripts/osg_jo
 In order to execute the HTC workflow, instructions are coordinated using four scripts: 
 
 * [`osg-prep.sh`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg-prep.sh): This script prepares files for HTCondor job execution, and makes the directory structure specified by `osg_job_directories.txt`.
-* [`osg.sub`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg.sub): This is the HTCondor job submission script that species job requirements and input/output files.
+* [`osg.sub`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg.sub): This is the HTCondor job submission script that specifies job requirements and input/output files.
 * [`osg-wrapper-r.sh`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg-wrapper-r.sh): This wrapper script controls file input/output to and from the R script `osg-ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
 * [`osg-ss3-example-calcs.r`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg-ss3-example-calcs.r): This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
 

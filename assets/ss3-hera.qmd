@@ -24,7 +24,7 @@ Similar to the [array_lm](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computin
 
 There are a few main differences that serve to illustrate useful modifications to the workflow:
 
-* in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis) (SS3) on all models in the SS3 testing suite to conduct a retrospective analysis;
+* in this case we will run [Stock Synthesis](https://github.com/nmfs-stock-synthesis/stock-synthesis){target="_blank"} (SS3) on all models in the SS3 testing suite to conduct a retrospective analysis;
 * we will set up the job array to run using the *gnu* parallel utility in order to more effectively implement an HTC type workflow in an HPC system;
 * we will run our jobs within a software container;
 * lastly, we will define *variables* to be passed between job submission and job execution scripts to ensure that the correct output is produced.
@@ -90,7 +90,7 @@ scp User.Name@apXX.uc.osg-htc.org:/home/User.Name/singularity/linux_r4ss/linux-r
 
 ## Setup data inputs and directories
 
-Given that our example is to run a 4-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main) Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/hera/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location.
+Given that our example is to run a 4-year retrospective analysis for each of the SS3 test models, the next step is downloading the SS3 test models from the [nmfs-stock-synthesis/test-models](https://github.com/nmfs-stock-synthesis/test-models/tree/main){target="_blank"} Github repo. Once you've downloaded the test models, copy the `models/` directory into a new example directory `ss3/inputs/` within the `NSASS-HTC-HPC-Computing/examples/hera/` directory on your machine. If you cloned the [`NSASS-HTC-HPC-Computing`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing) repo, the SS3 test models will already be in the correct location.
 
 For the sake of example the job array will be set-up to run each retrospective peel (e.g., -0 years, -1 year, ... , -4 years of data) as individual jobs in the job array. This is more efficient in a true HTC environment such as OSG however on Hera it could make more sense to bundle the initial model run and subsequent retrospective peels as a single job. We will store the results of each retrospective peel in its own directory. The directories on Hera will be listed in a text file, and we will use this text file to launch jobs on Hera (as a part of the job array) in each of the named directories.
 
