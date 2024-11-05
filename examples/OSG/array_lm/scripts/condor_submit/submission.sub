@@ -12,7 +12,7 @@ error = job_$(Cluster)_$(Process).err
 output = job_$(Cluster)_$(Process).out
 
 # Define singularity
-+SingularityImage = "osdf:///ospool/ap21/data/User.Name/linux.sif"
++SingularityImage = "osdf:///ospool/apXX/data/User.Name/linux-r4ss-v4.sif"
 
 # Define resources
 request_cpus = 1
