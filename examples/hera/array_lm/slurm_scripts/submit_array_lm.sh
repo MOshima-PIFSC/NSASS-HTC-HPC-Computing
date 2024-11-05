@@ -21,7 +21,7 @@ echo $SLURM_ARRAY_TASK_ID
 # create an array with all data directories
 line_index=$(($SLURM_ARRAY_TASK_ID+1))
 echo ${line_index}
-dir_file=/scratch1/NMFS/project_name/User.Name/examples/hera/array_lm/inputs/hera_job_directories.txt
+dir_file=/scratch1/NMFS/project_name/User.Name/examples/hera/inputs/hera_job_directories.txt
 echo ${dir_file}
 rep_dir=$(sed -n ${line_index}p ${dir_file}) 
 echo $rep_dir
@@ -34,7 +34,7 @@ module add R
 
 # run script & calculate runtime
 start=`date +%s`
-R CMD BATCH --vanilla /scratch1/NMFS/project_name/User.Name/array_lm/inputs/run_lm_hera_array.r
+R CMD BATCH --vanilla /scratch1/NMFS/project_name/User.Name/inputs/run_lm_hera_array.r
 end=`date +%s`
 runtime=$((end-start))
 echo $runtime
