@@ -144,10 +144,10 @@ writeLines(osg_dir_lines, con=paste0(proj_dir, "/examples/OSG/ss3/scripts/osg_jo
 
 In order to execute the HTC workflow, instructions are coordinated using four scripts: 
 
-* `osg-prep.sh`: This script prepares files for HTCondor job execution, and makes the directory structure specified by `osg_job_directories.txt`.
-* `osg.sub`: This is the HTCondor job submission script that species job requirements and input/output files.
-* `osg-wrapper-r.sh`: This wrapper script controls file input/output to and from the R script `osg-ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
-* `osg-ss3-example-calcs.r`: This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
+* [`osg-prep.sh`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg-prep.sh): This script prepares files for HTCondor job execution, and makes the directory structure specified by `osg_job_directories.txt`.
+* [`osg.sub`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg.sub): This is the HTCondor job submission script that species job requirements and input/output files.
+* [`osg-wrapper-r.sh`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg-wrapper-r.sh): This wrapper script controls file input/output to and from the R script `osg-ss3-example-calcs.r`, executes the R script, conducts job timing and tidies up the job working directory.
+* [`osg-ss3-example-calcs.r`](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/OSG/ss3/scripts/osg-ss3-example-calcs.r): This is the actual computation script which modifies the SS3 input files as needed, executes the appropriate SS3 model run and conducts any needed post-processing of the output within R.
 
 ::: {.callout-important}
 
