@@ -20,13 +20,14 @@ format:
     code-overflow: wrap
 ---
 
-In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](../examples/hera/array_lm/inputs/run_lm_hera_array.r) that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the parameter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](../examples/hera/array_lm/inputs/hera_job_directories.txt) to specify the directory path names on Hera.
+In this example we step through submitting an array job on Hera where we want to run the same job in a number of directories. In this case the job is running a simple [R script](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/hera/array_lm/inputs/run_lm_hera_array.r){target="_blank"} that reads in the *data.csv* file stored in the directory, fits a linear model, and writes the parameter estimates to a *par.csv*. We specify which directories we want to run jobs in as a part of the job-array using a [text file](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/hera/array_lm/inputs/hera_job_directories.txt){target="_blank"} to specify the directory path names on Hera.
 
 The *hera/array_lm* example can be set-up either by cloning the repository `git clone https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`, or stepping through the following code:
 
 ::: {.callout-important}
 # Coding alert!
-Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** your actual user name and **NMFS/project_name** with your specific project name. 
+Note: throughout this tutorial we are using **User.Name** as a stand-in for your actual username and **NMFS/project_name** as a stand-in for your project. In all cases, replace **User.Name** with your actual user name and **NMFS/project_name** with your specific project name.  
+
 :::
 
 ## Setup data inputs and directories
@@ -89,7 +90,7 @@ system(paste0("powershell cd ", file.path(proj_dir, "examples", "hera"), ";tar -
 
 1. Connect to Hera  
 
-Open a PowerShell terminal and [connect to Hera](hera_documentation.qmd). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your [RSA passcode](hera_documentation.qmd#Connecting-to-Hera-via-ssh), which is your password followed by the 8-digit code from the authenticator app.
+Open a PowerShell terminal and [connect to Hera](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html). This terminal will be your remote workstation, call it *Terminal A*. You will be prompted for your [RSA passcode](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html#connecting-to-hera-via-ssh), which is your password followed by the 8-digit code from the authenticator app.
 
 ```{bash}
 ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov -p22
@@ -97,7 +98,7 @@ ssh -m hmac-sha2-256-etm@openssh.com User.Name@hera-rsa.boulder.rdhpcs.noaa.gov 
 
 2. Create directories  
 
-In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. We will upload our SLURM [submit script](../examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
+In *Terminal A* navigate to the project directory on `scratch1` and create some directories. If using a shared directory such as `htc4sa/`, make a directory to save your work within this directory (.e.g., `User.Name/`). Change your working directory to this directory. We will upload our SLURM [submit script](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) into `submit_scripts/` and write our SLURM log files to `logs/`.
 ```{bash}
 # navigate to project directory
 cd /scratch1/NMFS/project_name/
@@ -112,7 +113,7 @@ mkdir logs/
 
 3. Transfer files  
 
-Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](hera_documentation.qmd). You will be prompted for your RSA passcode after each *scp* command.
+Open a second PowerShell terminal in the `NSASS-HTC-HPC-Computing` directory on your machine. This will be your local workstation, call it *Terminal B*. Use this terminal window to upload via *scp* the needed files (`examples/hera/upload.array_lm.tar.gz` and `examples/hera/array_lm/slurm_scripts/submit_array_lm.sh`) to Hera. The `upload.array_lm.tar.gz` will be uploaded to your directory within the project directory on `scratch1` and the submit script `submit_array_lm.sh` will be uploaded to the `submit_scripts` directory. Make sure your VPN is active when attempting to upload using the [DTN](https://moshima-pifsc.github.io/NSASS-HTC-HPC-Computing/assets/hera_documentation.html#via-scp-using-data-transfer-node-dtn). You will be prompted for your RSA passcode after each *scp* command.
 
 ```{bash}
 scp examples/hera/upload.array_lm.tar.gz User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name
@@ -156,7 +157,7 @@ dos2unix inputs/run_lm_hera_array.r inputs/hera_job_directories.txt slurm_script
 ```
 6. Submit job  
 
-Now you are ready to submit the SLURM [submission script](../examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) `submit_array_lm.sh`.
+Now you are ready to submit the SLURM [submission script](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/blob/main/examples/hera/array_lm/slurm_scripts/submit_array_lm.sh) `submit_array_lm.sh`.
 ```{bash}
 sbatch slurm_scripts/submit_array_lm.sh
 ```
