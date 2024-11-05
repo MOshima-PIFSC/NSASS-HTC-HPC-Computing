@@ -34,7 +34,21 @@ $presentation-h1-font-size: 2em;
 
 /*-- scss:rules --*/
 
+.titlebox {
+  padding: 0.2em 0.4em;
+  background-color: rgba(255, 255, 255, .20);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 3rem 0 rgba(0, 0, 0, .2);
+  border-radius: 30px;
+}
+
 // add a shortcut for emphasizing text
+.blue-title {
+  color: $theme-noaa-sky;
+  font-weight: bold;
+  font-family: $presentation-heading-font;
+}
+
 .blue {
   color: $theme-noaa-sky;
   font-weight: bold;
