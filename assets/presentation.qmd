@@ -1,5 +1,4 @@
 ---
-title: "Operationalizing available research computing resources for stock assessment"
 format: 
  revealjs:
   theme: [default, customizations/presentation-custom.scss]
@@ -10,11 +9,20 @@ format:
   revealjs-plugins:
   - codewindow
   mermaid-format: svg
-author: Nicholas Ducharme-Barth and Megumi Oshima
-date: Nov 5, 2024
 embed-resources: true
 bibliography: customizations/osg.bib
 ---
+
+## {.center background-image="static/noaa-hera.jpg"}
+
+::: {.titlebox style="text-align:center; font-size: 1.25em;"}
+
+[Operationalizing available research computing resources for stock assessment]{.blue-title}
+
+[Nicholas Ducharme-Barth & Megumi Oshima]{.bg style="font-size:0.75em;"}
+
+[2024-11-05]{.bg style="font-size:0.5em;"}
+:::
 
 ## What?
 
