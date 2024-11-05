@@ -185,7 +185,7 @@ dir.create(file.path(proj_dir, "examples", "hera", "array_lm", "output"), recurs
 ```
 Now you can use *scp* in *Terminal B* to download `download.array_lm.tar.gz` into `examples/hera/array_lm/output`
 ```{bash}
-scp User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/inputs/download.array_lm.tar.gz examples/hera/array_lm/output/
+scp -o MACs=hmac-sha2-512 User.Name@dtn-hera.fairmont.rdhpcs.noaa.gov:/scratch1/NMFS/project_name/User.Name/inputs/download.array_lm.tar.gz examples/hera/array_lm/output/
 ```
 Move into `examples/hera/array_lm/output/` and untar downloaded results.
 ```{bash}
