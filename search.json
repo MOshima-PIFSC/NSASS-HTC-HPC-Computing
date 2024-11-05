@@ -490,7 +490,7 @@
     "href": "assets/presentation.html#acknowledgements",
     "title": "HTC/HPC for Stock Assessments",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\n\nThank you to Howard Townsend for helping get the RDHPCS htc4sa project off the ground.\n\nThank you also to Help Desk staff at both OSG OSPool and NOAA RDHPCS for helping troubleshoot and refine job array workflows using HTCondor and Slurm, respectively.\n\nOSG workflow development and benchmark testing was conducted using services provided by the OSG Consortium (OSG 2006, 2015; Pordes et al. 2007; Sfiligoi et al. 2009), which is supported by the National Science Foundation awards #2030508 and #1836650."
+    "text": "Acknowledgements\nThank you to Howard Townsend for helping get the RDHPCS htc4sa project off the ground.\n\nThank you also to Help Desk staff at both OSG OSPool and NOAA RDHPCS for helping troubleshoot and refine job array workflows using HTCondor and Slurm, respectively.\n\nOSG workflow development and benchmark testing was conducted using services provided by the OSG Consortium (OSG 2006, 2015; Pordes et al. 2007; Sfiligoi et al. 2009), which is supported by the National Science Foundation awards #2030508 and #1836650.\n\nSlide design influenced by Emil Hvitfeldt’s published examples."
   },
   {
     "objectID": "assets/presentation.html#contact-us",

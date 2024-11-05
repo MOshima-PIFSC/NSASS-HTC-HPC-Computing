@@ -1843,7 +1843,6 @@ OSG and Hera have different strengths, weaknesses, and constraints so analysts c
 :::
 
 ## Acknowledgements {.smaller}
-</br>
 
 Thank you to Howard Townsend for helping get the RDHPCS *htc4sa* project off the ground.
 
@@ -1854,6 +1853,10 @@ Thank you also to Help Desk staff at both OSG OSPool and NOAA RDHPCS for helping
 </br>
 
 OSG workflow development and benchmark testing was conducted using services provided by the OSG Consortium [@osg06;@osg07;@osg09;@osg15], which is supported by the National Science Foundation awards #2030508 and #1836650.
+
+</br>
+
+Slide design influenced by [Emil Hvitfeldt](https://emilhvitfeldt.com/blog){preview-link="true"}'s published examples.
 
 ## Contact us
 
