@@ -1,0 +1,340 @@
+/srv
+total 492452
+-rw-r--r-- 1 slot1_12 slot1_12         0 Nov  4 18:38 _condor_stderr
+-rw-r--r-- 1 slot1_12 slot1_12         5 Nov  4 18:38 _condor_stdout
+-rw-r--r-- 1 slot1_12 slot1_12 503570432 Nov  4 18:38 linux-r4ss-v4.sif
+-rw-r--r-- 1 slot1_12 slot1_12       819 Nov  4 18:38 osg-ss3-example-calcs.r
+-rwxr-xr-x 1 slot1_12 slot1_12      1059 Nov  4 18:38 osg-wrapper-r.sh
+drwxr-x--- 4 slot1_12 slot1_12      4096 Nov  4 18:38 scratch
+drwxrwxrwt 2 slot1_12 slot1_12      4096 Nov  4 18:38 tmp
+-rw-r--r-- 1 slot1_12 slot1_12    669783 Nov  4 18:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt 2 slot1_12 slot1_12      4096 Nov  4 18:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/39-growth_timevary-2/
+[1] "/srv/working"
+[1] "output/39-growth_timevary-2/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Mon Nov 4 18:38:42 2024"
+
+$RunTime
+[1] "0 hours, 0 minutes, 16 seconds."
+
+$Files_used
+[1] "Data_File: Example_1_data.SS Control_File: Example_1_control.SS"
+
+$log_det_hessian
+[1] 66.0897
+
+$Final_phase
+[1] 6
+
+$N_iterations
+[1] 320
+
+$Nwarnings
+[1] 12
+
+$warnings
+ [1] "Warning 1 : Block:1 1 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [2] "Warning 2 : Block:2 2 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [3] "Warning 3 : Block:3 7 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [4] "Warning 4 : Block:4 7 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [5] "Warning 5 : Block:5 1 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [6] "Warning 6 : Block:6 6 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [7] "Warning 7 : Block:7 4 ends in: 2009 after retroyr+1:  2008"                                                                                                
+ [8] "Warning 8 : At least one block pattern ends in endyr. Check the output parameter value time series to see if the values in forecast years are as intended."
+ [9] "Warning 9 Adjustment:  recdev_end: 2008 > retro_yr: 2007 reset "                                                                                           
+[10] "Note 1 Information: Max harvest rate typically is >1.0 for F_method 2, 3 or 4 0.9"                                                                         
+[11] "Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended."                                                       
+[12] " 9 warnings  and 2 notes "                                                                                                                                 
+
+$likelihoods_used
+                           values lambdas
+TOTAL                 3.92430e+02      NA
+Equil_catch           0.00000e+00      NA
+Survey               -5.51506e+00      NA
+Age_comp              3.97665e+02      NA
+Recruitment           0.00000e+00       1
+InitEQ_Regime         5.39926e-32       1
+Forecast_Recruitment  0.00000e+00       1
+Parm_priors           2.79815e-01       1
+Parm_devs             0.00000e+00       1
+Crash_Pen             0.00000e+00       1
+
+$likelihoods_laplace
+                                     values lambdas
+NoBias_corr_Recruitment(info_only)  12.0688       1
+Laplace_obj_fun(info_only)         404.4980      NA
+
+$likelihoods_by_fleet
+              Label       ALL   Fish1  Fish2    Surv1   Surv2 Surv3 Surv4 Surv5
+177 Init_equ_lambda        NA   1.000   1.00  1.00000  1.0000     1     1     1
+178   Init_equ_like   0.00000   0.000   0.00  0.00000  0.0000     0     0     0
+179     Surv_lambda        NA   0.000   0.00  1.00000  0.0000     0     0     0
+180       Surv_like  -5.51506   0.000   0.00 -5.51506 -6.8808     0     0     0
+181      Surv_N_use        NA   0.000   0.00 11.00000  7.0000     0     0     0
+182     Surv_N_skip        NA   0.000   0.00  0.00000  2.0000     0     0     0
+183      Age_lambda        NA   1.000   1.00  0.00000  0.0000     0     0     0
+184        Age_like 397.66500 206.574 191.09 23.56550  0.0000     0     0     0
+185       Age_N_use        NA  35.000  31.00 12.00000  0.0000     0     0     0
+186      Age_N_skip        NA   2.000   2.00  1.00000  0.0000     0     0     0
+    Surv6    Surv7
+177     1  1.00000
+178     0  0.00000
+179     0  0.00000
+180     0 -3.12345
+181     0  3.00000
+182     0  1.00000
+183     0  0.00000
+184     0  0.00000
+185     0  0.00000
+186     0  0.00000
+
+$Parm_devs_detail
+    Index Phase MinYr MaxYr  N stddev Rho Like_devs Like_se mean        rmse
+190     1    -5  1977  2007 31      2   0         0       0    0 3.16228e-05
+    var   sqrt(var) est_rho D-W
+190   0 3.16228e-05       0   0
+
+$N_estimated_parameters
+[1] 45
+
+$table_of_phases
+
+-99 -50  -6  -5  -4  -2  -1   1   2   3   4   6 
+  3  12   1  13   2   3   3   1   5  25   5   9 
+
+$estimated_non_dev_parameters
+                                               Value Phase       Min       Max
+L_at_Amax_Fem_GP_1_BLK1mult_1984         -0.07443180     4  -0.28528  0.200227
+VonBert_K_Fem_GP_1_BLK2mult_1980          0.00729315     4  -1.10064  0.508798
+VonBert_K_Fem_GP_1_BLK2mult_1999          0.09080800     4  -1.10064  0.508798
+SR_LN(R0)                                14.86140000     4  12.00000 18.000000
+SR_BH_steep                               0.80746600     4   0.20000  1.000000
+SR_sigmaR                                 1.30000000     6   1.00000  1.600000
+Impl_err_2010                             0.00000000     6  -1.00000  1.000000
+Impl_err_2011                             0.00000000     6  -1.00000  1.000000
+Impl_err_2012                             0.00000000     6  -1.00000  1.000000
+LnQ_base_Surv1(3)                        -0.36035700     1 -10.00000  2.000000
+Age_DblN_peak_Fish1(1)                    6.23045000     2   2.00000 15.000000
+Age_DblN_ascend_se_Fish1(1)               3.07634000     2  -4.00000 10.000000
+Age_DblN_end_logit_Fish1(1)              -0.14308700     2  -5.00000 10.000000
+Age_DblN_peak_Fish2(2)                   10.28810000     2   2.00000 15.000000
+Age_DblN_ascend_se_Fish2(2)               2.23776000     2  -2.00000 15.000000
+Age_DblN_peak_Fish1(1)_BLK3add_1981       2.33751000     3 -10.00000 10.000000
+Age_DblN_peak_Fish1(1)_BLK3add_1985      -0.47524900     3 -10.00000 10.000000
+Age_DblN_peak_Fish1(1)_BLK3add_1989       0.01234200     3 -10.00000 10.000000
+Age_DblN_peak_Fish1(1)_BLK3add_1993      -1.24195000     3 -10.00000 10.000000
+Age_DblN_peak_Fish1(1)_BLK3add_1997      -1.42885000     3 -10.00000 10.000000
+Age_DblN_peak_Fish1(1)_BLK3add_2001       0.85806000     3 -10.00000 10.000000
+Age_DblN_peak_Fish1(1)_BLK3add_2005       4.12566000     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1960  0.10015700     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1981  0.73220700     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1985 -0.08482860     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1993 -0.70026500     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1997 -0.95004000     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2001  0.40038600     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2005  1.44159000     3 -10.00000 10.000000
+Age_DblN_end_logit_Fish1(1)_BLK5add_1984 -0.42135500     3 -10.00000 10.000000
+Age_DblN_peak_Fish2(2)_BLK6add_1981       0.93938900     3 -10.00000 10.000000
+Age_DblN_peak_Fish2(2)_BLK6add_1985      -3.93819000     3 -10.00000 10.000000
+Age_DblN_peak_Fish2(2)_BLK6add_1989      -3.29391000     3 -10.00000 10.000000
+Age_DblN_peak_Fish2(2)_BLK6add_1993      -3.28249000     3 -10.00000 10.000000
+Age_DblN_peak_Fish2(2)_BLK6add_2001      -4.55071000     3 -10.00000 10.000000
+Age_DblN_peak_Fish2(2)_BLK6add_2005      -3.86638000     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1960  1.46308000     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1989  0.39359500     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2001  0.04259830     3 -10.00000 10.000000
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2005  0.32154400     3 -10.00000 10.000000
+                                                Init  Status  Parm_StDev
+L_at_Amax_Fem_GP_1_BLK1mult_1984         -0.07640360      OK   0.0615237
+VonBert_K_Fem_GP_1_BLK2mult_1980          0.00771017      OK   0.2520770
+VonBert_K_Fem_GP_1_BLK2mult_1999          0.06060180      OK   0.2319560
+SR_LN(R0)                                14.87160000      OK   0.1437440
+SR_BH_steep                               0.78853900      OK   0.1226170
+SR_sigmaR                                 1.30000000 NO_MOVE 164.3170000
+Impl_err_2010                             0.00000000     act   0.1000000
+Impl_err_2011                             0.00000000     act   0.1000000
+Impl_err_2012                             0.00000000     act   0.1000000
+LnQ_base_Surv1(3)                        -0.35147500      OK   0.1484060
+Age_DblN_peak_Fish1(1)                    6.19130000      OK   1.7059200
+Age_DblN_ascend_se_Fish1(1)               3.08033000      OK   1.6070700
+Age_DblN_end_logit_Fish1(1)              -0.15186400      OK   0.6414030
+Age_DblN_peak_Fish2(2)                   10.21490000      OK   1.8535500
+Age_DblN_ascend_se_Fish2(2)               2.23697000      OK   0.3502500
+Age_DblN_peak_Fish1(1)_BLK3add_1981       2.35882000      OK   2.2973000
+Age_DblN_peak_Fish1(1)_BLK3add_1985      -0.43986900      OK   2.2746200
+Age_DblN_peak_Fish1(1)_BLK3add_1989       0.05289540      OK   3.6114300
+Age_DblN_peak_Fish1(1)_BLK3add_1993      -1.20462000      OK   2.0575900
+Age_DblN_peak_Fish1(1)_BLK3add_1997      -1.41849000      OK   1.9748700
+Age_DblN_peak_Fish1(1)_BLK3add_2001       0.30173400      OK   2.7673800
+Age_DblN_peak_Fish1(1)_BLK3add_2005       1.66590000      OK   5.1107200
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1960  0.08238180      OK   1.8024900
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1981  0.72631600      OK   1.6876300
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1985 -0.08891270      OK   1.8241600
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1993 -0.70409800      OK   1.8155700
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1997 -0.96293600      OK   1.7782400
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2001  0.17649400      OK   1.7892200
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2005  0.82520600      OK   1.8813100
+Age_DblN_end_logit_Fish1(1)_BLK5add_1984 -0.43293200      OK   0.8684090
+Age_DblN_peak_Fish2(2)_BLK6add_1981       0.93361000      OK   0.7648950
+Age_DblN_peak_Fish2(2)_BLK6add_1985      -3.87014000      OK   1.9254500
+Age_DblN_peak_Fish2(2)_BLK6add_1989      -3.23802000      OK   1.8909400
+Age_DblN_peak_Fish2(2)_BLK6add_1993      -3.22972000      OK   1.8910600
+Age_DblN_peak_Fish2(2)_BLK6add_2001      -4.54189000      OK   2.0817900
+Age_DblN_peak_Fish2(2)_BLK6add_2005      -3.62094000      OK   2.1277900
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1960  1.45034000      OK   0.5497030
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1989  0.39056700      OK   0.4329520
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2001  0.01063600      OK   0.6703240
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2005  0.30706200      OK   0.6168720
+                                             Gradient   Pr_type Prior    Pr_SD
+L_at_Amax_Fem_GP_1_BLK1mult_1984          3.45844e-07    Normal 0.000 0.100114
+VonBert_K_Fem_GP_1_BLK2mult_1980         -1.59798e-09    Normal 0.000 0.254399
+VonBert_K_Fem_GP_1_BLK2mult_1999         -1.52226e-08    Normal 0.000 0.254399
+SR_LN(R0)                                 2.29698e-06  No_prior    NA       NA
+SR_BH_steep                               1.15075e-08 Full_Beta 0.777 0.113000
+SR_sigmaR                                -3.91437e-32  No_prior    NA       NA
+Impl_err_2010                             0.00000e+00       dev    NA       NA
+Impl_err_2011                             0.00000e+00       dev    NA       NA
+Impl_err_2012                             0.00000e+00       dev    NA       NA
+LnQ_base_Surv1(3)                         4.70674e-07  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)                    1.73794e-06  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)              -3.83419e-06  No_prior    NA       NA
+Age_DblN_end_logit_Fish1(1)               2.07454e-07  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)                    4.73446e-07  No_prior    NA       NA
+Age_DblN_ascend_se_Fish2(2)              -9.74397e-07  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_1981      -1.12727e-08  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_1985      -8.56910e-08  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_1989       2.28625e-06  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_1993       4.02934e-07  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_1997      -3.41598e-08  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_2001       1.04424e-07  No_prior    NA       NA
+Age_DblN_peak_Fish1(1)_BLK3add_2005      -3.19642e-09  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1960 -7.96513e-07  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1981  8.90783e-08  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1985  3.57654e-10  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1993 -1.18537e-07  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1997  4.89754e-08  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2001 -2.88721e-08  No_prior    NA       NA
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2005  3.06850e-07  No_prior    NA       NA
+Age_DblN_end_logit_Fish1(1)_BLK5add_1984  1.76012e-07  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)_BLK6add_1981      -1.18909e-07  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)_BLK6add_1985       2.07945e-07  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)_BLK6add_1989      -1.06551e-07  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)_BLK6add_1993       3.42754e-08  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)_BLK6add_2001       4.67248e-07  No_prior    NA       NA
+Age_DblN_peak_Fish2(2)_BLK6add_2005       3.19980e-07  No_prior    NA       NA
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1960  4.30517e-07  No_prior    NA       NA
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1989  2.44219e-09  No_prior    NA       NA
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2001 -1.08630e-06  No_prior    NA       NA
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2005 -7.14140e-07  No_prior    NA       NA
+                                              Pr_Like Afterbound
+L_at_Amax_Fem_GP_1_BLK1mult_1984          0.276374000         OK
+VonBert_K_Fem_GP_1_BLK2mult_1980          0.000410931         OK
+VonBert_K_Fem_GP_1_BLK2mult_1999          0.063707000         OK
+SR_LN(R0)                                          NA         OK
+SR_BH_steep                              -0.060677600         OK
+SR_sigmaR                                          NA         OK
+Impl_err_2010                                      NA         OK
+Impl_err_2011                                      NA         OK
+Impl_err_2012                                      NA         OK
+LnQ_base_Surv1(3)                                  NA         OK
+Age_DblN_peak_Fish1(1)                             NA         OK
+Age_DblN_ascend_se_Fish1(1)                        NA         OK
+Age_DblN_end_logit_Fish1(1)                        NA         OK
+Age_DblN_peak_Fish2(2)                             NA         OK
+Age_DblN_ascend_se_Fish2(2)                        NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_1981                NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_1985                NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_1989                NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_1993                NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_1997                NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_2001                NA         OK
+Age_DblN_peak_Fish1(1)_BLK3add_2005                NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1960           NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1981           NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1985           NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1993           NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_1997           NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2001           NA         OK
+Age_DblN_ascend_se_Fish1(1)_BLK4add_2005           NA         OK
+Age_DblN_end_logit_Fish1(1)_BLK5add_1984           NA         OK
+Age_DblN_peak_Fish2(2)_BLK6add_1981                NA         OK
+Age_DblN_peak_Fish2(2)_BLK6add_1985                NA         OK
+Age_DblN_peak_Fish2(2)_BLK6add_1989                NA         OK
+Age_DblN_peak_Fish2(2)_BLK6add_1993                NA         OK
+Age_DblN_peak_Fish2(2)_BLK6add_2001                NA         OK
+Age_DblN_peak_Fish2(2)_BLK6add_2005                NA         OK
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1960           NA         OK
+Age_DblN_ascend_se_Fish2(2)_BLK7add_1989           NA         OK
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2001           NA         OK
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2005           NA         OK
+
+$maximum_gradient_component
+[1] 3.83419e-06
+
+$parameters_with_highest_gradients
+                                              Value     Gradient
+Age_DblN_ascend_se_Fish1(1)               3.0763400 -3.83419e-06
+SR_LN(R0)                                14.8614000  2.29698e-06
+Age_DblN_peak_Fish1(1)_BLK3add_1989       0.0123420  2.28625e-06
+Age_DblN_peak_Fish1(1)                    6.2304500  1.73794e-06
+Age_DblN_ascend_se_Fish2(2)_BLK7add_2001  0.0425983 -1.08630e-06
+
+$Age_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+1549         5     1           1.15111 #        37   35        50        50
+1550         5     2           1.07907 #        33   31        50        50
+1551         5     3           0.00000 #        13   12         1         1
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+1549            50             50            NA          0        NA
+1550            50             50            NA          0        NA
+1551             1              1            NA          0        NA
+            par1 val1 par2 val2 mean_effN  HarMean Curr_Var_Adj Fleet_name
+1549 multinomial   NA   NA   NA  72.04050 57.55540            1      Fish1
+1550 multinomial   NA   NA   NA  61.35990 53.95370            1      Fish2
+1551 multinomial   NA   NA   NA   1.07279  1.04705            0      Surv1
+
+$SBzero
+[1] 2066410
+
+$current_depletion
+[1] 0.3826903
+
+$sigma_R_in
+[1] 1.3
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs mean_SE mean_SEsquared
+1            Main     46          0           0      NA             NA
+2      Early+Main     46          0           0      NA             NA
+3 Early+Main+Late     48          0           0      NA             NA
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1                     NA                       0                    NA
+2                     NA                       0                    NA
+3                     NA                       0                    NA
+  alternative_sigma_R
+1                <NA>
+2                <NA>
+3                <NA>
+
+$rmse_table
+    ERA  N RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 46    0                0            0
+2 early  0    0                0            0
+
+$RecDev_method
+[1] 1
+
+18

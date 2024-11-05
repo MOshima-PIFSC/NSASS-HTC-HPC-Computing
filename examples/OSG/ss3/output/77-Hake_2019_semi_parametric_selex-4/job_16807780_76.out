@@ -1,0 +1,214 @@
+/srv
+total 492436
+-rw-r--r-- 1 osg001 cuuser         0 Nov  4 19:38 _condor_stderr
+-rw-r--r-- 1 osg001 cuuser         5 Nov  4 19:38 _condor_stdout
+-rw-r--r-- 1 osg001 cuuser 503570432 Nov  4 19:38 linux-r4ss-v4.sif
+-rw-r--r-- 1 osg001 cuuser       819 Nov  4 19:38 osg-ss3-example-calcs.r
+-rwxr-xr-x 1 osg001 cuuser      1059 Nov  4 19:38 osg-wrapper-r.sh
+drwxr-x--- 4 osg001 cuuser        28 Nov  4 19:38 scratch
+drwxrwxrwt 2 osg001 cuuser         6 Nov  4 19:38 tmp
+-rw-r--r-- 1 osg001 cuuser    669783 Nov  4 19:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt 2 osg001 cuuser         6 Nov  4 19:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/77-Hake_2019_semi_parametric_selex-4/
+[1] "/srv/working"
+[1] "output/77-Hake_2019_semi_parametric_selex-4/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Mon Nov 4 19:38:46 2024"
+
+$RunTime
+[1] "0 hours, 0 minutes, 44 seconds."
+
+$Files_used
+[1] "Data_File: hake_data.ss Control_File: hake_control.ss"
+
+$log_det_hessian
+[1] 387.244
+
+$Final_phase
+[1] 5
+
+$N_iterations
+[1] 1577
+
+$Nwarnings
+[1] 7
+
+$warnings
+[1] "Warning 1 Adjustment:  recdev_end: 2017 > retro_yr: 2014 reset "                                                  
+[2] "Warning 2 : 2D_AR selectivity deviations option is selected!"                                                     
+[3] "Warning 3 : Minimum pop size bin:_10; is > L at Amin for sex: 1; Gpat: 1; L= 5"                                   
+[4] "Warning 4 : 1st iteration warning: catch logL > 50% total logL; check configuration; suggest start with larger R0"
+[5] "Warning 5 : Final gradient: 0.000917477 is larger than final_conv: 0.0001"                                        
+[6] "Note 1 Information: A revised protocol for the Fcast_yr specification is available and recommended."              
+[7] " 5 warnings  and 1 note "                                                                                         
+
+$likelihoods_used
+                                       values lambdas
+TOTAL                1854.2300000000000181899      NA
+Catch                   0.0000000000778530000      NA
+Equil_catch             0.0000000000000000000      NA
+Survey                 -5.4323100000000001941      NA
+Age_comp             1672.7799999999999727152      NA
+Recruitment            44.7811999999999983402       1
+InitEQ_Regime           0.0000000000000000000       1
+Forecast_Recruitment    0.0000000000000435591       1
+Parm_priors             0.1697140000000000037       1
+Parm_devs             141.9279999999999972715       1
+Crash_Pen               0.0000000000000000000       1
+
+$likelihoods_laplace
+                                      values lambdas
+NoBias_corr_Recruitment(info_only)   53.5076       1
+Laplace_obj_fun(info_only)         1862.9600      NA
+
+$likelihoods_by_fleet
+              Label          ALL     Fishery Acoustic_Survey
+175    Catch_lambda           NA 1.00000e+00         1.00000
+176      Catch_like  7.78530e-11 7.78530e-11         0.00000
+177 Init_equ_lambda           NA 1.00000e+00         1.00000
+178   Init_equ_like  0.00000e+00 0.00000e+00         0.00000
+179     Surv_lambda           NA 0.00000e+00         1.00000
+180       Surv_like -5.43231e+00 0.00000e+00        -5.43231
+181      Surv_N_use           NA 0.00000e+00        10.00000
+182     Surv_N_skip           NA 0.00000e+00        14.00000
+183      Age_lambda           NA 1.00000e+00         1.00000
+184        Age_like  1.67278e+03 1.44666e+03       226.12300
+185       Age_N_use           NA 4.00000e+01        10.00000
+186      Age_N_skip           NA 4.00000e+00         2.00000
+
+$Parm_devs_detail
+    Index Phase MinYr MaxYr   N stddev Rho Like_devs Like_se      mean     rmse
+190     1     5     1   135 135      1   0   141.928       0 0.0426719 0.514544
+         var sqrt(var)   est_rho     D-W
+190 0.262935  0.512771 0.0651205 1.87016
+
+$N_estimated_parameters
+[1] 226
+
+$table_of_phases
+
+-99 -50  -6  -5  -3  -2  -1   1   2   3   4   5 
+  1   8   1   4   4  33   2  46  11  24   3 142 
+
+$estimated_non_dev_parameters
+                                 Value Phase   Min  Max      Init Status
+NatM_uniform_Fem_GP_1         0.212543     4  0.05  0.4  0.217970     OK
+SR_LN(R0)                    14.543300     1 13.00 17.0 14.666100     OK
+SR_BH_steep                   0.866427     4  0.20  1.0  0.869251     OK
+Q_extraSD_Acoustic_Survey(2)  0.265481     4  0.05  1.2  0.254247     OK
+AgeSel_P3_Fishery(1)          2.902130     2 -5.00  9.0  2.588230     OK
+AgeSel_P4_Fishery(1)          0.963351     2 -5.00  9.0  0.938065     OK
+AgeSel_P5_Fishery(1)          0.432067     2 -5.00  9.0  0.391785     OK
+AgeSel_P6_Fishery(1)          0.175080     2 -5.00  9.0  0.218713     OK
+AgeSel_P7_Fishery(1)          0.455673     2 -5.00  9.0  0.447989     OK
+AgeSel_P4_Acoustic_Survey(2)  0.561504     2 -5.00  9.0  0.639003     OK
+AgeSel_P5_Acoustic_Survey(2) -0.174770     2 -5.00  9.0 -0.274895     OK
+AgeSel_P6_Acoustic_Survey(2)  0.278010     2 -5.00  9.0  0.288126     OK
+AgeSel_P7_Acoustic_Survey(2)  0.423658     2 -5.00  9.0  0.370801     OK
+ln(DM_theta)_Age_P1          -0.343426     2 -5.00 20.0 -0.205575     OK
+ln(DM_theta)_Age_P2           1.453360     2 -5.00 20.0  2.397450     OK
+                             Parm_StDev       Gradient   Pr_type    Prior Pr_SD
+NatM_uniform_Fem_GP_1         0.0196697  0.00069986700  Log_Norm -1.60944 0.100
+SR_LN(R0)                     0.2243810 -0.00086867600  No_prior       NA    NA
+SR_BH_steep                   0.0969189 -0.00002116530 Full_Beta  0.77700 0.113
+Q_extraSD_Acoustic_Survey(2)  0.0816082  0.00000159409  No_prior       NA    NA
+AgeSel_P3_Fishery(1)          0.4077440  0.00000342749  No_prior       NA    NA
+AgeSel_P4_Fishery(1)          0.1846010 -0.00001233070  No_prior       NA    NA
+AgeSel_P5_Fishery(1)          0.1607360 -0.00008670020  No_prior       NA    NA
+AgeSel_P6_Fishery(1)          0.1593340 -0.00007879880  No_prior       NA    NA
+AgeSel_P7_Fishery(1)          0.1218370 -0.00017423600  No_prior       NA    NA
+AgeSel_P4_Acoustic_Survey(2)  0.1927700 -0.00003327730  No_prior       NA    NA
+AgeSel_P5_Acoustic_Survey(2)  0.2296990 -0.00005038550  No_prior       NA    NA
+AgeSel_P6_Acoustic_Survey(2)  0.2578490 -0.00006117000  No_prior       NA    NA
+AgeSel_P7_Acoustic_Survey(2)  0.2163090 -0.00006623060  No_prior       NA    NA
+ln(DM_theta)_Age_P1           0.1142340 -0.00004097430  No_prior       NA    NA
+ln(DM_theta)_Age_P2           0.5601160 -0.00001678360  No_prior       NA    NA
+                                Pr_Like Afterbound
+NatM_uniform_Fem_GP_1         0.1850070         OK
+SR_LN(R0)                            NA         OK
+SR_BH_steep                  -0.0152929         OK
+Q_extraSD_Acoustic_Survey(2)         NA         OK
+AgeSel_P3_Fishery(1)                 NA         OK
+AgeSel_P4_Fishery(1)                 NA         OK
+AgeSel_P5_Fishery(1)                 NA         OK
+AgeSel_P6_Fishery(1)                 NA         OK
+AgeSel_P7_Fishery(1)                 NA         OK
+AgeSel_P4_Acoustic_Survey(2)         NA         OK
+AgeSel_P5_Acoustic_Survey(2)         NA         OK
+AgeSel_P6_Acoustic_Survey(2)         NA         OK
+AgeSel_P7_Acoustic_Survey(2)         NA         OK
+ln(DM_theta)_Age_P1                  NA         OK
+ln(DM_theta)_Age_P2                  NA         OK
+
+$maximum_gradient_component
+[1] 0.000917477
+
+$parameters_with_highest_gradients
+                             Value     Gradient
+Main_RecrDev_1999       2.56528000 -0.000915320
+SR_LN(R0)              14.54330000 -0.000868676
+NatM_uniform_Fem_GP_1   0.21254300  0.000699867
+Main_RecrDev_2008       1.66063000  0.000302780
+Fishery_ARDEV_y2014_A4 -0.00923212 -0.000201581
+
+$Age_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+1688         5     1                 1 #        44   40        13      1153
+1689         5     2                 1 #        12   10        46       105
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+1688        384.05         384.05      159.9570          1         1
+1689         69.70          69.70       56.6824          1         2
+                    par1     val1 par2 val2 mean_effN HarMean Curr_Var_Adj
+1688 ln(DM_theta)_Age_P1 0.709336   NA   NA   357.335 59.8361            1
+1689 ln(DM_theta)_Age_P2 4.277470   NA   NA   108.648 25.9078            1
+          Fleet_name
+1688         Fishery
+1689 Acoustic_Survey
+
+$SBzero
+[1] 1733245
+
+$current_depletion
+[1] 0.1987215
+
+$SPRratioLabel
+[1] "(1-SPR)/(1-SPR_40%)"
+
+$sigma_R_in
+[1] 1.4
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs   mean_SE mean_SEsquared
+1            Main     45   1.562966    2.442863 0.4139332      0.2654940
+2      Early+Main     69   1.309394    1.714513 0.6159498      0.5306575
+3 Early+Main+Late     73   1.273146    1.620902 0.6589115      0.6089777
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1               1.645709               1.1164043              1.175506
+2               1.498389               0.9352816              1.070278
+3               1.493278               0.9093903              1.066627
+  alternative_sigma_R
+1    1.64570860381918
+2    1.49838946541461
+3    1.49327814998814
+
+$rmse_table
+    ERA  N     RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 45 1.545500         1.218660    0.8667780
+2 early 24 0.684803         0.239263    0.0604167
+
+$RecDev_method
+[1] 1
+
+50

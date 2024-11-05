@@ -1,0 +1,51 @@
+000 (16807780.076.000) 2024-11-04 18:35:38 Job submitted from host: <192.170.231.142:9618?addrs=192.170.231.142-9618+[2605-9a00-10-200b-192-170-231-142]-9618&alias=ap21.uc.osg-htc.org&noUDP&sock=schedd_1860541_f389>
+...
+040 (16807780.076.000) 2024-11-04 18:38:16 Started transferring input files
+	Transferring to host: <10.125.8.54:34605?CCBID=128.105.82.148:9618%3faddrs%3d128.105.82.148-9618+[2607-f388-2200-b5-97ed-32e2-a34b-c9aa]-9618%26alias%3dospool-ccb.osg.chtc.io%26noUDP%26sock%3dcollector4#51577788%20192.170.231.11:9618%3faddrs%3d192.170.231.11-9618+[fd85-ee78-d8a6-8607--1-893]-9618%26alias%3dospool-ccb.osgprod.tempest.chtc.io%26noUDP%26sock%3dcollector8#10666352&PrivNet=node1839.palmetto.clemson.edu&addrs=10.125.8.54-34605&alias=node1839.palmetto.clemson.edu&noUDP>
+...
+040 (16807780.076.000) 2024-11-04 18:38:40 Finished transferring input files
+...
+021 (16807780.076.000) 2024-11-04 18:38:41 Message from starter on slot1_2@glidein_2488559_690420864@node1839.palmetto.clemson.edu:
+	PREPARE_JOB (prepare-hook) succeeded (reported status 000): Using Singularity image linux-r4ss-v4.sif
+...
+001 (16807780.076.000) 2024-11-04 18:38:41 Job executing on host: <10.125.8.54:40701?CCBID=128.105.82.148:9618%3faddrs%3d128.105.82.148-9618+[2607-f388-2200-b5-97ed-32e2-a34b-c9aa]-9618%26alias%3dospool-ccb.osg.chtc.io%26noUDP%26sock%3dcollector4#51481766%20192.170.231.11:9618%3faddrs%3d192.170.231.11-9618+[fd85-ee78-d8a6-8607--1-893]-9618%26alias%3dospool-ccb.osgprod.tempest.chtc.io%26noUDP%26sock%3dcollector8#10570313&PrivNet=node1839.palmetto.clemson.edu&addrs=10.125.8.54-40701&alias=node1839.palmetto.clemson.edu&noUDP>
+	SlotName: slot1_2@node1839.palmetto.clemson.edu
+	CondorScratchDir = "/local_scratch/slurm.929619/glide_DFsEIU/execute/dir_248910"
+	Cpus = 1
+	Disk = 2098176
+	GLIDEIN_ResourceName = "Clemson-Palmetto-CE1"
+	GPUs = 0
+	Memory = 2048
+...
+006 (16807780.076.000) 2024-11-04 18:38:51 Image size of job updated: 2
+	4  -  MemoryUsage of job (MB)
+	3728  -  ResidentSetSize of job (KB)
+...
+006 (16807780.076.000) 2024-11-04 18:39:33 Image size of job updated: 4591576
+	354  -  MemoryUsage of job (MB)
+	361740  -  ResidentSetSize of job (KB)
+...
+040 (16807780.076.000) 2024-11-04 18:39:33 Started transferring output files
+...
+040 (16807780.076.000) 2024-11-04 18:39:33 Finished transferring output files
+...
+005 (16807780.076.000) 2024-11-04 18:39:34 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:38, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:38, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	1312812  -  Run Bytes Sent By Job
+	671738  -  Run Bytes Received By Job
+	1312812  -  Total Bytes Sent By Job
+	671738  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   496456  2097152   2098176 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      354     2048      2048 
+	   TimeExecute (s)      :       52                    
+	   TimeSlotBusy (s)     :       78                    
+
+	Job terminated of its own accord at 2024-11-05T00:39:33Z with exit-code 0.
+...

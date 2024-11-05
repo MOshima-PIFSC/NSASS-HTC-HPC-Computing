@@ -1,0 +1,65 @@
+
+Attaching package: 'r4ss'
+
+The following object is masked from 'package:stats':
+
+    profile
+
+The following object is masked from 'package:base':
+
+    jitter
+
+running SS_readstarter
+  data, control files: BSKT2019_data.ss, BSKT2019_control.ss
+  converge_criterion = 1e-04
+  SPR_basis = 1
+  F_std_basis = 0
+Assuming version 3.30 based on number of numeric values.
+  MCMC_output_detail = 0
+  ALK_tolerance = 0
+Reading a random seed value:-1
+Read of starter file complete. Final value: 3.3
+running SS_writestarter
+opening connection to/srv/working/starter.ss
+file written to /srv/working/starter.ss
+Executable found at /ss_exe/ss3_linux
+Changing working directory to /srv/working and running model using the command: ss3_linux 
+Input 'show_in_console' = FALSE, so writing console output to console.output.txt
+console output written to console.output.txt
+Getting header info from:
+  /srv/working/Report.sso
+This function tested on SS versions 3.24 and 3.30.
+  You are using 3.30.22.1 which SHOULD work with this package.
+Report file time:Mon Nov  4 17:39:03 2024
+Reading full report file
+Got all columns using ncols = 61
+Got Report file
+Setting minimum biomass threshhold to 0.25  based on US west coast assumption associated with biomass target of 0.4.  (can replace or override in SS_plots by setting 'minbthresh')
+Got log file. There were NO temporary files were written in this run.
+Got warning file. Final line: 5 warnings  and 2 notes 
+Finished reading files
+Removing 4148 out of 18106 rows in CompReport.sso which are duplicates.
+CompReport file separated by this code as follows (rows = Ncomps*Nbins):
+  2812 rows of length comp data
+  5808 rows of conditional age-at-length data
+  384 rows of ghost fleet age comp data
+  3408 rows of ghost fleet conditional age-at-length data
+  814 rows of ghost fleet length comp data
+  32 rows of mean length at age data
+
+Finished dimensioning
+Got covar file.
+Finished primary run statistics list
+running SS_readstarter
+  data, control files: BSKT2019_data.ss, BSKT2019_control.ss
+  converge_criterion = 1e-04
+  SPR_basis = 1
+  F_std_basis = 0
+Assuming version 3.30 based on number of numeric values.
+  MCMC_output_detail = 0
+  ALK_tolerance = 0
+Reading a random seed value:-1
+Read of starter file complete. Final value: 3.3
+
+Statistics shown below (to turn off, change input to printstats=FALSE)
+completed SS_output

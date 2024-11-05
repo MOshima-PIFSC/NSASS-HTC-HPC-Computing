@@ -1,0 +1,580 @@
+/srv
+total 492452
+-rw-r--r-- 1 slot1_68 slot1_68         0 Nov  4 18:38 _condor_stderr
+-rw-r--r-- 1 slot1_68 slot1_68         5 Nov  4 18:38 _condor_stdout
+-rw-r--r-- 1 slot1_68 slot1_68 503570432 Nov  4 18:38 linux-r4ss-v4.sif
+-rw-r--r-- 1 slot1_68 slot1_68       819 Nov  4 18:38 osg-ss3-example-calcs.r
+-rwxr-xr-x 1 slot1_68 slot1_68      1059 Nov  4 18:38 osg-wrapper-r.sh
+drwxr-x--- 4 slot1_68 slot1_68      4096 Nov  4 18:38 scratch
+drwxrwxrwt 2 slot1_68 slot1_68      4096 Nov  4 18:38 tmp
+-rw-r--r-- 1 slot1_68 slot1_68    669783 Nov  4 18:38 upload.example-ss3-models.tar.gz
+drwxrwxrwt 2 slot1_68 slot1_68      4096 Nov  4 18:38 var_tmp
+/ss_exe:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+output/37-BigSkate_2019-2/
+[1] "/srv/working"
+[1] "output/37-BigSkate_2019-2/"
+[1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[1] "ran model"
+$SS_version
+[1] "3.30.22.1;_safe;_compile_date:_Jan 30 2024;_Stock_Synthesis_by_Richard_Methot_(NOAA)_using_ADMB_13.1"
+
+$SS_versionshort
+[1] "3.30"
+
+$SS_versionNumeric
+[1] 3.3
+
+$StartTime
+[1] "StartTime: Mon Nov 4 18:38:28 2024"
+
+$RunTime
+[1] "0 hours, 3 minutes, 7 seconds."
+
+$Files_used
+[1] "Data_File: BSKT2019_data.ss Control_File: BSKT2019_control.ss"
+
+$log_det_hessian
+[1] 22.9749
+
+$Final_phase
+[1] 5
+
+$N_iterations
+[1] 380
+
+$Nwarnings
+[1] 6
+
+$warnings
+[1] "Note 1 Information: Max data length bin: 200  < max pop len bins: 250; so will accumulate larger pop len bins"         
+[2] "Warning 1 : Block:2 13 ends in: 2030 after retroyr+1:  2017"                                                           
+[3] "Warning 2 Adjustment:  recdev_end: 2018 > retro_yr: 2016 reset "                                                       
+[4] "Note 2 Information: A revised protocol for the Fcast_yr specification is available and recommended."                   
+[5] "Note 3 Information:  N parameters that are on or within 1% of min-max bound: 1; check results, variance may be suspect"
+[6] " 2 warnings  and 3 notes "                                                                                             
+
+$likelihoods_used
+                                   values lambdas
+TOTAL                351.1379999999999768      NA
+Catch                  0.0000000000541235      NA
+Equil_catch            0.0000000000000000      NA
+Survey                -7.6012199999999996      NA
+Discard              -20.0168999999999997      NA
+Mean_body_wt          -5.8522400000000001      NA
+Length_comp          310.2029999999999745      NA
+Age_comp              74.2985999999999933      NA
+Size_at_age            0.0000000000000000      NA
+Recruitment            0.0000000000000000       1
+InitEQ_Regime          0.0000000000000000       1
+Forecast_Recruitment   0.0000000000000000       1
+Parm_priors            0.0991992000000000       1
+Parm_softbounds        0.0081650200000000      NA
+Parm_devs              0.0000000000000000       1
+Crash_Pen              0.0000000000000000       1
+
+$likelihoods_laplace
+                                     values lambdas
+NoBias_corr_Recruitment(info_only) -26.4874       1
+Laplace_obj_fun(info_only)         324.6510      NA
+
+$likelihoods_by_fleet
+               Label          ALL Fishery_current Discard_historical
+189     Catch_lambda           NA     1.00000e+00        1.00000e+00
+190       Catch_like  5.41235e-11     9.91205e-12        1.97238e-11
+191  Init_equ_lambda           NA     1.00000e+00        1.00000e+00
+192    Init_equ_like  0.00000e+00     0.00000e+00        0.00000e+00
+193      Surv_lambda           NA     0.00000e+00        0.00000e+00
+194        Surv_like -7.60122e+00     0.00000e+00        0.00000e+00
+195       Surv_N_use           NA     0.00000e+00        0.00000e+00
+196      Surv_N_skip           NA     0.00000e+00        0.00000e+00
+197      Disc_lambda           NA     1.00000e+00        0.00000e+00
+198        Disc_like -2.00169e+01    -2.00169e+01        0.00000e+00
+199       Disc_N_use           NA     1.50000e+01        0.00000e+00
+200      Disc_N_skip           NA     1.00000e+00        0.00000e+00
+201      mnwt_lambda           NA     1.00000e+00        1.00000e+00
+202        mnwt_like -5.85224e+00    -5.85224e+00        0.00000e+00
+203       mnwt_N_use           NA     1.50000e+01        0.00000e+00
+204      mnwt_N_skip           NA     1.00000e+00        0.00000e+00
+205    Length_lambda           NA     1.00000e+00        0.00000e+00
+206      Length_like  3.10203e+02     2.01970e+02        0.00000e+00
+207     Length_N_use           NA     2.80000e+01        0.00000e+00
+208    Length_N_skip           NA     3.00000e+00        0.00000e+00
+209       Age_lambda           NA     1.00000e+00        0.00000e+00
+210         Age_like  7.42986e+01     4.11461e+01        0.00000e+00
+211        Age_N_use           NA     1.64000e+02        0.00000e+00
+212       Age_N_skip           NA     4.10000e+01        0.00000e+00
+213 Sizeatage_lambda           NA     0.00000e+00        0.00000e+00
+214   sizeatage_like  0.00000e+00     0.00000e+00        0.00000e+00
+215  sizeatage_N_use           NA     0.00000e+00        0.00000e+00
+216 sizeatage_N_skip           NA     0.00000e+00        0.00000e+00
+    Fishery_historical Fishery_tribal    WCGBTS Triennial
+189        1.00000e+00    1.00000e+00   1.00000  1.000000
+190        1.53358e-11    9.15181e-12   0.00000  0.000000
+191        1.00000e+00    1.00000e+00   1.00000  1.000000
+192        0.00000e+00    0.00000e+00   0.00000  0.000000
+193        0.00000e+00    0.00000e+00   1.00000  1.000000
+194        0.00000e+00    0.00000e+00  -7.92007  0.318842
+195        0.00000e+00    0.00000e+00  14.00000  9.000000
+196        0.00000e+00    0.00000e+00   2.00000  0.000000
+197        0.00000e+00    0.00000e+00   0.00000  0.000000
+198        0.00000e+00    0.00000e+00   0.00000  0.000000
+199        0.00000e+00    0.00000e+00   0.00000  0.000000
+200        0.00000e+00    0.00000e+00   0.00000  0.000000
+201        1.00000e+00    1.00000e+00   1.00000  1.000000
+202        0.00000e+00    0.00000e+00   0.00000  0.000000
+203        0.00000e+00    0.00000e+00   0.00000  0.000000
+204        0.00000e+00    0.00000e+00   0.00000  0.000000
+205        0.00000e+00    0.00000e+00   1.00000  1.000000
+206        0.00000e+00    0.00000e+00  35.04460 73.188000
+207        0.00000e+00    0.00000e+00  14.00000  2.000000
+208        0.00000e+00    0.00000e+00   2.00000  0.000000
+209        0.00000e+00    0.00000e+00   1.00000  0.000000
+210        0.00000e+00    0.00000e+00  33.15250  0.000000
+211        0.00000e+00    0.00000e+00 133.00000  0.000000
+212        0.00000e+00    0.00000e+00  84.00000  0.000000
+213        0.00000e+00    0.00000e+00   0.00000  0.000000
+214        0.00000e+00    0.00000e+00 111.23700  0.000000
+215        0.00000e+00    0.00000e+00   1.00000  0.000000
+216        0.00000e+00    0.00000e+00   0.00000  0.000000
+
+$N_estimated_parameters
+[1] 44
+
+$table_of_phases
+
+-99  -5  -4  -3  -2  -1   1   2   3   4   5 
+  2  13  14  11   3   1   6   5   5  25   3 
+
+$estimated_non_dev_parameters
+                                                               Value Phase
+NatM_uniform_Fem_GP_1                                       0.436288     3
+L_at_Amin_Fem_GP_1                                         19.824000     2
+Linf_Fem_GP_1                                             176.217000     2
+VonBert_K_Fem_GP_1                                         11.822300     1
+Cessation_Fem_GP_1                                          9.999930     3
+SD_young_Fem_GP_1                                           5.990670     5
+SD_old_Fem_GP_1                                             6.971940     5
+Linf_Mal_GP_1                                              -0.373997     2
+VonBert_K_Mal_GP_1                                          0.136901     3
+SR_LN(R0)                                                   8.793210     3
+LnQ_base_WCGBTS(5)                                         -0.379927     1
+Q_extraSD_WCGBTS(5)                                         0.181370     1
+LnQ_base_Triennial(6)                                      -1.220950     1
+Q_extraSD_Triennial(6)                                      0.366141     1
+LnQ_base_Triennial(6)_BLK1repl_1995                        -0.901989     1
+Size_DblN_peak_Fishery_current(1)                          89.377400     4
+Size_DblN_ascend_se_Fishery_current(1)                      7.049140     4
+Retain_L_infl_Fishery_current(1)                           65.479400     2
+Retain_L_width_Fishery_current(1)                           4.799140     2
+Retain_L_asymptote_logit_Fishery_current(1)                 1.910440     3
+SzSel_Fem_Peak_Fishery_current(1)                          -4.484520     4
+SzSel_Fem_Scale_Fishery_current(1)                          0.793096     4
+Size_DblN_peak_WCGBTS(5)                                   76.680400     4
+Size_DblN_ascend_se_WCGBTS(5)                               6.613830     4
+Size_DblN_descend_se_WCGBTS(5)                             15.572900     5
+SzSel_Fem_Peak_WCGBTS(5)                                   -8.468940     4
+SzSel_Fem_Scale_WCGBTS(5)                                   0.729363     4
+Size_DblN_peak_Triennial(6)                               189.918000     4
+Size_DblN_ascend_se_Triennial(6)                            8.528840     4
+Size_DblN_start_logit_Triennial(6)                         -4.733290     4
+SzSel_Fem_Scale_Triennial(6)                                0.656822     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005   2.197790     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006   3.144690     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007   3.716760     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008   9.999780     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009   4.442230     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010  13.104100     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011  14.580300     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012  13.780300     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013   3.416350     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014   3.493730     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015   3.315830     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016   2.833760     4
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017   4.999720     4
+                                                              Min   Max
+NatM_uniform_Fem_GP_1                                       0.100   0.6
+L_at_Amin_Fem_GP_1                                         10.000  40.0
+Linf_Fem_GP_1                                             100.000 300.0
+VonBert_K_Fem_GP_1                                          0.005  30.0
+Cessation_Fem_GP_1                                          0.100  10.0
+SD_young_Fem_GP_1                                           1.000  20.0
+SD_old_Fem_GP_1                                             1.000  20.0
+Linf_Mal_GP_1                                              -1.000   1.0
+VonBert_K_Mal_GP_1                                        -10.000  20.0
+SR_LN(R0)                                                   5.000  15.0
+LnQ_base_WCGBTS(5)                                         -2.000   2.0
+Q_extraSD_WCGBTS(5)                                         0.000   2.0
+LnQ_base_Triennial(6)                                     -10.000   2.0
+Q_extraSD_Triennial(6)                                      0.000   2.0
+LnQ_base_Triennial(6)_BLK1repl_1995                        -7.000   0.0
+Size_DblN_peak_Fishery_current(1)                          80.000 150.0
+Size_DblN_ascend_se_Fishery_current(1)                     -1.000   9.0
+Retain_L_infl_Fishery_current(1)                           15.000 150.0
+Retain_L_width_Fishery_current(1)                           0.100  10.0
+Retain_L_asymptote_logit_Fishery_current(1)               -10.000  20.0
+SzSel_Fem_Peak_Fishery_current(1)                         -50.000  50.0
+SzSel_Fem_Scale_Fishery_current(1)                          0.500   1.5
+Size_DblN_peak_WCGBTS(5)                                   50.000 150.0
+Size_DblN_ascend_se_WCGBTS(5)                              -1.000   9.0
+Size_DblN_descend_se_WCGBTS(5)                             -1.000  20.0
+SzSel_Fem_Peak_WCGBTS(5)                                  -50.000  50.0
+SzSel_Fem_Scale_WCGBTS(5)                                   0.500   1.5
+Size_DblN_peak_Triennial(6)                                50.000 200.0
+Size_DblN_ascend_se_Triennial(6)                           -1.000   9.0
+Size_DblN_start_logit_Triennial(6)                        -15.000   9.0
+SzSel_Fem_Scale_Triennial(6)                                0.500   1.5
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016 -10.000  20.0
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017 -10.000  20.0
+                                                                Init Status
+NatM_uniform_Fem_GP_1                                       0.449208     OK
+L_at_Amin_Fem_GP_1                                         20.082100     OK
+Linf_Fem_GP_1                                             175.663000     OK
+VonBert_K_Fem_GP_1                                         12.140700     OK
+Cessation_Fem_GP_1                                          5.610090     HI
+SD_young_Fem_GP_1                                           5.702740     OK
+SD_old_Fem_GP_1                                             7.084120     OK
+Linf_Mal_GP_1                                              -0.373076     OK
+VonBert_K_Mal_GP_1                                          0.100981     OK
+SR_LN(R0)                                                   8.904690     OK
+LnQ_base_WCGBTS(5)                                         -0.403308     OK
+Q_extraSD_WCGBTS(5)                                         0.163264     OK
+LnQ_base_Triennial(6)                                      -1.252400     OK
+Q_extraSD_Triennial(6)                                      0.365954     OK
+LnQ_base_Triennial(6)_BLK1repl_1995                        -0.934511     OK
+Size_DblN_peak_Fishery_current(1)                          94.111400     OK
+Size_DblN_ascend_se_Fishery_current(1)                      7.153310     OK
+Retain_L_infl_Fishery_current(1)                           66.214400     OK
+Retain_L_width_Fishery_current(1)                           4.876370     OK
+Retain_L_asymptote_logit_Fishery_current(1)                 2.051820     OK
+SzSel_Fem_Peak_Fishery_current(1)                          -5.521930     OK
+SzSel_Fem_Scale_Fishery_current(1)                          0.743963     OK
+Size_DblN_peak_WCGBTS(5)                                   76.147300     OK
+Size_DblN_ascend_se_WCGBTS(5)                               6.497710     OK
+Size_DblN_descend_se_WCGBTS(5)                             16.548300     OK
+SzSel_Fem_Peak_WCGBTS(5)                                   -7.974700     OK
+SzSel_Fem_Scale_WCGBTS(5)                                   0.698111     OK
+Size_DblN_peak_Triennial(6)                               187.543000     OK
+Size_DblN_ascend_se_Triennial(6)                            8.472360     OK
+Size_DblN_start_logit_Triennial(6)                         -4.794170     OK
+SzSel_Fem_Scale_Triennial(6)                                0.606512     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005   2.300330     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006   3.303950     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007   3.962990     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008  11.079300     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009   4.912410     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010  13.241800     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011  14.640600     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012  13.892100     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013   3.455660     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014   3.620060     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015   3.405000     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016   2.884760     OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017   2.817190     OK
+                                                           Parm_StDev
+NatM_uniform_Fem_GP_1                                       0.0315065
+L_at_Amin_Fem_GP_1                                          1.1682400
+Linf_Fem_GP_1                                               4.2030400
+VonBert_K_Fem_GP_1                                          0.3200030
+Cessation_Fem_GP_1                                          0.2325950
+SD_young_Fem_GP_1                                           1.1089300
+SD_old_Fem_GP_1                                             0.9468840
+Linf_Mal_GP_1                                               0.0265931
+VonBert_K_Mal_GP_1                                          0.0346489
+SR_LN(R0)                                                   0.3756160
+LnQ_base_WCGBTS(5)                                          0.3167670
+Q_extraSD_WCGBTS(5)                                         0.0646721
+LnQ_base_Triennial(6)                                       0.7740600
+Q_extraSD_Triennial(6)                                      0.1464670
+LnQ_base_Triennial(6)_BLK1repl_1995                         0.7730060
+Size_DblN_peak_Fishery_current(1)                           5.1488400
+Size_DblN_ascend_se_Fishery_current(1)                      0.1335710
+Retain_L_infl_Fishery_current(1)                            0.7230730
+Retain_L_width_Fishery_current(1)                           0.3779360
+Retain_L_asymptote_logit_Fishery_current(1)                 0.3517880
+SzSel_Fem_Peak_Fishery_current(1)                           2.2512500
+SzSel_Fem_Scale_Fishery_current(1)                          0.1060580
+Size_DblN_peak_WCGBTS(5)                                    7.5832800
+Size_DblN_ascend_se_WCGBTS(5)                               0.4201070
+Size_DblN_descend_se_WCGBTS(5)                             66.8069000
+SzSel_Fem_Peak_WCGBTS(5)                                    4.9045900
+SzSel_Fem_Scale_WCGBTS(5)                                   0.1428010
+Size_DblN_peak_Triennial(6)                                37.6449000
+Size_DblN_ascend_se_Triennial(6)                            0.4453090
+Size_DblN_start_logit_Triennial(6)                          0.8271160
+SzSel_Fem_Scale_Triennial(6)                                0.1394150
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005   0.5505510
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006   1.1857900
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007   1.6491800
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008 125.1940000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009   2.4693800
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010  89.8752000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011  74.4189000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012  82.7472000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013   0.3254060
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014   0.2578100
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015   0.2486430
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016   0.1861330
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017 335.4070000
+                                                                   Gradient
+NatM_uniform_Fem_GP_1                                     -0.00000182243000
+L_at_Amin_Fem_GP_1                                        -0.00000082758700
+Linf_Fem_GP_1                                             -0.00000075025800
+VonBert_K_Fem_GP_1                                         0.00000593442000
+Cessation_Fem_GP_1                                         0.00000093694200
+SD_young_Fem_GP_1                                         -0.00000040261000
+SD_old_Fem_GP_1                                           -0.00000065494500
+Linf_Mal_GP_1                                             -0.00000023241900
+VonBert_K_Mal_GP_1                                        -0.00000375630000
+SR_LN(R0)                                                  0.00000389434000
+LnQ_base_WCGBTS(5)                                         0.00000352191000
+Q_extraSD_WCGBTS(5)                                       -0.00000026684500
+LnQ_base_Triennial(6)                                     -0.00000308856000
+Q_extraSD_Triennial(6)                                    -0.00000020070400
+LnQ_base_Triennial(6)_BLK1repl_1995                       -0.00000103420000
+Size_DblN_peak_Fishery_current(1)                         -0.00000018157900
+Size_DblN_ascend_se_Fishery_current(1)                     0.00000068874000
+Retain_L_infl_Fishery_current(1)                          -0.00000024212400
+Retain_L_width_Fishery_current(1)                          0.00000009928000
+Retain_L_asymptote_logit_Fishery_current(1)                0.00000017681100
+SzSel_Fem_Peak_Fishery_current(1)                         -0.00000013367700
+SzSel_Fem_Scale_Fishery_current(1)                        -0.00000006939410
+Size_DblN_peak_WCGBTS(5)                                   0.00000048306900
+Size_DblN_ascend_se_WCGBTS(5)                             -0.00000009138670
+Size_DblN_descend_se_WCGBTS(5)                            -0.00000367429000
+SzSel_Fem_Peak_WCGBTS(5)                                   0.00000095608600
+SzSel_Fem_Scale_WCGBTS(5)                                  0.00000046235900
+Size_DblN_peak_Triennial(6)                                0.00000145844000
+Size_DblN_ascend_se_Triennial(6)                          -0.00000672973000
+Size_DblN_start_logit_Triennial(6)                         0.00000524651000
+SzSel_Fem_Scale_Triennial(6)                              -0.00000026915700
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005  0.00000009336520
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006  0.00000027807600
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007 -0.00000000557108
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008  0.00000530695000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009 -0.00000011768400
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010  0.00001701990000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011 -0.00001727200000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012  0.00000680653000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013 -0.00000017882500
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014  0.00000016855200
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015  0.00000026715100
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016  0.00000101734000
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017 -0.00000005910200
+                                                           Pr_type    Prior
+NatM_uniform_Fem_GP_1                                     Log_Norm -1.02165
+L_at_Amin_Fem_GP_1                                        No_prior       NA
+Linf_Fem_GP_1                                             No_prior       NA
+VonBert_K_Fem_GP_1                                        No_prior       NA
+Cessation_Fem_GP_1                                        No_prior       NA
+SD_young_Fem_GP_1                                         No_prior       NA
+SD_old_Fem_GP_1                                           No_prior       NA
+Linf_Mal_GP_1                                             No_prior       NA
+VonBert_K_Mal_GP_1                                        No_prior       NA
+SR_LN(R0)                                                 No_prior       NA
+LnQ_base_WCGBTS(5)                                          Normal -0.35500
+Q_extraSD_WCGBTS(5)                                       No_prior       NA
+LnQ_base_Triennial(6)                                     No_prior       NA
+Q_extraSD_Triennial(6)                                    No_prior       NA
+LnQ_base_Triennial(6)_BLK1repl_1995                       No_prior       NA
+Size_DblN_peak_Fishery_current(1)                         No_prior       NA
+Size_DblN_ascend_se_Fishery_current(1)                    No_prior       NA
+Retain_L_infl_Fishery_current(1)                          No_prior       NA
+Retain_L_width_Fishery_current(1)                         No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)               No_prior       NA
+SzSel_Fem_Peak_Fishery_current(1)                         No_prior       NA
+SzSel_Fem_Scale_Fishery_current(1)                        No_prior       NA
+Size_DblN_peak_WCGBTS(5)                                  No_prior       NA
+Size_DblN_ascend_se_WCGBTS(5)                             No_prior       NA
+Size_DblN_descend_se_WCGBTS(5)                            No_prior       NA
+SzSel_Fem_Peak_WCGBTS(5)                                  No_prior       NA
+SzSel_Fem_Scale_WCGBTS(5)                                 No_prior       NA
+Size_DblN_peak_Triennial(6)                               No_prior       NA
+Size_DblN_ascend_se_Triennial(6)                          No_prior       NA
+Size_DblN_start_logit_Triennial(6)                        No_prior       NA
+SzSel_Fem_Scale_Triennial(6)                              No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016 No_prior       NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017 No_prior       NA
+                                                          Pr_SD    Pr_Like
+NatM_uniform_Fem_GP_1                                     0.438 0.09627580
+L_at_Amin_Fem_GP_1                                           NA         NA
+Linf_Fem_GP_1                                                NA         NA
+VonBert_K_Fem_GP_1                                           NA         NA
+Cessation_Fem_GP_1                                           NA         NA
+SD_young_Fem_GP_1                                            NA         NA
+SD_old_Fem_GP_1                                              NA         NA
+Linf_Mal_GP_1                                                NA         NA
+VonBert_K_Mal_GP_1                                           NA         NA
+SR_LN(R0)                                                    NA         NA
+LnQ_base_WCGBTS(5)                                        0.326 0.00292341
+Q_extraSD_WCGBTS(5)                                          NA         NA
+LnQ_base_Triennial(6)                                        NA         NA
+Q_extraSD_Triennial(6)                                       NA         NA
+LnQ_base_Triennial(6)_BLK1repl_1995                          NA         NA
+Size_DblN_peak_Fishery_current(1)                            NA         NA
+Size_DblN_ascend_se_Fishery_current(1)                       NA         NA
+Retain_L_infl_Fishery_current(1)                             NA         NA
+Retain_L_width_Fishery_current(1)                            NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)                  NA         NA
+SzSel_Fem_Peak_Fishery_current(1)                            NA         NA
+SzSel_Fem_Scale_Fishery_current(1)                           NA         NA
+Size_DblN_peak_WCGBTS(5)                                     NA         NA
+Size_DblN_ascend_se_WCGBTS(5)                                NA         NA
+Size_DblN_descend_se_WCGBTS(5)                               NA         NA
+SzSel_Fem_Peak_WCGBTS(5)                                     NA         NA
+SzSel_Fem_Scale_WCGBTS(5)                                    NA         NA
+Size_DblN_peak_Triennial(6)                                  NA         NA
+Size_DblN_ascend_se_Triennial(6)                             NA         NA
+Size_DblN_start_logit_Triennial(6)                           NA         NA
+SzSel_Fem_Scale_Triennial(6)                                 NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016    NA         NA
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017    NA         NA
+                                                          Afterbound
+NatM_uniform_Fem_GP_1                                             OK
+L_at_Amin_Fem_GP_1                                                OK
+Linf_Fem_GP_1                                                     OK
+VonBert_K_Fem_GP_1                                                OK
+Cessation_Fem_GP_1                                             CHECK
+SD_young_Fem_GP_1                                                 OK
+SD_old_Fem_GP_1                                                   OK
+Linf_Mal_GP_1                                                     OK
+VonBert_K_Mal_GP_1                                                OK
+SR_LN(R0)                                                         OK
+LnQ_base_WCGBTS(5)                                                OK
+Q_extraSD_WCGBTS(5)                                               OK
+LnQ_base_Triennial(6)                                             OK
+Q_extraSD_Triennial(6)                                            OK
+LnQ_base_Triennial(6)_BLK1repl_1995                               OK
+Size_DblN_peak_Fishery_current(1)                                 OK
+Size_DblN_ascend_se_Fishery_current(1)                            OK
+Retain_L_infl_Fishery_current(1)                                  OK
+Retain_L_width_Fishery_current(1)                                 OK
+Retain_L_asymptote_logit_Fishery_current(1)                       OK
+SzSel_Fem_Peak_Fishery_current(1)                                 OK
+SzSel_Fem_Scale_Fishery_current(1)                                OK
+Size_DblN_peak_WCGBTS(5)                                          OK
+Size_DblN_ascend_se_WCGBTS(5)                                     OK
+Size_DblN_descend_se_WCGBTS(5)                                    OK
+SzSel_Fem_Peak_WCGBTS(5)                                          OK
+SzSel_Fem_Scale_WCGBTS(5)                                         OK
+Size_DblN_peak_Triennial(6)                                       OK
+Size_DblN_ascend_se_Triennial(6)                                  OK
+Size_DblN_start_logit_Triennial(6)                                OK
+SzSel_Fem_Scale_Triennial(6)                                      OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2005         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2006         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2007         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2008         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2009         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2013         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2014         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2015         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2016         OK
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2017         OK
+
+$maximum_gradient_component
+[1] 1.7272e-05
+
+$parameters_with_highest_gradients
+                                                             Value     Gradient
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2011 14.58030 -1.72720e-05
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2010 13.10410  1.70199e-05
+Retain_L_asymptote_logit_Fishery_current(1)_BLK2repl_2012 13.78030  6.80653e-06
+Size_DblN_ascend_se_Triennial(6)                           8.52884 -6.72973e-06
+VonBert_K_Fem_GP_1                                        11.82230  5.93442e-06
+
+$Length_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj #  N Npos min_Nsamp max_Nsamp
+2926         4     1          0.104085 # 31   28  0.306093  164.8010
+2927         4     5          0.687247 # 16   14  8.494920   23.8667
+2928         4     6          0.880604 #  2    2 84.000000   92.0000
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+2926       173.907        41.7178            NA          0        NA
+2927       223.929        15.0973            NA          0        NA
+2928        88.000        88.0000            NA          0        NA
+            par1 val1 par2 val2 mean_effN  HarMean Curr_Var_Adj      Fleet_name
+2926 multinomial   NA   NA   NA   76.3242  18.1012     0.239885 Fishery_current
+2927 multinomial   NA   NA   NA  174.3610 153.8940     0.067420          WCGBTS
+2928 multinomial   NA   NA   NA   81.1576  77.4932     1.000000       Triennial
+
+$Age_Comp_Fit_Summary
+     Data_type Fleet Recommend_var_adj # Nsamp_adj Npos min_Nsamp max_Nsamp
+3357         5     1          0.388225 #       205  164  0.084412   1.51942
+3358         5     5          0.404640 #       217  133  0.053605   1.17931
+     mean_Nsamp_in mean_Nsamp_adj mean_Nsamp_DM err_method err_index
+3357       4.04268       0.341251            NA          0        NA
+3358       5.24812       0.281325            NA          0        NA
+            par1 val1 par2 val2 mean_effN HarMean Curr_Var_Adj      Fleet_name
+3357 multinomial   NA   NA   NA   3.49035 1.56947     0.084412 Fishery_current
+3358 multinomial   NA   NA   NA   7.00144 2.12360     0.053605          WCGBTS
+
+$SBzero
+[1] 2346.82
+
+$current_depletion
+[1] 0.7650992
+
+$SPRratioLabel
+[1] "(1-SPR)/(1-SPR_50%)"
+
+$sigma_R_in
+[1] 0.3
+
+$sigma_R_info
+           period N_devs SD_of_devs Var_of_devs mean_SE mean_SEsquared
+1            Main     22          0           0      NA             NA
+2      Early+Main     22          0           0      NA             NA
+3 Early+Main+Late     24          0           0      NA             NA
+  sqrt_sum_of_components SD_of_devs_over_sigma_R sqrt_sum_over_sigma_R
+1                     NA                       0                    NA
+2                     NA                       0                    NA
+3                     NA                       0                    NA
+  alternative_sigma_R
+1                <NA>
+2                <NA>
+3                <NA>
+
+$rmse_table
+    ERA  N RMSE RMSE_over_sigmaR mean_BiasAdj
+1  main 22    0                0            0
+2 early  0    0                0            0
+
+$RecDev_method
+[1] 1
+
+196
