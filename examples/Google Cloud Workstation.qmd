@@ -1,0 +1,13 @@
+1. Create new repository (https://console.cloud.google.com/artifacts)
+2. Clone repo using the cloud terminal (upper right hand corner terminal icon). `git clone -b google-cloud-batch https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`
+3. Build Docker file 
+
+```
+    cd NSASS-HTC-HPC-Computing
+    gcloud builds submit \
+  -t us-central1-docker.pkg.dev/batch-project-test/containers/nsass-lm-array:v1 .
+```
+
+## Resources  
+*  https://github.com/GoogleCloudPlatform/batch-samples/blob/main/primegen/setup.sh  
+*  https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows#console_1  
