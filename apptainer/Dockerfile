@@ -45,15 +45,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && locale-gen en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
 
-# 5. Install R version 4.4.0
-ENV R_VERSION=4.4.0
-RUN curl -O https://cdn.rstudio.com/r/ubuntu-2004/pkgs/r-${R_VERSION}_1_amd64.deb \
-    && gdebi -n r-${R_VERSION}_1_amd64.deb \
-    && rm r-${R_VERSION}_1_amd64.deb \
-    && ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R \
-    && ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
-
-# 6. Install R Packages
+# 5. Install R Packages
 RUN R -e "install.packages('remotes', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
     && R -e "install.packages('data.table', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
     && R -e "install.packages('magrittr', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
@@ -61,7 +53,7 @@ RUN R -e "install.packages('remotes', dependencies=TRUE, repos='http://cran.rstu
     && R -e "remotes::install_github('r4ss/r4ss')" \
     && R -e "remotes::install_github('PIFSCstockassessments/ss3diags')"
 
-# 7. Record Build Date & Install Stock Synthesis Executable
+# 6. Record Build Date & Install Stock Synthesis Executable
 RUN export build_date=$(date) \
     && mkdir -p /ss_exe \
     && curl -L -o /ss_exe/ss3_linux https://github.com/nmfs-ost/ss3-source-code/releases/download/v3.30.22.1/ss3_linux \
