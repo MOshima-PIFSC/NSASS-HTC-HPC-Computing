@@ -1,6 +1,6 @@
 # Translated from linux-r4ss-v4.def using Gemini (June 26 2026). Trying to run the tutorials in Google Cloud Workstation using Batch. 
 # 1. Base Image (Bootstrap: docker / From: ubuntu:20.04)
-FROM ubuntu:20.04
+FROM rocker/r-ver:4.4.0
 
 # 2. Labels (%labels)
 LABEL maintainer="nicholas.ducharme-barth@noaa.gov"
@@ -15,6 +15,12 @@ ENV PATH="/ss_exe:${PATH}"
 # 4. Setup and System Dependencies (%post)
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
     && apt-get update -y && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        gfortran \
+        libbz2-dev \
+        liblzma-dev \
+        libpcre2-dev \
+        libcairo2 \
         tzdata \
         curl \
         dos2unix \
