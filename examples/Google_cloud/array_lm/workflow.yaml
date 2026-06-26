@@ -1,0 +1,68 @@
+main:
+  params: [args]
+  steps:
+    - init:
+        assign:
+          - projectId: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - region: "us-central1"
+          # 1. Point to your custom R container in Artifact Registry
+          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-htc-hpc-computing:v1"}
+          - jobId: ${"job-r-analysis-" + string(int(sys.now()))}
+          # 2. Point to the bucket where your data and scripts live
+          - bucket: "batch-project-test-bucket" 
+    - logCreateBatchJob:
+        call: sys.log
+        args:
+          data: ${"Creating and running the R script array job " + jobId}
+    - createAndRunBatchJob:
+        call: googleapis.batch.v1.projects.locations.jobs.create
+        args:
+            parent: ${"projects/" + projectId + "/locations/" + region}
+            jobId: ${jobId}
+            body:
+              taskGroups:
+                taskSpec:
+                  computeResource:
+                    cpuMilli: "4000"    # 4 vCPUs
+                    memoryMib: "16384"  # 16 GB RAM
+                  
+                  # Mount your bucket so the VM can read your R script
+                  volumes:
+                    - gcs:
+                        remotePath: ${bucket + "/scripts"}
+                      mountPath: "/mnt/share"
+                  
+                  runnables:
+                    - container:
+                        imageUri: ${imageUri}
+                        # Run the script from the mounted path
+                        commands: ["Rscript", "/mnt/share/run_lm_gc_array.r"]
+                        volumes:
+                          - "/mnt/share:/mnt/share"
+                        # Explicitly pass the bucket name to your R script environment
+                      environment:
+                        variables:
+                          GCS_BUCKET: ${bucket}
+                  
+                # 3. SET YOUR SCALE HERE
+                # Run 10 parallel tasks (from BATCH_TASK_INDEX 0 up to 9)
+                taskCount: 10
+                # Process up to 5 folders simultaneously across 5 VMs
+                parallelism: 5
+                
+              logsPolicy:
+                destination: CLOUD_LOGGING
+        result: createAndRunBatchJobResponse
+    - logDeleteBatchJob:
+        call: sys.log
+        args:
+          data: ${"Deleting the batch job metadata " + jobId}
+    - deleteBatchJob:
+        call: googleapis.batch.v1.projects.locations.jobs.delete
+        args:
+            name: ${"projects/" + projectId + "/locations/" + region + "/jobs/" + jobId}
+        result: deleteResult
+    - returnResult:
+        return:
+          jobId: ${jobId}
+          status: "Batch array processing completed successfully."

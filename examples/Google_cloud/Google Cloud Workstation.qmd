@@ -1,12 +1,155 @@
-1. Create new repository (https://console.cloud.google.com/artifacts)
-2. Clone repo using the cloud terminal (upper right hand corner terminal icon). `git clone -b google-cloud-batch https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git`
-3. Build Docker file 
+##TODO add header YAML and set default code chunk to eval = false
 
+I am documenting the process to run the example linear regression array from the [NSASS-HTC-HPC-Computing](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/tree/google-cloud-batch) repo on a Google Cloud Workstation using Batch. This is similar to an HTC or HPC workflow but Batch takes care of all of the scheduling and spinning up/stopping the VMs used for computations. The steps are from a combination of the "Run a Batch job using Workflows" [tutorial](https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows), the Getting Started guide from [`googleCloudStorageR` package](https://code.markedmondson.me/googleCloudStorageR/articles/googleCloudStorageR.html), and Gemini chats. 
+
+## Initial set up 
+See [Before you begin](https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows#before-you-begin) section of the Run a Batch job tutorial. Steps are included here for completeness and convinence. 
+1. In the Google Cloud console, on the project selector page, select or create a Google Cloud project.  
+2. Make sure that billing is enabled for your Google Cloud project. Learn how to check if billing is enabled on a project.  
+3. Enable the Artifact Registry, Batch, Cloud Build, Compute Engine, Workflow Executions, and Workflows APIs.  
+4. Create a service account for your workflow to use for authentication with other Google Cloud services and grant it the appropriate roles:
+    a. In the Google Cloud console, go to the Create service account page.
+    b. Select your project.
+    c. In the Service account name field, enter a name. The Google Cloud console fills in the Service account ID field based on this name. In the Service account description field, enter a description. For example, Service account for tutorial.
+    d. Click Create and continue.
+    e. In the Select a role list, filter for the following roles to grant to the user-managed service account you created in the previous step:
+      Batch job editor: to edit Batch jobs.
+      Logs Writer: to write logs.
+      Storage Admin: to control Cloud Storage resources.
+    For additional roles, click add Add another role and add each additional role.
+    f. Click continue. 
+    g. To finish creating the account click Done. 
+5. Grant the IAM Service Account User role on the default service account to the user-managed service account created in the previous step. After you enabled the Compute Engine API, the default service account is the Compute Engine default service account (PROJECT_NUMBER-compute@developer.gserviceaccount.com), and the permission is typically assigned through the roles/iam.serviceAccountUser role. (NOTE: for NOAA right now we don't have the permissions to do this)
+    a. On the Service Accounts page, click the email address of the default service account (PROJECT_NUMBER-compute@developer.gserviceaccount.com).
+    b. Click the Permissions tab.
+    c. Click the person_add Grant access button.
+    d. To add a new principal, enter the email address of your service account (SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com).
+    e. In the Select a role list, select the Service Accounts > Service Account User role.
+    f. Click Save.
+
+## Create an Artifact Registry repository  
+See [Create an Artifact Registry repository](https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows#create-repository) section of the Run a Batch job tutorial. Steps are included here for completeness and convinence.
+1. In the Google Cloud console, go to the [Repositories](https://console.cloud.google.com/artifacts) page.
+2. Click add Create Repository.
+3. Enter containers as the repository name.
+4. For Format, choose Docker.
+5. For Location Type, choose Region.
+6. In the Region list, select us-central1.
+7. Click Create.
+
+## Get code into Google Cloud  
+
+Clone repo using the cloud terminal (icon in the upper right hand corner terminal icon). 
+```
+git clone -b google-cloud-batch https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git
+```
+## Build Docker file 
+NOTE: Replace `NSASS-HTC-HPC-Computing` with the name of your folder that has the docker file, `batch-project-test` with your project name, and nsass-lm-array with a name that fits your project.  
 ```
     cd NSASS-HTC-HPC-Computing
     gcloud builds submit \
   -t us-central1-docker.pkg.dev/batch-project-test/containers/nsass-lm-array:v1 .
 ```
+
+
+To find or generate a service account JSON key file in Google Cloud, you need to navigate to the IAM & Admin section of your console.  Here is the step-by-step path to locate it and download a fresh copy:  
+Step 1: Navigate to Service Accounts  
+  1. Open the Google Cloud Console.
+  2. Click the Navigation menu (the three horizontal lines in the top-left corner).  
+  3. Hover over IAM & Admin and select Service Accounts.  
+Step 2: Select Your Service Account
+  1. Look through the list to find the specific service account you want to use.  
+  2. Click on its Email address or click the three vertical dots (Actions) on the far right of its row and select Manage keys.  
+Step 3: Create and Download the JSON Key  
+  1. Select the Keys tab near the top of the page.  
+  2. Click the Add Key drop-down button, then choose Create new key.  
+  3. In the pop-up box that appears, make sure JSON is selected (it is selected by default).  
+  4. Click Create.  
+  
+  Your browser will automatically download the JSON file to your computer.  
+  ⚠️ Important Security Notes:   
+  *It is a one-time download:* Google does not keep a copy of this cryptographic private key file. If you lose it, you cannot re-download it; you will have to delete the lost key and create a brand-new one.  
+  *Keep it a secret:* Anyone who gets their hands on this JSON file can act completely on behalf of that service account. Never commit this file to public GitHub repositories or hardcode it directly into your R scripts or Docker images. Instead, pass it safely into your tools via environment variables like `GOOGLE_APPLICATION_CREDENTIALS`.
+
+  The JSON file will be in your Downloads folder. It is best to move it to a central location on your computer (not inside a specfic project folder) so that any project can access it. 
+
+### A Centralized Setup (The "Best Practice" Way)
+Instead of hardcoding `Sys.setenv` at the top of every R script, you can automate it using your global `.Renviron` file. This makes the key available globally across all your projects without exposing the file path in your code.
+
+1. Install and run the `usethis` package in your R console:
+
+```{r}
+#| eval = false
+install.packages("usethis")
+usethis::edit_r_environ()
+```
+
+2. A blank or existing text file called `.Renviron` will open in your editor. Add this single line to it:
+
+```
+GCS_AUTH_FILE="/Users/Username/SecureFolder/gcp-service-account.json"
+```
+3. Save the file and restart your R session. (File is saved in my Documents folder)
+
+Now, every time you open R—regardless of what project you are working on—the googleCloudStorageR package will automatically find your key in the background. 
+
+## Creating storage bucket and uploading data from R  
+```{r}
+#renv::install("googleCloudStorageR")
+library(googleCloudStorageR)
+
+# Unique name for bucket 
+gc_bucket <- "nsass-gc-bucket"
+
+# create bucket in desired region  
+gcs_create_bucket(
+  name = gc_bucket,
+  projectId = "batch-project-test",
+  location = "us-central1",
+  storageClass = "REGIONAL" # this line is necessary to prevent the function from trying to create a MULTI_REGIONAL bucket and throwing an error
+)
+
+gcs_get_bucket(gc_bucket)
+```
+
+Now once the bucket has been created, you can upload the directories of data using the following code:  
+
+```{r}
+
+gcs_auth(Sys.getenv("GCS_AUTH_FILE"))
+
+# List all your local data folders
+local_folders <- list.dirs("examples/Google_cloud//array_lm/inputs/", recursive = FALSE, full.names = TRUE)
+
+# Loop through and upload each data.csv file to its indexed spot in GCS
+for (i in seq_along(local_folders)) {
+  
+  # Batch task indexes usually start at 0
+  task_index <- i - 1 
+  
+  local_file_path <- file.path(local_folders[i], "data.csv")
+  
+  # Format the number to always have 2 digits (e.g., 0 -> "00", 9 -> "09")
+  padded_index <- sprintf("%02d", task_index)
+
+  # Define the folder structure inside the GCS bucket
+  gcs_destination <- paste0("inputs/rep_", task_index, "/data.csv")
+  
+  # Upload the file
+  gcs_upload(
+    file = local_file_path,
+    bucket = gc_bucket,
+    name = gcs_destination
+  )
+  
+  message("Uploaded: ", local_file_path, " -> ", gcs_destination)
+}
+```
+
+
+Also make sure the R script you want to run is in your bucket. 
+gsutil cp run_lm_gc_array.r gs://batch-project-test-bucket/scripts/
+
 
 ## Resources  
 *  https://github.com/GoogleCloudPlatform/batch-samples/blob/main/primegen/setup.sh  
