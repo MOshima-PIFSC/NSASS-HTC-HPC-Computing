@@ -6,10 +6,10 @@ main:
           - projectId: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
           - region: "us-central1"
           # 1. Point to your custom R container in Artifact Registry
-          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-lm-array"}
+          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-lm-array:v1"}
           - jobId: ${"job-r-analysis-" + string(int(sys.now()))}
           # 2. Point to the bucket where your data and scripts live
-          - bucket: "batch-project-test-bucket" 
+          - bucket: "nsass-gc-bucket" 
     - logCreateBatchJob:
         call: sys.log
         args:
@@ -29,17 +29,16 @@ main:
                   # Mount your bucket so the VM can read your R script
                   volumes:
                     - gcs:
-                        remotePath: ${bucket + "/scripts"}
+                        remotePath: ${bucket}
                       mountPath: "/mnt/share"
                   
                   runnables:
                     - container:
                         imageUri: ${imageUri}
-                        # Run the script from the mounted path
-                        commands: ["Rscript", "/mnt/share/run_lm_gc_array.r"]
+                        commands: ["Rscript", "/mnt/share/scripts/run_lm_gc_array.r"]
                         volumes:
                           - "/mnt/share:/mnt/share"
-                        # Explicitly pass the bucket name to your R script environment
+                      #  Perfectly aligned under the container dash!
                       environment:
                         variables:
                           GCS_BUCKET: ${bucket}

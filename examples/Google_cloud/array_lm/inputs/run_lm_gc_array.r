@@ -5,12 +5,12 @@ if (task_index == "") {
 }
 
 # 2. Pad it to 2 digits (e.g., "00", "01")
-padded_index  <- sprintf("%02d", as.integer(task_index))
+#padded_index  <- sprintf("%02d", as.integer(task_index))
 
 # 3. Use the VM's mount path (/mnt/share) instead of "gs://" urls
 # This points directly to your bucket's structure via the volume mount
-input_file  <- paste0("/mnt/share/inputs/rep_", padded_index, "/data.csv")
-output_file <- paste0("/mnt/share/inputs/rep_", padded_index, "/par.csv")
+input_file  <- paste0("/mnt/share/inputs/rep_", task_index, "/data.csv")
+output_file <- paste0("/mnt/share/inputs/rep_", task_index, "/par.csv")
 
 # 4. Read the data directly from the mounted bucket
 tmp <- read.csv(input_file)
