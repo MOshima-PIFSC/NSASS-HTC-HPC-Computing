@@ -6,7 +6,7 @@ main:
           - projectId: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
           - region: "us-central1"
           # 1. Point to your custom R container in Artifact Registry
-          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-htc-hpc-computing:v1"}
+          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-lm-array"}
           - jobId: ${"job-r-analysis-" + string(int(sys.now()))}
           # 2. Point to the bucket where your data and scripts live
           - bucket: "batch-project-test-bucket" 
@@ -23,8 +23,8 @@ main:
               taskGroups:
                 taskSpec:
                   computeResource:
-                    cpuMilli: "4000"    # 4 vCPUs
-                    memoryMib: "16384"  # 16 GB RAM
+                    cpuMilli: "2000"    # 2 vCPUs
+                    memoryMib: "8192"  # 8 GB RAM
                   
                   # Mount your bucket so the VM can read your R script
                   volumes:
