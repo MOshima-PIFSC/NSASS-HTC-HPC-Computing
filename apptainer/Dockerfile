@@ -1,63 +1,25 @@
 # Translated from linux-r4ss-v4.def using Gemini (June 26 2026). Trying to run the tutorials in Google Cloud Workstation using Batch. 
-# 1. Base Image (Bootstrap: docker / From: ubuntu:20.04)
-FROM rocker/r-ver:4.4.0
+# 1. Base Image 
+FROM rocker/r-ver:latest
 
-# 2. Labels (%labels)
-LABEL maintainer="nicholas.ducharme-barth@noaa.gov"
-LABEL version="v0.0.4"
-LABEL description="Linux (Ubuntu 20.04) container containing Stock Synthesis (version 3.30.22.1), R (version 4.4.0) and the R packages r4ss, ss3diags, data.table, magrittr, and mvtnorm."
-
-# 3. Environment Variables (%environment)
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Etc/UTC
-ENV PATH="/ss_exe:${PATH}"
-
-# 4. Setup and System Dependencies (%post)
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-    && apt-get update -y && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        gfortran \
-        libbz2-dev \
-        liblzma-dev \
-        libpcre2-dev \
-        libcairo2 \
-        tzdata \
-        curl \
-        dos2unix \
-        build-essential \
-        cmake \
-        g++ \
-        libssl-dev \
-        libssh2-1-dev \
-        libcurl4-openssl-dev \
-        libfontconfig1-dev \
-        libxml2-dev \
-        libgit2-dev \
-        wget \
-        tar \
-        coreutils \
-        gzip \
-        findutils \
-        sed \
-        gdebi-core \
-        locales \
-        nano \
-    && locale-gen en_US.UTF-8 \
+# Install basic Linux networking, system utilities, and Python 3
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    python3 \   
     && rm -rf /var/lib/apt/lists/*
 
-# 5. Install R Packages
-RUN R -e "install.packages('remotes', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
-    && R -e "install.packages('data.table', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
-    && R -e "install.packages('magrittr', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
-    && R -e "install.packages('mvtnorm', dependencies=TRUE, repos='http://cran.rstudio.com/')" \
-    && R -e "remotes::install_github('r4ss/r4ss')" \
-    && R -e "remotes::install_github('PIFSCstockassessments/ss3diags')"
+# Install the official Google Cloud CLI inside the container
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
+    apt-get update && apt-get install -y google-cloud-cli && \
+    rm -rf /var/lib/apt/lists/*
 
-# 6. Record Build Date & Install Stock Synthesis Executable
-RUN export build_date=$(date) \
-    && mkdir -p /ss_exe \
-    && curl -L -o /ss_exe/ss3_linux https://github.com/nmfs-ost/ss3-source-code/releases/download/v3.30.22.1/ss3_linux \
-    && chmod 755 /ss_exe/ss3_linux
+# Set up your app workspace
+RUN mkdir /app
+# Copy R script directly into the Docker container
+COPY run_lm_gc_array.r /app/run_lm_gc_array.r
 
-# Optional: Set default command (e.g., launching an interactive R session)
+WORKDIR /app
+
 CMD ["R"]

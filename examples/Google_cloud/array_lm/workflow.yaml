@@ -5,15 +5,13 @@ main:
         assign:
           - projectId: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
           - region: "us-central1"
-          # 1. Point to your custom R container in Artifact Registry
-          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-lm-array:v1"}
+          - imageUri: ${region + "-docker.pkg.dev/" + projectId + "/containers/nsass-lm-array:v11"}
           - jobId: ${"job-r-analysis-" + string(int(sys.now()))}
-          # 2. Point to the bucket where your data and scripts live
           - bucket: "nsass-gc-bucket" 
     - logCreateBatchJob:
         call: sys.log
         args:
-          data: ${"Creating and running the R script array job " + jobId}
+          data: ${"Running isolated container test " + jobId}
     - createAndRunBatchJob:
         call: googleapis.batch.v1.projects.locations.jobs.create
         args:
@@ -23,32 +21,30 @@ main:
               taskGroups:
                 taskSpec:
                   computeResource:
-                    cpuMilli: "2000"    # 2 vCPUs
-                    memoryMib: "8192"  # 8 GB RAM
-                  
-                  # Mount your bucket so the VM can read your R script
-                  volumes:
-                    - gcs:
-                        remotePath: ${bucket}
-                      mountPath: "/mnt/share"
+                    cpuMilli: "2000"
+                    memoryMib: "8192"
                   
                   runnables:
                     - container:
                         imageUri: ${imageUri}
-                        commands: ["Rscript", "/mnt/share/scripts/run_lm_gc_array.r"]
-                        volumes:
-                          - "/mnt/share:/mnt/share"
-                      #  Perfectly aligned under the container dash!
+                        commands: ["Rscript", "/app/run_lm_gc_array.r"]
                       environment:
                         variables:
                           GCS_BUCKET: ${bucket}
                   
-                # 3. SET YOUR SCALE HERE
-                # Run 10 parallel tasks (from BATCH_TASK_INDEX 0 up to 9)
                 taskCount: 10
-                # Process up to 5 folders simultaneously across 5 VMs
                 parallelism: 5
                 
+              # UPDATED: Force external IPs so the VMs can talk to the registry
+              allocationPolicy:
+                location:
+                  allowedLocations:
+                    - "regions/us-central1"
+                network:
+                  networkInterfaces:
+                    - network: "global/networks/default"
+                      noExternalIpAddress: false  # <-- CRITICAL: Gives the VM internet access to pull the image
+
               logsPolicy:
                 destination: CLOUD_LOGGING
         result: createAndRunBatchJobResponse
@@ -64,4 +60,4 @@ main:
     - returnResult:
         return:
           jobId: ${jobId}
-          status: "Batch array processing completed successfully."
+          status: "Test completed."

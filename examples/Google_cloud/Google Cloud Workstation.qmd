@@ -1,4 +1,16 @@
-##TODO add header YAML and set default code chunk to eval = false
+---
+title: "Submitting R Array Batch Jobs to Google Cloud"
+author: "Meg Oshima"
+date: "2026-06-30"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    highlight-style: github
+execute:
+  eval: false
+---
 
 I am documenting the process to run the example linear regression array from the [NSASS-HTC-HPC-Computing](https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing/tree/google-cloud-batch) repo on a Google Cloud Workstation using Batch. This is similar to an HTC or HPC workflow but Batch takes care of all of the scheduling and spinning up/stopping the VMs used for computations. The steps are from a combination of the "Run a Batch job using Workflows" [tutorial](https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows), the Getting Started guide from [`googleCloudStorageR` package](https://code.markedmondson.me/googleCloudStorageR/articles/googleCloudStorageR.html), and Gemini chats. 
 
@@ -44,12 +56,19 @@ Clone repo using the cloud terminal (icon in the upper right hand corner termina
 git clone -b google-cloud-batch https://github.com/MOshima-PIFSC/NSASS-HTC-HPC-Computing.git
 ```
 ## Build Docker file 
-NOTE: Replace `NSASS-HTC-HPC-Computing` with the name of your folder that has the docker file, `batch-project-test` with your project name, and nsass-lm-array with a name that fits your project.  
-```
-    cd NSASS-HTC-HPC-Computing
+The Dockerfile used for this example is a minimal container, based on the rocker/r setup. Some of the key features of it are  
+  *  using rocker/r setup removes the need to install R and some common packages  
+  *  python3 is needed for the gcloud functions  
+  *  the R script is copied into the container, so if you make changes to your R script, you will need to rebuild the container  
+
+Use the code below to build the Dockerfile. When you rebuild the container, you may want to change the version (e.g. nsass-lm-array:v1, v2, etc.)  
+```{bash}
+    #NOTE: Replace `NSASS-HTC-HPC-Computing/apptainer` with the name of your folder that has the docker file, `batch-project-test` with your project name, and nsass-lm-array with a name that fits your project.
+    cd NSASS-HTC-HPC-Computing/apptainer
     gcloud builds submit \
   -t us-central1-docker.pkg.dev/batch-project-test/containers/nsass-lm-array:v1 .
 ```
+Once the docker file is built with Cloud Build it is stored in Artifact Registry so if you delete the local folders it will still exist. 
 
 
 To find or generate a service account JSON key file in Google Cloud, you need to navigate to the IAM & Admin section of your console.  Here is the step-by-step path to locate it and download a fresh copy:  
@@ -112,7 +131,23 @@ gcs_create_bucket(
 gcs_get_bucket(gc_bucket)
 ```
 
-Now once the bucket has been created, you can upload the directories of data using the following code:  
+
+### The "Day 1" Checklist for Cloud Jobs
+When you kick off a brand new cloud project, the standard engineering best practice is to configure your security access first. Your "Day 1" setup sequence will look like this:
+
+1. Create your Storage Bucket (e.g., gs://my-new-data-bucket).
+
+2. Grant Access Right Away: Bind your worker identity to the bucket immediately:
+
+```{bash}
+gcloud storage buckets add-iam-policy-binding gs://my-new-data-bucket \
+    --member="serviceAccount:849889990228-compute@developer.gserviceaccount.com" \
+    --role="roles/storage.objectAdmin"
+```
+
+3. Write and Push Code: Build your Docker container and write your scripts knowing the network pipeline is already wide open.
+
+Now once the bucket has been created and has the correct permissions, you can upload the directories of data using the following code:  
 
 ```{r}
 
@@ -146,9 +181,87 @@ for (i in seq_along(local_folders)) {
 }
 ```
 
+### R script  
+We found that using R packages that require authentication can cause issues when running Batch Jobs, therefore R scripts should use the `system()` command and the container's installed `gcloud` capabilities to transfer any files from the storage bucket. See and example below of the R script used to run a linear regression that downloads an input csv from the storage bucket and then saves the output back to the storage bucket.
+```{r}
+tryCatch({  
+  
+  task_index <- Sys.getenv("BATCH_TASK_INDEX")
+  if (task_index == "") { task_index <- "0" }
 
-Also make sure the R script you want to run is in your bucket. 
-gsutil cp run_lm_gc_array.r gs://batch-project-test-bucket/scripts/
+  bucket_name <- "nsass-gc-bucket"
+
+  # Local temporary paths inside the container
+  local_input  <- "/tmp/data.csv"
+  local_output <- "/tmp/par.csv"
+
+  # 1. DOWNLOAD data using native gcloud command line tool
+  download_cmd <- paste0("gcloud storage cp gs://", bucket_name, "/inputs/rep_", task_index, "/data.csv ", local_input)
+  system(download_cmd)
+
+  # 2. READ data 
+  tmp <- read.csv(local_input)
+
+  # 3. FIT linear regression
+  fit <- lm(y ~ x, data = tmp)
+  out <- data.frame(par = unname(fit$coefficients)) 
+  # Save file locally first so gcloud can transfer the .csv file
+  write.csv(out, local_output, row.names = FALSE) 
+
+  # 4. UPLOAD results back to the bucket using gcloud
+  upload_cmd <- paste0("gcloud storage cp ", local_output, " gs://", bucket_name, "/inputs/rep_", task_index, "/par.csv")
+  system(upload_cmd)
+
+}, error = function(e) {
+  cat(paste("ERROR MESSAGE:", e$message, "\n"), file = stderr())
+  quit(status = 1) # Tells Google Batch the task failed
+})
+```
+
+Add the R script you want to run to your bucket.  In the Cloud Shell terminal navigate to the folder where the r script is
+`cd examples/Google_cloud/array_lm/inputs/` 
+and then upload the script to your bucket with:  
+`gcloud storage cp run_lm_gc_array.r gs://nsass-gc-bucket/scripts/`
+
+Or you can add it from R using the `googleCloudStorageR` function `gcs_upload()`
+```{r}
+# authentication gets hung up so run this before copying anything into the bucket
+gcs_auth(Sys.getenv("GCS_AUTH_FILE"))
+
+local_script_path <- "examples/Google_cloud/array_lm/inputs/run_lm_gc_array.r"
+
+# Upload it to your bucket, explicitly placing it in the scripts/ folder
+gcs_upload(
+  file = local_script_path,
+  bucket = gc_bucket,                       # Your bucket variable name
+  name = "scripts/run_lm_gc_array.r"        # <-- This creates the folder structure in GCS
+)
+```
+
+## Executing workflows  
+To submit a workflow that handles the scheduling and runs the batch jobs follow the steps from the [Run a batch job tutorial](https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows#deploy-workflow). 
+1. In the Google Cloud console, go to the [Workflows](https://console.cloud.google.com/workflows) page.
+2. Click add Create.
+3. Enter a name for the new workflow, such as batch-workflow.
+4. In the Region list, select us-central1.
+5. Select the Service account you previously created.
+6. Click Next.
+7. In the workflow editor, paste the text found in `./examples/Google_cloud/workflow.yaml` into the editor. 
+
+To execute the workflow, follow the steps below (taken from [Run a Batch job tutorial](https://docs.cloud.google.com/workflows/docs/tutorials/batch-and-workflows#run-serial)):
+1. In the Google Cloud console, go to the [Workflows](https://console.cloud.google.com/workflows) page.
+2. On the Workflows page, click the batch-workflow workflow to go to its details page.
+3. On the Workflow details page, click play_arrow Execute.
+4. Click Execute again.
+5. The workflow execution should take a few minutes.
+
+## Troubleshooting  
+
+If your job fails, you can check the logs and the R output. The [Logs Explorer](https://console.cloud.google.com/logs) will show all the output as the job is running. To check if your script printed out errors or processed successfully, you can run the following target query inside the Cloud Shell terminal: 
+
+```{bash}
+gcloud logging read "logName=projects/YOUR_PROJECT_NAME/logs/batch_task_logs" --limit=30 --format="value(textPayload)"
+```
 
 
 ## Resources  
